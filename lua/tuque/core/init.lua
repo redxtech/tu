@@ -15,6 +15,7 @@ return {
 	-- require('tuque.core.project'),
 	require('tuque.core.rainbow-delimiters'),
 	-- require('tuque.core.session'),
+	require('tuque.core.tasks'),
 	require('tuque.core.theme'),
 	require('tuque.core.tiny-devicons-auto-colors'),
 	require('tuque.core.todo-comments'),

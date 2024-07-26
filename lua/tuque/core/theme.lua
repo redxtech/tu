@@ -1,10 +1,9 @@
 return {
 	-- main theme
 	'dracula',
-	-- dev = true,
 	lazy = false,
 	priority = 1000,
-	beforeAll = function(_)
+	after = function(_)
 		local dracula = require('dracula')
 		dracula.setup({
 			colors = {},

@@ -400,7 +400,7 @@
             cmp = false;
             debug = false;
             format = true;
-            fugit = false;
+            fugit = true;
             lsp = true;
             statusline = true;
             bufferline = true;

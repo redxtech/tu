@@ -21,12 +21,12 @@ local categories = {
 	'fugit',
 	-- 'link',
 	'lsp',
-	-- 'statusline',
-	-- 'bufferline',
-	-- 'breadcrumb',
+	'statusline',
+	'bufferline',
+	'breadcrumb',
 	-- 'winbar',
-	-- 'extraUI',
-	-- 'utils',
+	'extraUI',
+	'utils',
 }
 
 local spec = {}

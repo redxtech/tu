@@ -851,11 +851,11 @@
     "plugins-dracula": {
       "flake": false,
       "locked": {
-        "lastModified": 1721758600,
-        "narHash": "sha256-g5WYPL0YnT/vpysB0+pHb1+N0X3Lo1nTDONaX32l1Iw=",
+        "lastModified": 1721969208,
+        "narHash": "sha256-DfjQdQAlS8nuFLCrHZ8MDDrs/suuVQSDR9541Zi1jKQ=",
         "owner": "redxtech",
         "repo": "dracula.nvim",
-        "rev": "522f6c5f22710bd0ee157c3faa007155d1ce2d21",
+        "rev": "0f6887bcb3965139a9100b14fd2f22c7ea6ed8d7",
         "type": "github"
       },
       "original": {
