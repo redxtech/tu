@@ -24,8 +24,11 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
     nixCats.inputs.nixpkgs.follows = "nixpkgs";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nix-appimage.url = "github:ralismark/nix-appimage";
+    nix-appimage.inputs.nixpkgs.follows = "nixpkgs";
     nix-neovim-plugins.url = "github:NixNeovim/NixNeovimPlugins";
+    nix-neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
@@ -42,9 +45,10 @@
     blink-cmp.inputs.nixpkgs.follows = "nixpkgs";
     blink-nvim.url = "github:saghen/blink.nvim";
     blink-nvim.inputs.nixpkgs.follows = "nixpkgs";
-
-    plugins-dracula.url = "github:redxtech/dracula.nvim";
-    plugins-dracula.flake = false;
+    dracula.url = "github:redxtech/dracula.nvim";
+    dracula.inputs.nixpkgs.follows = "nixpkgs";
+    moveline.url = "github:redxtech/moveline.nvim";
+    moveline.inputs.nixpkgs.follows = "nixpkgs";
 
     plugins-any-jump.url = "github:pechorin/any-jump.vim";
     plugins-any-jump.flake = false;
@@ -67,8 +71,6 @@
     plugins-tinygit.flake = false;
     plugins-numbertoggle.url = "github:sitiom/nvim-numbertoggle";
     plugins-numbertoggle.flake = false;
-    plugins-moveline.url = "github:willothy/moveline.nvim";
-    plugins-moveline.flake = false;
     plugins-profile.url = "github:stevearc/profile.nvim";
     plugins-profile.flake = false;
   };
@@ -175,8 +177,7 @@
             core = with pkgs.vimExtraPlugins; [
               pkgs.vimPlugins.lz-n # lazy plugin loader
               lazy-nvim # lazy package manager
-              pkgs.neovimPlugins.dracula # dracula theme
-              # dracula-nvim # dracula theme
+              inputs.dracula.packages.${pkgs.system}.default # dracula theme
               dashboard-nvim # dashboard  TODO: move to lazy ?
               flatten-nvim # open nested nvim instances in current window
               tiny-devicons-auto-colors-nvim # colour devicons with theme colors
@@ -308,7 +309,7 @@
               dressing-nvim # ui lib (dep for overseer-nvim)
               glow-nvim # markdown preview
               goto-preview # preview definition in window
-              moveline-nvim # move blocks of text
+              inputs.moveline.packages.${pkgs.system}.default # move blocks of text
               numb-nvim # peek at line before jump
               nvim-colorizer-lua # colorize hex, rgb, etc. codes
               nvim-ufo # folds

@@ -1,5 +1,6 @@
 return {
 	'nvim-treesitter',
+	event = 'BufEnter',
 	after = function(_)
 		require('nvim-treesitter.configs').setup({
 			-- todo: slow on typescript files?

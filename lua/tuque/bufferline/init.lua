@@ -1,6 +1,7 @@
 return {
 	{
 		'barbar-nvim',
+		event = 'UIEnter',
 		before = function(_)
 			vim.g.barbar_auto_setup = false
 		end,

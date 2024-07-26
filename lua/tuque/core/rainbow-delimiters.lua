@@ -1,5 +1,6 @@
 return {
 	'rainbow-delimiters-nvim',
+	event = 'BufEnter',
 	after = function(_)
 		local rainbow_delimiters = require('rainbow-delimiters')
 		require('rainbow-delimiters.setup').setup({

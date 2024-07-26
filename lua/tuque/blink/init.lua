@@ -32,13 +32,14 @@ return {
 	},
 	{
 		'blink-cmp',
-		enabled = false,
+		event = 'UIEnter',
 		after = function(_)
-			require('blink').setup({ cmp = { enabled = true } })
+			require('blink.cmp').setup({ cmp = { enabled = true } })
 		end,
 	},
 	{
 		'nvim-snippets',
+		event = 'BufReadPost',
 		after = function(_)
 			require('snippets').setup({
 				create_cmp_source = false,
@@ -46,7 +47,5 @@ return {
 			})
 		end,
 	},
-	{
-		'friendly-snippets',
-	},
+	{ 'friendly-snippets', event = 'BufReadPost' },
 }

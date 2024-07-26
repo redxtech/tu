@@ -1,5 +1,6 @@
 return {
 	'todo-comments-nvim',
+	event = 'BufReadPost',
 	after = function(_)
 		require('todo-comments').setup({
 			keywords = {

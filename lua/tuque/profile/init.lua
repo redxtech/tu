@@ -1,6 +1,6 @@
 return {
 	enabled = os.getenv('NVIM_PROFILE') ~= nil,
-	'stevearc/profile.nvim',
+	'profile',
 	after = function(_)
 		local should_profile = os.getenv('NVIM_PROFILE')
 		if should_profile then

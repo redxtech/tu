@@ -1,5 +1,6 @@
 return {
 	'supermaven-nvim',
+	event = 'InsertEnter',
 	after = function(_)
 		require('supermaven-nvim').setup({
 			keymaps = {

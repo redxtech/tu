@@ -6,14 +6,12 @@ return {
 			require('glow').setup({})
 		end,
 	},
-	{ 'vim-eunuch' },
-	{ 'nvim-numbertoggle' },
+	{ 'vim-eunuch', event = 'BufEnter' },
+	{ 'nvim-numbertoggle', event = 'UIEnter' },
 	{
 		'url-open',
 		cmd = 'URLOpenUnderCursor',
-		keys = {
-			{ 'gx', '<cmd>URLOpenUnderCursor<cr>' },
-		},
+		keys = { { 'gx', '<cmd>URLOpenUnderCursor<cr>' } },
 		after = function(_)
 			require('url-open').setup({})
 		end,

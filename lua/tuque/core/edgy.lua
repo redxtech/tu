@@ -1,5 +1,6 @@
 return {
 	'edgy.nvim',
+	event = 'UIEnter',
 	after = function(_)
 		require('edgy').setup({
 			animate = { enabled = false },

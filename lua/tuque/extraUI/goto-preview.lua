@@ -1,5 +1,6 @@
 return {
 	'goto-preview',
+	event = 'BufReadPost',
 	after = function(_)
 		require('goto-preview').setup({
 			default_mappings = true,

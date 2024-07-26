@@ -1,5 +1,6 @@
 return {
 	'lualine-nvim',
+	event = 'UIEnter',
 	after = function(_)
 		local nerdtree = require('lualine.extensions.nerdtree')
 

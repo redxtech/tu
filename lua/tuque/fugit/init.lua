@@ -12,13 +12,7 @@ return {
 			{ '<leader>F', mode = 'n', '<cmd>Fugit2<cr>' },
 		},
 	},
-	{
-		'nvim-tinygit',
-	},
-	{
-		'diffview-nvim',
-	},
-	{
-		'nui-nvim',
-	},
+	{ 'nvim-tinygit', event = 'UIEnter' },
+	{ 'diffview-nvim', event = 'UIEnter' },
+	{ 'nui-nvim', event = 'UIEnter' },
 }

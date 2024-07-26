@@ -1,6 +1,6 @@
 return {
 	-- main theme
-	'dracula',
+	'dracula-nvim',
 	lazy = false,
 	priority = 1000,
 	after = function(_)

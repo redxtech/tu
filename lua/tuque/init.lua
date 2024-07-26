@@ -27,6 +27,7 @@ local categories = {
 	-- 'winbar',
 	'extraUI',
 	'utils',
+	'profile'
 }
 
 local spec = {}
