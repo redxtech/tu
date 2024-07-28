@@ -2,7 +2,7 @@ return {
 	'neovim-project',
 	keys = {
 		{ '<leader>fp', '<cmd>Telescope neovim-project discover<cr>', desc = 'Projects' },
-		{ '<leader>fs', '<cmd>Telescope neovim-project history<cr>', desc = 'Sessions' },
+		-- { '<leader>fs', '<cmd>Telescope neovim-project history<cr>', desc = 'Sessions' },
 	},
 	priority = 100,
 	before = function(_)

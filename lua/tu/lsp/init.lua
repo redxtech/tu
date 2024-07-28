@@ -63,6 +63,6 @@ return {
 	require('tuque.lsp.any-jump'),
 	require('tuque.lsp.nvim-navic'),
 
-	{ 'efmls-configs-nvim', event = 'UIEnter' },
+	{ 'efmls-configs-nvim' },
 	{ 'none-ls-nvim', event = 'UIEnter' },
 }

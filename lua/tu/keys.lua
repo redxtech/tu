@@ -1,9 +1,18 @@
-local function map(mode, lhs, rhs, opts)
-	opts = opts or { noremap = true }
-	opts.silent = opts.silent ~= false
-	vim.keymap.set(mode, lhs, rhs, opts)
-end
+local map = require('tuque.helper').map
 
+-- better save
+map({ 'n', 'v' }, '<leader>fs', '<cmd>w<cr>', { desc = 'Save file' })
+map({ 'n', 'v' }, '<leader>fS', '<cmd>SudoWrite<cr>', { desc = 'Save file with sudo' })
+
+-- window management
+map('n', '<leader>-', '<cmd>split<cr>', { desc = 'Split Window Below', remap = true })
+map('n', '<leader>|', '<cmd>vsplit<cr>', { desc = 'Split Window Right', remap = true })
+
+-- remove search highlights
+map({ 'n' }, '<leader>h', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
+
+-- toggle relative line numbers
+map('n', '<leader>nr', '<cmd>set rnu!<cr>', { desc = 'Toggle relative line numbers' })
 -- better up/down - allows moving to wrapped lines
 map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
