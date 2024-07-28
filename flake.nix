@@ -49,30 +49,6 @@
     dracula.inputs.nixpkgs.follows = "nixpkgs";
     moveline.url = "github:redxtech/moveline.nvim";
     moveline.inputs.nixpkgs.follows = "nixpkgs";
-
-    plugins-any-jump.url = "github:pechorin/any-jump.vim";
-    plugins-any-jump.flake = false;
-    plugins-before.url = "github:bloznelis/before.nvim";
-    plugins-before.flake = false;
-    plugins-diagflow.url = "github:dgagn/diagflow.nvim";
-    plugins-diagflow.flake = false;
-    plugins-tiny-devicons-auto-color.url =
-      "github:rachartier/tiny-devicons-auto-colors.nvim";
-    plugins-tiny-devicons-auto-color.flake = false;
-    plugins-neovim-project.url = "github:coffebar/neovim-project";
-    plugins-neovim-project.flake = false;
-    plugins-smart-open.url = "github:danielfalk/smart-open.nvim";
-    plugins-smart-open.flake = false;
-    plugins-telescope-repo.url = "github:cljoly/telescope-repo.nvim";
-    plugins-telescope-repo.flake = false;
-    plugins-fugit2.url = "github:SuperBo/fugit2.nvim";
-    plugins-fugit2.flake = false;
-    plugins-tinygit.url = "github:chrisgrieser/nvim-tinygit";
-    plugins-tinygit.flake = false;
-    plugins-numbertoggle.url = "github:sitiom/nvim-numbertoggle";
-    plugins-numbertoggle.flake = false;
-    plugins-profile.url = "github:stevearc/profile.nvim";
-    plugins-profile.flake = false;
   };
 
   # see :help nixCats.flake.outputs
@@ -157,6 +133,7 @@
               tree-sitter
               wl-clipboard
               xclip
+              xdg-utils
               zoxide
             ];
             format = with pkgs; [ biome efm-langserver prettierd stylua ];
@@ -170,6 +147,15 @@
               efm-langserver
             ];
             utils = with pkgs; [ glow ];
+
+            appimage = with pkgs; [
+              coreutils-full
+              xclip
+              wl-clipboard
+              git
+              nix
+              curl
+            ];
           };
 
           # This is for plugins that will load at startup without using packadd:
@@ -184,20 +170,21 @@
               nvim-web-devicons # file icons
             ];
 
-            lsp = with pkgs.vimExtraPlugins; [
-              nvim-lspconfig # lsp configs
+            lsp = with pkgs.vimExtraPlugins;
+              with pkgs.nixCatsBuilds; [
+                nvim-lspconfig # lsp configs
 
-              pkgs.neovimPlugins.any-jump # fallback goto when no lsp
-              pkgs.neovimPlugins.before # go to previous edit
-              pkgs.neovimPlugins.diagflow # show diagnostics in corner
-              lazydev-nvim # load lua lsp faster
-              lsp-lines-nvim # show lsp diagnostics as virtual text;
-              inc-rename-nvim # visual rename variables with lsp
-              none-ls-nvim # fallback lsp
-              nui-nvim # ui library
-              nvim-navic # breadcrumbs provider
-            ];
-            profile = with pkgs.neovimPlugins; [ profile ];
+                any-jump # fallback goto when no lsp
+                before # go to previous edit
+                diagflow # show diagnostics in corner
+                lazydev-nvim # load lua lsp faster
+                lsp-lines-nvim # show lsp diagnostics as virtual text;
+                inc-rename-nvim # visual rename variables with lsp
+                none-ls-nvim # fallback lsp
+                nui-nvim # ui library
+                nvim-navic # breadcrumbs provider
+              ];
+            profile = with pkgs.nixCatsBuilds; [ profile ];
           };
 
           # not loaded automatically at startup.
@@ -214,7 +201,7 @@
               pkgs.vimPlugins.neogit # git integration
               neovim-project # project list
               neovim-session-manager # session management (dep for neovim-project)
-              pkgs.neovimPlugins.smart-open # better file search
+              pkgs.nixCatsBuilds.smart-open # better file search
               nvim-numbertoggle # toggle line numbers automatically
               nvim-spectre # search and replace
               toggleterm-nvim # toggleable terminal
@@ -257,17 +244,17 @@
               # lazy
               diffview-nvim # git diff viewer
               dressing-nvim # ui lib (dep for overseer-nvim)
-              pkgs.neovimPlugins.fugit2 # git client
+              pkgs.nixCatsBuilds.fugit2 # git client
               nvim-tinygit # github issue integration
               nui-nvim # ui library
             ];
-            lint = with pkgs.vimExtraPlugins; [ ];
+            lint = [ ];
             # lsp = with pkgs.vimExtraPlugins; [
             #   nvim-lspconfig # lsp configs
             #
-            #   pkgs.neovimPlugins.any-jump # fallback goto when no lsp
-            #   pkgs.neovimPlugins.before # go to previous edit
-            #   pkgs.neovimPlugins.diagflow # show diagnostics in corner
+            #   any-jump # fallback goto when no lsp
+            #   before # go to previous edit
+            #   diagflow # show diagnostics in corner
             #   lazydev-nvim # load lua lsp faster
             #   lsp-lines-nvim # show lsp diagnostics as virtual text;
             #   inc-rename-nvim # visual rename variables with lsp
@@ -388,6 +375,8 @@
             # or at least, all packages that are to be installed simultaneously.
             # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
 
+            configDirName = "tuque";
+
             withNodeJs = true;
             withRuby = true;
             withPython3 = true;
@@ -470,6 +459,11 @@
       in {
         # these outputs will be wrapped with ${system} by utils.eachSystem
 
+        app-images = {
+          default = inputs.nix-appimage.bundlers.${system}.default
+            (nixCatsBuilder "tuque");
+        };
+
         # this will make a package out of each of the packageDefinitions defined above
         # and set the default package to the one named here.
         packages =
@@ -487,7 +481,8 @@
               "tuque-liam"
             ];
             inputsFrom = [ ];
-            shellHook = "";
+            shellHook =
+              "	alias build-appimage=\"nix build .#app-images.default\"\n";
           };
         };
 
