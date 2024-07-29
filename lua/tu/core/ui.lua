@@ -215,17 +215,6 @@ return {
 	-- ui library
 	{ 'MunifTanjim/nui.nvim', name = 'nui-nvim' },
 
-	-- show code actions
-	{
-		'kosayoda/nvim-lightbulb',
-		event = 'BufReadPost',
-		opts = {
-			autocmd = {
-				enabled = true,
-			},
-		},
-	},
-
 	-- TODO: remove the lowercase keywords since it's non-standard
 	-- TODO: rewrite this myself
 	{

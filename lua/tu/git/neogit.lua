@@ -4,7 +4,7 @@ return {
 		'NeogitOrg/neogit',
 		dependencies = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim', 'nvim-telescope/telescope.nvim' },
 		keys = {
-			{ '<leader>gg', '<cmd>Neogit kind=replace<cr>', desc = 'Open Neogit' },
+			{ '<leader>gg', '<cmd>Neogit kind=auto<cr>', desc = 'Open Neogit' },
 		},
 		opts = {
 			-- don't scope persisted settings on a per-project basis
