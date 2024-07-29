@@ -1,12 +1,4 @@
 return {
-	{
-		'lewis6991/gitsigns.nvim',
-		name = 'gitsigns-nvim',
-		config = function(_, opts)
-			require('gitsigns').setup(opts)
-		end,
-	},
-
 	-- client
 	{
 		'NeogitOrg/neogit',

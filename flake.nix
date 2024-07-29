@@ -327,10 +327,10 @@
               nvim-tinygit # github issue integration
               nui-nvim # ui library
             ];
-            git = with vimExtraPlugins; [
-              gitsigns-nvim # git signs in gutter
-              vimPlugins.neogit # git integration
-            ];
+            git = with vimPlugins;
+              [
+                neogit # git integration
+              ];
             langs = with vimPlugins;
               with vimExtraPlugins;
               with nixCatsBuilds; [

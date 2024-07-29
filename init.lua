@@ -52,7 +52,6 @@ if require('nixCatsUtils').isNixCats then
 
 	local wrongNames = {
 		'any-jump.vim',
-		'barbar.nvim',
 		'barbecue.nvim',
 		'before.nvim',
 		'blink.cmp',
