@@ -24,11 +24,6 @@ return {
 					command = 'BlinkTree open silent',
 				})
 			end
-			-- vim.api.nvim_create_autocmd({ 'User' }, {
-			-- 	pattern = 'SessionSavePre',
-			-- 	group = sessions_group,
-			-- 	command = 'BlinkTree close',
-			-- })
 
 			-- The dashboard returns the full path of the project but the
 			-- NeovimProjectLoad command expects the path to be the same as the one in the projects list

@@ -47,11 +47,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1721948217,
-        "narHash": "sha256-fPb/7w88s1Qi98kJSQqzppBYOTEx1OksvQaeQ2WuWso=",
+        "lastModified": 1722290642,
+        "narHash": "sha256-ueBkh3Q6UhsWlmBG4NmQFNbX06lgXcZB4c08jojMGHo=",
         "owner": "saghen",
         "repo": "blink.nvim",
-        "rev": "84f66e5ba2336577a8926ef9b9cb53d986c70065",
+        "rev": "8bd3d7629063e30ed29796ef21ac03935cb58f88",
         "type": "github"
       },
       "original": {
