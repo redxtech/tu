@@ -56,6 +56,17 @@ let
         inherit src;
       };
 
+      luvit-meta = buildVimPlugin {
+        pname = "luvit-meta";
+        version = "0.1.0";
+        src = fetchFromGitHub {
+          owner = "Bilal2453";
+          repo = "luvit-meta";
+          rev = "ce76f6f6cdc9201523a5875a4471dcfe0186eb60";
+          hash = "sha256-zAAptV/oLuLAAsa2zSB/6fxlElk4+jNZd/cPr9oxFig=";
+        };
+      };
+
       tiny-devicons-auto-color-nvim = buildVimPlugin {
         pname = "tiny-devicons-auto-color-nvim";
         version = "0.1.0";
@@ -76,6 +87,17 @@ let
           rev = "adfadfasdf16594823c2a3e2214ed8c7d676e5e5beefbe96fd";
           hash =
             "adfadfasdfsha256-jPvqyjiOaQz8vR6Gp3oSXMz/gtkE5j7lLyXKc/CdBEs=";
+        };
+      };
+
+      nvim-vtsls = buildVimPlugin {
+        pname = "nvim-vtsls";
+        version = "0.1.0";
+        src = fetchFromGitHub {
+          owner = "yioneko";
+          repo = "nvim-vtsls";
+          rev = "45c6dfea9f83a126e9bfc5dd63430562b3f8af16";
+          hash = "sha256-/y1k7FHfzL1WQNGXcskexEIYCsQjHg03DrMFgZ4nuiI=";
         };
       };
 

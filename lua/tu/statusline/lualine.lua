@@ -3,7 +3,7 @@ return {
 		'nvim-lualine/lualine.nvim',
 		name = 'lualine-nvim',
 		event = 'UIEnter',
-		dependencies = { 'SmiteshP/nvim-navic' },
+		dependencies = { 'nvim-tree/nvim-web-devicons', 'SmiteshP/nvim-navic' },
 		config = function(_, opts)
 			require('lualine').setup(opts)
 		end,
@@ -18,19 +18,15 @@ return {
 				},
 				sections = {
 					lualine_b = { 'branch', 'diagnostics' },
+					lualine_c = { 'navic' },
+
 					lualine_x = {
 						'filesize',
 						'encoding',
 						'fileformat',
-						{
-							'filetype',
-							icon = { align = 'right' },
-						},
+						{ 'filetype', icon = { align = 'right' } },
 					},
-					lualine_y = {
-						'selectioncount',
-						'progress',
-					},
+					lualine_y = { 'selectioncount', 'progress' },
 				},
 				extensions = {
 					'lazy',

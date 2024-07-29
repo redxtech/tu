@@ -50,8 +50,16 @@ return {
 
 	-- navigate with navic elements
 	{
-		'SmiteshP/nvim-navic',
+		'SmiteshP/nvim-navbuddy',
+		dependencies = {
+			'neovim/nvim-lspconfig',
+			'SmiteshP/nvim-navic',
+			'MunifTanjim/nui.nvim',
+			'nvim-telescope/telescope.nvim',
+			-- 'numToStr/Comment.nvim', -- Optional
+		},
 		event = 'LspAttach',
+		cmd = { 'Navbuddy' },
 		keys = { { '<leader>nv', '<cmd>Navbuddy<cr>', desc = 'Navigate' } },
 		opts = { lsp = { auto_attach = true } },
 	},

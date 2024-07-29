@@ -156,11 +156,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1721972538,
-        "narHash": "sha256-YwWAGLpt2R5q+Y281Oqzn1Rr+trjWxsOFcRf9G5m6dc=",
+        "lastModified": 1722240116,
+        "narHash": "sha256-ldLhdYdmLHB6UNiRCGmiwGnH1c7KKJWemKNx91tL3bY=",
         "owner": "redxtech",
         "repo": "dracula.nvim",
-        "rev": "eb1d2ea9aa246ef94f8c67b3d1ad0c0d2d58b996",
+        "rev": "94987493ab8e32221255a808b508a5cdfbe1b5da",
         "type": "github"
       },
       "original": {
@@ -405,6 +405,24 @@
       "original": {
         "id": "flake-parts",
         "type": "indirect"
+      }
+    },
+    "flake-parts_7": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib_5"
+      },
+      "locked": {
+        "lastModified": 1719994518,
+        "narHash": "sha256-pQMhCCHyQGRzdfAkdJ4cIWiw+JNuWsTX7f0ZYSyz0VY=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "9227223f6d922fee3c7b190b2cc238a99527bbb7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
       }
     },
     "flake-utils": {
@@ -886,6 +904,18 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/5daf0514482af3f97abaefc78a6606365c9108e2.tar.gz"
       }
     },
+    "nixpkgs-lib_5": {
+      "locked": {
+        "lastModified": 1719876945,
+        "narHash": "sha256-Fm2rDDs86sHy0/1jxTOKB1118Q0O3Uc7EC0iXvXKpbI=",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/5daf0514482af3f97abaefc78a6606365c9108e2.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/5daf0514482af3f97abaefc78a6606365c9108e2.tar.gz"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -1074,7 +1104,8 @@
         "nix-appimage": "nix-appimage",
         "nix-neovim-plugins": "nix-neovim-plugins",
         "nixCats": "nixCats",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_4",
+        "vtsls": "vtsls"
       }
     },
     "rust-analyzer-src": {
@@ -1169,6 +1200,27 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "vtsls": {
+      "inputs": {
+        "flake-parts": "flake-parts_7",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1722239109,
+        "narHash": "sha256-3SNwVUyufFjQR25iqIgT2KoqicfO5IsuWAQ6h82Nyb8=",
+        "owner": "redxtech",
+        "repo": "vtsls",
+        "rev": "0fa576590343807dae5475a753d2a135c20837ea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "redxtech",
+        "repo": "vtsls",
         "type": "github"
       }
     }

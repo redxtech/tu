@@ -57,6 +57,7 @@ if require('nixCatsUtils').isNixCats then
 		'before.nvim',
 		'blink.cmp',
 		'blink.nvim',
+		'bufferline.nvim',
 		'diagflow.nvim',
 		'dracula.nvim',
 		'efmls-configs-nvim',
@@ -74,7 +75,9 @@ if require('nixCatsUtils').isNixCats then
 		'mini.nvim',
 		'moveline.nvim',
 		'none-ls.nvim',
+		'nui.nvim',
 		'nvim-colorizer.lua',
+		'tsc.nvim',
 		'overseer.nvim',
 		'rainbow-delimiters.nvim',
 		'smart-open.nvim',
@@ -85,9 +88,11 @@ if require('nixCatsUtils').isNixCats then
 		'todo-comments.nvim',
 		'toggleterm.nvim',
 		'trouble.nvim',
+		'yaml-companion.nvim',
 		'which-key.nvim',
+		'venv-selector.nvim',
 	}
-	
+
 	for _, wrongName in ipairs(wrongNames) do
 		pluginList[wrongName] = ''
 	end
@@ -130,6 +135,9 @@ local lazyOptions = {
 			lazy = '💤 ',
 		},
 	},
+	install = {
+		colorscheme = { nixCats('colorscheme') },
+	},
 }
 
 local categories = {
@@ -137,15 +145,15 @@ local categories = {
 	'ai',
 	'blink',
 	-- 'cmp',
-	-- 'debug',
+	'debug',
 	-- 'format',
 	-- 'fugit',
 	'git',
-	-- 'langs',
+	'langs',
 	'statusline',
 	'bufferline',
 	'utils',
-	-- 'profile',
+	'profile',
 }
 local lazySpec = {}
 

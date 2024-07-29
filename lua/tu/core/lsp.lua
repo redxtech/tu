@@ -63,20 +63,15 @@ return {
 		'neovim/nvim-lspconfig',
 		event = 'BufRead',
 		dependencies = {
-			{ 'creativenull/efmls-configs-nvim', name = 'efmls-configs-nvim' },
-			-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
-			-- used for completion, annotations and signatures of Neovim apis
 			{
-				'folke/lazydev.nvim',
-				name = 'lazydev-nvim',
-				ft = 'lua',
-				opts = {
-					library = {
-						-- adds type hints for nixCats global
-						{ path = require('nixCats').nixCatsPath .. '/lua', words = { 'nixCats' } },
-					},
+				'SmiteshP/nvim-navbuddy',
+				dependencies = {
+					'SmiteshP/nvim-navic',
+					'MunifTanjim/nui.nvim',
 				},
+				opts = { lsp = { auto_attach = true } },
 			},
+			{ 'creativenull/efmls-configs-nvim', name = 'efmls-configs-nvim' },
 			-- enable mason if nix wasnt involved
 			{
 				'williamboman/mason.nvim',

@@ -212,6 +212,9 @@ return {
 		},
 	},
 
+	-- ui library
+	{ 'MunifTanjim/nui.nvim', name = 'nui-nvim' },
+
 	-- show code actions
 	{
 		'kosayoda/nvim-lightbulb',

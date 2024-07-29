@@ -13,7 +13,7 @@ return {
 	{
 		'saghen/blink-nvim',
 		name = 'blink-nvim',
-		-- dev = true,
+		dev = true,
 		lazy = false,
 		cmd = 'BlinkTree',
 		keys = {

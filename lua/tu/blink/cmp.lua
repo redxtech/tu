@@ -22,8 +22,8 @@ return {
 	{
 		'saghen/blink.cmp',
 		name = 'blink-cmp',
-		event = 'InsertEnter',
 		dev = true,
+		event = 'InsertEnter',
 		build = 'cargo build --release',
 		dependencies = {
 			{

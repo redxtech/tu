@@ -49,6 +49,8 @@
     dracula.inputs.nixpkgs.follows = "nixpkgs";
     moveline.url = "github:redxtech/moveline.nvim";
     moveline.inputs.nixpkgs.follows = "nixpkgs";
+    vtsls.url = "github:redxtech/vtsls";
+    vtsls.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   # see :help nixCats.flake.outputs
@@ -57,14 +59,7 @@
       inherit (nixCats) utils;
       luaPath = "${./.}";
       forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all;
-      # the following extra_pkg_config contains any values
-      # which you want to pass to the config set of nixpkgs
-      # import nixpkgs { config = extra_pkg_config; inherit system; }
-      # will not apply to module imports
-      # as that will have your system values
-      extra_pkg_config = {
-        # allowUnfree = true;
-      };
+      extra_pkg_config.allowUnfree = true;
       # sometimes our overlays require a ${system} to access the overlay.
       # management of this variable is one of the harder parts of using flakes.
 
@@ -129,25 +124,93 @@
               fzy
               ripgrep
               gnused
+              gnutar
+              gnumake
               nix-doc
               sqlite
               stdenv.cc.cc
+              trashy
               tree-sitter
               wl-clipboard
               xclip
               xdg-utils
               zoxide
 
+              lua51Packages.luarocks # use jit ?
+              lua51Packages.jsregexp # do i need this?
+
               # lsp
-              lua-language-server
-              nil # nix language server
-              typescript
-              typescript-language-server
-              efm-langserver
             ];
             blink = with pkgs; [ libgit2 ];
             format = with pkgs; [ biome efm-langserver prettierd stylua ];
             fugit = with pkgs; [ gpgme libgit2 lua5_1 lua51Packages.luarocks ];
+            langs = with pkgs; [
+              # cpp
+              clang-tools
+              gcc
+              gdb
+              lldb
+
+              # go
+              go
+              gopls
+
+              # lua
+              lua-language-server
+              stylua
+
+              # nix
+              nil # language server
+              nurl # get hash from nix url
+              nixfmt-classic
+
+              # python
+              black
+              ruff-lsp
+              python3Packages.debugpy
+              pyright
+
+              # rust
+              # TODO: use nightly
+              cargo
+              rustfmt
+              rust-analyzer
+              graphviz
+
+              # shell
+              shellcheck
+              shfmt
+              nodePackages.bash-language-server
+
+              # terraform
+              terraform
+              terraform-ls
+              tflint
+
+              # yaml
+              yaml-language-server
+              ansible-language-server
+              kubectl
+              helm-ls
+              dockerfile-language-server-nodejs
+              docker-compose-language-service
+              hadolint
+
+              # web
+              biome
+              deno
+              nodePackages.eslint
+              prettierd
+              nodePackages.svelte-language-server
+              typescript
+              nodePackages.typescript-language-server
+              tailwindcss-language-server
+              vscode-extensions.vue.volar
+              inputs.vtsls.packages.${pkgs.system}.default
+
+              # formatting
+              efm-langserver
+            ];
             lint = with pkgs; [ markdownlint-cli eslint ];
             utils = with pkgs; [ glow ];
 
@@ -251,11 +314,11 @@
               cmp-nvim-lsp
               cmp-path
             ];
-            # debug = [ ];
-            format = with vimExtraPlugins; [
-              conform-nvim # format  TODO: setup
-              efmls-configs-nvim # format tool
-            ];
+            debug = with vimExtraPlugins; [ nvim-dap ];
+            format = with vimExtraPlugins;
+              [
+                conform-nvim # format  TODO: setup
+              ];
             fugit = with vimExtraPlugins; [
               # lazy
               diffview-nvim # git diff viewer
@@ -268,6 +331,30 @@
               gitsigns-nvim # git signs in gutter
               vimPlugins.neogit # git integration
             ];
+            langs = with vimPlugins;
+              with vimExtraPlugins;
+              with nixCatsBuilds; [
+                # format tool
+                efmls-configs-nvim
+
+                # lua
+                luvit-meta
+
+                # python
+                venv-selector-nvim
+
+                # rust
+                rustaceanvim
+
+                # yaml
+                vim-helm
+                yaml-companion-nvim
+
+                # web
+                nvim-ts-autotag
+                nvim-vtsls
+                tsc-nvim
+              ];
             # lsp = with vimExtraPlugins; [
             #   nvim-lspconfig # lsp configs
             #
@@ -288,7 +375,7 @@
               ];
             bufferline = with vimExtraPlugins;
               [
-                barbar-nvim # bufferline
+                bufferline-nvim # bufferline
               ];
             utils = with vimExtraPlugins; [
               # lazy
