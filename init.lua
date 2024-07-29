@@ -138,6 +138,11 @@ local lazyOptions = {
 	install = {
 		colorscheme = { nixCats('colorscheme') },
 	},
+	dev = {
+		path = os.getenv('HOME') .. '/Code/nvim',
+		patterns = { 'saghen', 'redxtech' },
+		fallback = true,
+	},
 }
 
 local categories = {

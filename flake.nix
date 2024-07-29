@@ -450,7 +450,7 @@
       packageDefinitions = rec {
         # These are the names of your packages
         # you can include as many as you wish.
-        tuque = { pkgs, ... }: {
+        tu = { pkgs, ... }: {
           # they contain a settings set defined above
           # see :help nixCats.flake.outputs.settings
           settings = {
@@ -458,12 +458,12 @@
             # IMPORTANT:
             # you may not alias to nvim
             # your alias may not conflict with your other packages.
-            aliases = [ "tu" "vim" ];
+            aliases = [ "tuque" "vim" ];
             # caution: this option must be the same for all packages.
             # or at least, all packages that are to be installed simultaneously.
             # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
 
-            configDirName = "tuque";
+            configDirName = "tu";
 
             withNodeJs = true;
             withRuby = true;
@@ -494,26 +494,26 @@
             };
           };
         };
-        tuque-dev = { pkgs, ... }:
-          let tu = tuque { inherit pkgs; };
+        tu-dev = { pkgs, ... }:
+          let tuque = tu { inherit pkgs; };
           in {
-            inherit (tu) categories;
+            inherit (tuque) categories;
             settings = {
               wrapRc = false;
               aliases = [ "tdev" ];
               unwrappedCfgDir = "~/Code/nvim/tu";
             };
           };
-        tuque-profile = { pkgs, ... }:
-          let tu = tuque { inherit pkgs; };
+        tu-profile = { pkgs, ... }:
+          let tuque = tuque { inherit pkgs; };
           in {
-            settings = tu.settings // { aliases = [ "tup" ]; };
-            categories = tu.categories // { profile = true; };
+            settings = tuque.settings // { aliases = [ "tup" ]; };
+            categories = tuque.categories // { profile = true; };
           };
       };
       # In this section, the main thing you will need to do is change the default package name
       # to the name of the packageDefinitions entry you wish to use as the default.
-      defaultPackageName = "tuque";
+      defaultPackageName = "tu";
 
       # see :help nixCats.flake.outputs.exports
     in forEachSystem (system:
@@ -532,7 +532,7 @@
 
         app-images = {
           default = inputs.nix-appimage.bundlers.${system}.default
-            (nixCatsBuilder "tuque");
+            (nixCatsBuilder "tu");
         };
 
         # this will make a package out of each of the packageDefinitions defined above
@@ -547,13 +547,13 @@
             name = defaultPackageName;
             packages = builtins.map (name: nixCatsBuilder name) [
               defaultPackageName
-              "tuque-dev"
-              "tuque-profile"
-              "tuque-liam"
+              "tu-dev"
+              "tu-profile"
             ];
             inputsFrom = [ ];
-            shellHook =
-              "	alias build-appimage=\"nix build .#app-images.default\"\n";
+            shellHook = ''
+              alias build-appimage="nix build .#app-images.default"
+            '';
           };
         };
 
