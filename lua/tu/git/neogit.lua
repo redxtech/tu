@@ -1,15 +1,37 @@
 return {
-	'neogit',
-	cmd = 'Neogit',
-	keys = {
-		{ '<leader>gg', '<cmd>Neogit kind=replace<cr>', desc = 'Open Neogit' },
+	{
+		'lewis6991/gitsigns.nvim',
+		name = 'gitsigns-nvim',
+		config = function(_, opts)
+			require('gitsigns').setup(opts)
+		end,
 	},
-	after = function(_)
-		require('neogit').setup({
+
+	-- client
+	{
+		'NeogitOrg/neogit',
+		dependencies = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim', 'nvim-telescope/telescope.nvim' },
+		keys = {
+			{ '<leader>gg', '<cmd>Neogit kind=replace<cr>', desc = 'Open Neogit' },
+		},
+		opts = {
 			-- don't scope persisted settings on a per-project basis
 			use_per_project_settings = false,
 			-- the time after which an output console is shown for slow running commands
 			console_timeout = 4000,
-		})
-	end,
+		},
+	},
+
+	-- better diff viewer
+	{
+		'sindrets/diffview.nvim',
+		event = 'UIEnter',
+		cmd = {
+			'DiffviewFileHistory',
+			'DiffviewOpen',
+			'DiffviewToggleFiles',
+			'DiffviewFocusFiles',
+			'DiffviewRefresh',
+		},
+	},
 }

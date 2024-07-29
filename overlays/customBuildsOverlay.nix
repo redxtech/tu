@@ -9,8 +9,8 @@ let
     in {
       # define your overlay derivations here
 
-      any-jump = buildVimPlugin {
-        pname = "any-jump";
+      any-jump-vim = buildVimPlugin {
+        pname = "any-jump-vim";
         version = "0.1.0";
         src = fetchFromGitHub {
           owner = "pechorin";
@@ -20,8 +20,8 @@ let
         };
       };
 
-      before = buildVimPlugin {
-        pname = "before";
+      before-nvim = buildVimPlugin {
+        pname = "before-nvim";
         version = "0.1.0";
         src = fetchFromGitHub {
           owner = "bloznelis";
@@ -31,8 +31,8 @@ let
         };
       };
 
-      diagflow = buildVimPlugin {
-        pname = "diagflow";
+      diagflow-nvim = buildVimPlugin {
+        pname = "diagflow-nvim";
         version = "0.1.0";
         src = fetchFromGitHub {
           owner = "dgagn";
@@ -42,8 +42,22 @@ let
         };
       };
 
-      tiny-devicons-auto-color = buildVimPlugin {
-        pname = "tiny-devicons-auto-color";
+      fzy-lua-native = let
+        src = super.stdenv.mkDerivation {
+          pname = "fzy-lua-native";
+          version = "0.1.0";
+          src = ./.;
+          buildInputs = [ super.stdenv.cc.cc ];
+          installPhase = "cp -r . $out";
+        };
+      in buildVimPlugin {
+        pname = "fzy-lua-native";
+        version = "0.1.0";
+        inherit src;
+      };
+
+      tiny-devicons-auto-color-nvim = buildVimPlugin {
+        pname = "tiny-devicons-auto-color-nvim";
         version = "0.1.0";
         src = fetchFromGitHub {
           owner = "rachartier";
@@ -65,8 +79,8 @@ let
         };
       };
 
-      smart-open = buildVimPlugin {
-        pname = "smart-open";
+      smart-open-nvim = buildVimPlugin {
+        pname = "smart-open-nvim";
         version = "0.1.0";
         src = fetchFromGitHub {
           owner = "danielfalk";
@@ -76,8 +90,8 @@ let
         };
       };
 
-      telescope-repo = buildVimPlugin {
-        pname = "telescope-repo";
+      telescope-repo-nvim = buildVimPlugin {
+        pname = "telescope-repo-nvim";
         version = "0.1.0";
         src = fetchFromGitHub {
           owner = "cljoly";
@@ -87,8 +101,8 @@ let
         };
       };
 
-      fugit2 = buildVimPlugin {
-        pname = "fugit2";
+      fugit2-nvim = buildVimPlugin {
+        pname = "fugit2-nvim";
         version = "0.1.0";
         src = fetchFromGitHub {
           owner = "SuperBo";
@@ -98,8 +112,8 @@ let
         };
       };
 
-      tinygit = buildVimPlugin {
-        pname = "tinygit";
+      nvim-tinygit = buildVimPlugin {
+        pname = "nvim-tinygit";
         version = "0.1.0";
         src = fetchFromGitHub {
           owner = "chrisgrieser";
@@ -109,8 +123,8 @@ let
         };
       };
 
-      numbertoggle = buildVimPlugin {
-        pname = "numbertoggle";
+      nvim-numbertoggle = buildVimPlugin {
+        pname = "nvim-numbertoggle";
         version = "0.1.0";
         src = fetchFromGitHub {
           owner = "sitiom";
@@ -120,8 +134,8 @@ let
         };
       };
 
-      profile = buildVimPlugin {
-        pname = "profile";
+      profile-nvim = buildVimPlugin {
+        pname = "profile-nvim";
         version = "0.1.0";
         src = fetchFromGitHub {
           owner = "stevearc";

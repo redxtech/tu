@@ -1,20 +1,26 @@
 return {
-	'nvim-ufo',
-	enabled = false,
-	after = function(_)
-		require('ufo').setup({
+	{
+		'kevinhwang91/nvim-ufo',
+		dependencies = { 'kevinhwang91/promise-async' },
+		keys = {
+			{
+				'zR',
+				function()
+					require('ufo').openAllFolds()
+				end,
+				mode = 'n',
+			},
+			{
+				'zM',
+				function()
+					require('ufo').closeAllFolds()
+				end,
+				mode = 'n',
+			},
+		},
+		opts = {
 			-- dont fold by default
 			close_fold_kinds_for_ft = { default = {} },
-			open_fold_hl_timeout = 150,
-			enable_get_fold_virt_text = false,
-			preview = {
-				win_config = {
-					border = 'rounded',
-					winblend = 12,
-					winhighlight = 'Normal:Normal',
-					maxheight = 20,
-				},
-			},
 			-- use treesitter for finding folds
 			provider_selector = function(_, _, _)
 				return { 'treesitter', 'indent' }
@@ -48,6 +54,6 @@ return {
 				table.insert(newVirtText, { suffix, 'MoreMsg' })
 				return newVirtText
 			end,
-		})
-	end,
+		},
+	},
 }

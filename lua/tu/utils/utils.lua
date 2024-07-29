@@ -1,23 +1,23 @@
 return {
+	{ 'tpope/vim-eunuch', event = 'BufEnter' },
+	{ 'sitiom/nvim-numbertoggle', event = 'UIEnter' },
 	{
-		'glow-nvim',
+		'ellisonleao/glow.nvim',
+		name = 'glow-nvim',
 		cmd = 'Glow',
-		after = function(_)
-			require('glow').setup({})
+		config = function(_, opts)
+			require('glow').setup(opts)
 		end,
 	},
-	{ 'vim-eunuch', event = 'BufEnter' },
-	{ 'nvim-numbertoggle', event = 'UIEnter' },
 	{
-		'url-open',
+		'sontungexpt/url-open',
 		cmd = 'URLOpenUnderCursor',
 		keys = { { 'gx', '<cmd>URLOpenUnderCursor<cr>' } },
-		after = function(_)
-			require('url-open').setup({})
-		end,
+		config = true,
 	},
 	{
-		'moveline-nvim',
+		'willothy/moveline.nvim',
+		name = 'moveline-nvim',
 		keys = {
 			{
 				'<A-k>',

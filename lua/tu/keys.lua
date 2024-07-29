@@ -1,4 +1,8 @@
-local map = require('tuque.helper').map
+function map(mode, lhs, rhs, opts)
+	opts = opts or { noremap = true }
+	opts.silent = opts.silent ~= false
+	vim.keymap.set(mode, lhs, rhs, opts)
+end
 
 -- better save
 map({ 'n', 'v' }, '<leader>fs', '<cmd>w<cr>', { desc = 'Save file' })

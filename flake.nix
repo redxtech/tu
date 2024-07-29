@@ -99,7 +99,9 @@
       # and
       # :help nixCats.flake.outputs.categoryDefinitions.scheme
       categoryDefinitions =
-        { pkgs, settings, categories, name, ... }@packageDef: {
+        { pkgs, settings, categories, name, ... }@packageDef:
+        let inherit (pkgs) vimPlugins vimExtraPlugins nixCatsBuilds;
+        in {
           # to define and use a new category, simply add a new list to a set here, 
           # and later, you will include categoryname = true; in the set you
           # provide when you build the package using this builder function.
@@ -135,17 +137,18 @@
               xclip
               xdg-utils
               zoxide
-            ];
-            format = with pkgs; [ biome efm-langserver prettierd stylua ];
-            fugit = with pkgs; [ gpgme libgit2 lua5_1 lua51Packages.luarocks ];
-            lint = with pkgs; [ markdownlint-cli eslint ];
-            lsp = with pkgs; [
+
+              # lsp
               lua-language-server
               nil # nix language server
               typescript
               typescript-language-server
               efm-langserver
             ];
+            blink = with pkgs; [ libgit2 ];
+            format = with pkgs; [ biome efm-langserver prettierd stylua ];
+            fugit = with pkgs; [ gpgme libgit2 lua5_1 lua51Packages.luarocks ];
+            lint = with pkgs; [ markdownlint-cli eslint ];
             utils = with pkgs; [ glow ];
 
             appimage = with pkgs; [
@@ -160,23 +163,20 @@
 
           # This is for plugins that will load at startup without using packadd:
           startupPlugins = {
-            core = with pkgs.vimExtraPlugins; [
-              pkgs.vimPlugins.lz-n # lazy plugin loader
-              lazy-nvim # lazy package manager
-              inputs.dracula.packages.${pkgs.system}.default # dracula theme
-              dashboard-nvim # dashboard  TODO: move to lazy ?
-              flatten-nvim # open nested nvim instances in current window
-              tiny-devicons-auto-colors-nvim # colour devicons with theme colors
-              nvim-web-devicons # file icons
-            ];
+            core = with vimExtraPlugins;
+              with nixCatsBuilds; [
+                lazy-nvim # lazy package manager
+                inputs.dracula.packages.${pkgs.system}.default # dracula theme
+                dashboard-nvim # dashboard  TODO: move to lazy ?
+                flatten-nvim # open nested nvim instances in current window
+                tiny-devicons-auto-colors-nvim # colour devicons with theme colors
+                nvim-web-devicons # file icons
 
-            lsp = with pkgs.vimExtraPlugins;
-              with pkgs.nixCatsBuilds; [
+                # -- lsp stuff
                 nvim-lspconfig # lsp configs
-
-                any-jump # fallback goto when no lsp
-                before # go to previous edit
-                diagflow # show diagnostics in corner
+                any-jump-vim # fallback goto when no lsp
+                before-nvim # go to previous edit
+                diagflow-nvim # show diagnostics in corner
                 lazydev-nvim # load lua lsp faster
                 lsp-lines-nvim # show lsp diagnostics as virtual text;
                 inc-rename-nvim # visual rename variables with lsp
@@ -184,72 +184,91 @@
                 nui-nvim # ui library
                 nvim-navic # breadcrumbs provider
               ];
-            profile = with pkgs.nixCatsBuilds; [ profile ];
+
+            profile = with nixCatsBuilds; [ profile-nvim ];
           };
 
           # not loaded automatically at startup.
           # use with packadd and an autocommand in config to achieve lazy loading
           optionalPlugins = {
-            core = with pkgs.vimExtraPlugins; [
+            core = with vimExtraPlugins; [
               # lazy
               Comment-nvim # commenting  TODO: is this needed?
-              pkgs.vimPlugins.edgy-nvim # window management
+              vimPlugins.edgy-nvim # window management
               fidget-nvim # lsp status in bottom right
               flash-nvim # movement with s/S f/F
+              nixCatsBuilds.fzy-lua-native # native fzy
               gitsigns-nvim # git signs in gutter
+              incline-nvim # alternative to winbar
               mini-nvim # a bunch of minimal plugins
-              pkgs.vimPlugins.neogit # git integration
               neovim-project # project list
               neovim-session-manager # session management (dep for neovim-project)
-              pkgs.nixCatsBuilds.smart-open # better file search
+              nixCatsBuilds.smart-open-nvim # better file search
               nvim-numbertoggle # toggle line numbers automatically
               nvim-spectre # search and replace
               toggleterm-nvim # toggleable terminal
-              pkgs.vimPlugins.nvim-treesitter.withAllGrammars # syntax highlighting
+              vimPlugins.nvim-treesitter.withAllGrammars # syntax highlighting
               plenary-nvim # lua helpers
               promise-async # async functions (dep for nvim-ufo)
               rainbow-delimiters-nvim # rainbow {}[]()
               sqlite-lua # sqlite bindings
               telescope-nvim # pickers
-              pkgs.vimPlugins.telescope-fzy-native-nvim
+              vimPlugins.telescope-fzy-native-nvim
               telescope-repo-nvim # repo picker
               telescope-zoxide # zoxide integration
               treesj # splits and joins
               trouble-nvim # quickfix and location list
               todo-comments-nvim # highlight TODOs, FIXMEs, etc.
               inc-rename-nvim # visual rename variables with lsp
+              which-key-nvim # show keymaps
+
+              # alternate themes
+              onedark-nvim
+              tokyonight-nvim
+
+              # lazy
+              diffview-nvim # git diff viewer
+              noice-nvim # ui replacements
+              nui-nvim # ui library
+              nvim-lightbulb # show code actions
+              nvim-navbuddy # navic based navigation
+              nvim-navic # breadcrumbs provider
+              barbecue-nvim # bufferline breadcrumbs
             ];
 
-            ai = [ pkgs.vimPlugins.supermaven-nvim ];
+            ai = [ vimPlugins.supermaven-nvim ];
             blink = [
               inputs.blink-cmp.packages.${pkgs.system}.default
               inputs.blink-nvim.packages.${pkgs.system}.default
               # lazy
-              pkgs.vimPlugins.nvim-snippets
-              pkgs.vimExtraPlugins.friendly-snippets
+              vimPlugins.nvim-snippets
+              vimExtraPlugins.friendly-snippets
             ];
-            cmp = with pkgs.vimExtraPlugins; [
+            cmp = with vimExtraPlugins; [
               nvim-cmp
               LuaSnip
               cmp-luasnip
               cmp-nvim-lsp
               cmp-path
             ];
-            debug = [ ];
-            format = with pkgs.vimExtraPlugins; [
+            # debug = [ ];
+            format = with vimExtraPlugins; [
               conform-nvim # format  TODO: setup
               efmls-configs-nvim # format tool
             ];
-            fugit = with pkgs.vimExtraPlugins; [
+            fugit = with vimExtraPlugins; [
               # lazy
               diffview-nvim # git diff viewer
               dressing-nvim # ui lib (dep for overseer-nvim)
-              pkgs.nixCatsBuilds.fugit2 # git client
+              nixCatsBuilds.fugit2-nvim # git client
               nvim-tinygit # github issue integration
               nui-nvim # ui library
             ];
-            lint = [ ];
-            # lsp = with pkgs.vimExtraPlugins; [
+            git = with vimExtraPlugins; [
+              gitsigns-nvim # git signs in gutter
+              vimPlugins.neogit # git integration
+            ];
+            # lsp = with vimExtraPlugins; [
             #   nvim-lspconfig # lsp configs
             #
             #   any-jump # fallback goto when no lsp
@@ -262,37 +281,18 @@
             #   nui-nvim # ui library
             #   nvim-navic # breadcrumbs provider
             # ];
-            statusline = with pkgs.vimExtraPlugins;
+            statusline = with vimExtraPlugins;
               [
                 lualine-nvim # statusline
-                # pkgs.vimPlugins.lualine-lsp-progress # lsp progress
+                # vimPlugins.lualine-lsp-progress # lsp progress
               ];
-            bufferline = with pkgs.vimExtraPlugins;
+            bufferline = with vimExtraPlugins;
               [
                 barbar-nvim # bufferline
               ];
-            breadcrumb = with pkgs.vimExtraPlugins; [
+            utils = with vimExtraPlugins; [
               # lazy
-              barbecue-nvim # bufferline breadcrumbs
-              nvim-navic # breadcrumbs provider
-            ];
-            winbar = [ pkgs.vimPlugins.winbar-nvim ];
-            extraUI = with pkgs.vimExtraPlugins; [
-              # alternate themes
-              onedark-nvim
-              tokyonight-nvim
-
-              # lazy
-              diffview-nvim # git diff viewer
-              noice-nvim # ui replacements
-              nui-nvim # ui library
-              nvim-lightbulb # show code actions
-              nvim-navbuddy # navic based navigation
-              nvim-navic # breadcrumbs provider
-            ];
-            utils = with pkgs.vimExtraPlugins; [
-              # lazy
-              better-escape-nvim # jk to escape insert mode
+              # better-escape-nvim # jk to escape insert mode
               dressing-nvim # ui lib (dep for overseer-nvim)
               glow-nvim # markdown preview
               goto-preview # preview definition in window
@@ -303,7 +303,7 @@
               overseer-nvim # task runner integration
               promise-async # async functions (dep for nvim-ufo)
               url-open # open more urls
-              pkgs.vimPlugins.vim-eunuch # unix tools
+              vimPlugins.vim-eunuch # unix tools
             ];
           };
 
@@ -385,29 +385,24 @@
           # (and other information to pass to lua)
           categories = {
             core = true;
+
             ai = true;
             blink = true;
             cmp = false;
             debug = false;
-            format = true;
+            # format = true;
             fugit = true;
-            lsp = true;
-            statusline = true;
-            bufferline = true;
-            breadcrumb = true;
-            winbar = false;
-            extraUI = true;
+            langs = true;
             utils = true;
+            # profile = false;
+
+            # ui elements
             colorscheme = "dracula";
-            test = true;
-            example = {
-              youCan = "add more than just booleans";
-              toThisSet = [
-                "and the contents of this categories set"
-                "will be accessible to your lua with"
-                "nixCats('path.to.value')"
-                "see :help nixCats"
-              ];
+            bufferline = true;
+            statusline = true;
+            uiElements = {
+              barbecue = false;
+              incline = true;
             };
           };
         };
@@ -426,18 +421,6 @@
           in {
             settings = tu.settings // { aliases = [ "tup" ]; };
             categories = tu.categories // { profile = true; };
-          };
-        tuque-liam = { pkgs, ... }:
-          let tu = tuque { inherit pkgs; };
-          in {
-            settings = tu.settings // { aliases = [ "tl" ]; };
-            categories = tu.categories // {
-              statusline = false;
-              bufferline = false;
-              breadcrumb = false;
-              extraUI = false;
-              utils = false;
-            };
           };
       };
       # In this section, the main thing you will need to do is change the default package name
