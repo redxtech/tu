@@ -135,7 +135,7 @@ return {
 		},
 		keys = {
 			{
-				'<leader>ff',
+				'<leader><space>',
 				function()
 					require('telescope').extensions.smart_open.smart_open({ cwd_only = true })
 				end,

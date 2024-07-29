@@ -144,6 +144,7 @@
             blink = with pkgs; [ libgit2 ];
             format = with pkgs; [ biome efm-langserver prettierd stylua ];
             fugit = with pkgs; [ gpgme libgit2 lua5_1 lua51Packages.luarocks ];
+            git = with pkgs; [ git ];
             langs = with pkgs; [
               # cpp
               clang-tools
@@ -261,7 +262,6 @@
               fidget-nvim # lsp status in bottom right
               flash-nvim # movement with s/S f/F
               nixCatsBuilds.fzy-lua-native # native fzy
-              gitsigns-nvim # git signs in gutter
               incline-nvim # alternative to winbar
               mini-nvim # a bunch of minimal plugins
               neovim-project # project list
@@ -328,7 +328,8 @@
               nui-nvim # ui library
             ];
             git = with vimPlugins;
-              [
+              with vimExtraPlugins; [
+                gitsigns-nvim # git signs in gutter
                 neogit # git integration
               ];
             langs = with vimPlugins;
@@ -355,19 +356,6 @@
                 nvim-vtsls
                 tsc-nvim
               ];
-            # lsp = with vimExtraPlugins; [
-            #   nvim-lspconfig # lsp configs
-            #
-            #   any-jump # fallback goto when no lsp
-            #   before # go to previous edit
-            #   diagflow # show diagnostics in corner
-            #   lazydev-nvim # load lua lsp faster
-            #   lsp-lines-nvim # show lsp diagnostics as virtual text;
-            #   inc-rename-nvim # visual rename variables with lsp
-            #   none-ls-nvim # fallback lsp
-            #   nui-nvim # ui library
-            #   nvim-navic # breadcrumbs provider
-            # ];
             statusline = with vimExtraPlugins;
               [
                 lualine-nvim # statusline
@@ -378,8 +366,7 @@
                 bufferline-nvim # bufferline
               ];
             utils = with vimExtraPlugins; [
-              # lazy
-              # better-escape-nvim # jk to escape insert mode
+              better-escape-nvim # jk to escape insert mode
               dressing-nvim # ui lib (dep for overseer-nvim)
               glow-nvim # markdown preview
               goto-preview # preview definition in window
@@ -480,6 +467,7 @@
             debug = false;
             # format = true;
             fugit = true;
+            git = true;
             langs = true;
             utils = true;
             # profile = false;

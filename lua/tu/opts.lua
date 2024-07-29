@@ -71,10 +71,10 @@ opt.fillchars = {
 	diff = '╱',
 	eob = ' ',
 
-	vert = ' ',
-	horiz = ' ',
-	horizup = ' ',
-	horizdown = ' ',
+	vert = '│',
+	horiz = '─',
+	horizup = '┴',
+	horizdown = '┬',
 }
 
 opt.mouse = 'a'

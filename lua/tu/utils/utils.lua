@@ -44,6 +44,13 @@ return {
 		end,
 	},
 	{
+		'max397574/better-escape.nvim',
+		name = 'better-escape-nvim',
+		config = function()
+			require('better_escape').setup()
+		end,
+	},
+	{
 		'willothy/moveline.nvim',
 		name = 'moveline-nvim',
 		keys = {

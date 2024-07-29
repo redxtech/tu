@@ -17,6 +17,7 @@ return {
 	-- better diff viewer
 	{
 		'sindrets/diffview.nvim',
+		name = 'diffview-nvim',
 		event = 'UIEnter',
 		cmd = {
 			'DiffviewFileHistory',

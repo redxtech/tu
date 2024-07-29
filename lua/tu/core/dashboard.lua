@@ -1,6 +1,6 @@
 return {
 	'nvimdev/dashboard-nvim',
-	dependencies = { 'Mofiqul/dracula.nvim' },
+	dependencies = { 'redxtech/dracula.nvim' },
 	opts = {
 		theme = 'hyper',
 		config = {
