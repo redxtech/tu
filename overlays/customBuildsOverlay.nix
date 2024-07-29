@@ -84,9 +84,8 @@ let
         src = fetchFromGitHub {
           owner = "coffebar";
           repo = "neovim-project";
-          rev = "adfadfasdf16594823c2a3e2214ed8c7d676e5e5beefbe96fd";
-          hash =
-            "adfadfasdfsha256-jPvqyjiOaQz8vR6Gp3oSXMz/gtkE5j7lLyXKc/CdBEs=";
+          rev = "16594823c2a3e2214ed8c7d676e5e5beefbe96fd";
+          hash = "sha256-jPvqyjiOaQz8vR6Gp3oSXMz/gtkE5j7lLyXKc/CdBEs=";
         };
       };
 

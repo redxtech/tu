@@ -156,11 +156,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722240116,
-        "narHash": "sha256-ldLhdYdmLHB6UNiRCGmiwGnH1c7KKJWemKNx91tL3bY=",
+        "lastModified": 1722285161,
+        "narHash": "sha256-pHRQ4Vmq9W25m/poiH1JOzgIeePx/xXn7R3rC2UPQC4=",
         "owner": "redxtech",
         "repo": "dracula.nvim",
-        "rev": "94987493ab8e32221255a808b508a5cdfbe1b5da",
+        "rev": "10de929caf3406ca4540797f17b2f4e87e644d1d",
         "type": "github"
       },
       "original": {
