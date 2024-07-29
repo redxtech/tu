@@ -87,13 +87,14 @@ if require('nixCatsUtils').isNixCats then
 	pluginList[ [[telescope-repo.nvim]] ] = ''
 	pluginList[ [[trouble.nvim]] ] = ''
 	pluginList[ [[barbecue.nvim]] ] = ''
+	pluginList[ [[lazy.nvim]] ] = ''
 
 	-- HINT: to view the names of all plugins downloaded via nix, use the `:NixCats pawsible` command.
 
 	-- we also want to pass in lazy.nvim's path
 	-- so that the wrapper can add it to the runtime path
 	-- as the normal lazy installation instructions dictate
-	nixLazyPath = allPlugins.start[ [[lazy.nvim]] ]
+	nixLazyPath = allPlugins.start[ [[lazy-nvim]] ]
 end
 
 -- NOTE: nixCats: You might want to move the lazy-lock.json file
