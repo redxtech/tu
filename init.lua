@@ -49,45 +49,48 @@ if require('nixCatsUtils').isNixCats then
 	-- it wasnt detecting that these were already added
 	-- because the names are slightly different from the url.
 	-- when that happens, add them to the list, then also specify the new name in the lazySpec
-	pluginList[ [[Comment.nvim]] ] = ''
-	pluginList[ [[LuaSnip]] ] = ''
 
-	pluginList[ [[barbar.nvim]] ] = ''
-	pluginList[ [[before.nvim]] ] = ''
-	pluginList[ [[blink.cmp]] ] = ''
-	pluginList[ [[blink.nvim]] ] = ''
-	pluginList[ [[dracula.nvim]] ] = ''
-	pluginList[ [[dracula.nvim]] ] = ''
-	pluginList[ [[efmls-configs-nvim]] ] = ''
-	pluginList[ [[fidget.nvim]] ] = ''
-	pluginList[ [[flatten.nvim]] ] = ''
-	pluginList[ [[gitsigns.nvim]] ] = ''
-	pluginList[ [[incline.nvim]] ] = ''
-	pluginList[ [[lazydev.nvim]] ] = ''
-	pluginList[ [[lualine.nvim]] ] = ''
-	pluginList[ [[none-ls.nvim]] ] = ''
-	pluginList[ [[nvim-colorizer.lua]] ] = ''
-	pluginList[ [[tiny-devicons-auto-colors.nvim]] ] = ''
-	pluginList[ [[todo-comments.nvim]] ] = ''
-	pluginList[ [[which-key.nvim]] ] = ''
-	pluginList[ [[any-jump.vim]] ] = ''
-	pluginList[ [[diagflow.nvim]] ] = ''
-	pluginList[ [[flash.nvim]] ] = ''
-	pluginList[ [[glow.nvim]] ] = ''
-	pluginList[ [[inc-rename.nvim]] ] = ''
-	pluginList[ [[lsp_lines.nvim]] ] = ''
-	pluginList[ [[mini.nvim]] ] = ''
-	pluginList[ [[moveline.nvim]] ] = ''
-	pluginList[ [[nvim-lightbulb]] ] = ''
-	pluginList[ [[rainbow-delimiters.nvim]] ] = ''
-	pluginList[ [[toggleterm.nvim]] ] = ''
-	pluginList[ [[overseer.nvim]] ] = ''
-	pluginList[ [[smart-open.nvim]] ] = ''
-	pluginList[ [[sqlite.lua]] ] = ''
-	pluginList[ [[telescope-repo.nvim]] ] = ''
-	pluginList[ [[trouble.nvim]] ] = ''
-	pluginList[ [[barbecue.nvim]] ] = ''
-	pluginList[ [[lazy.nvim]] ] = ''
+	local wrongNames = {
+		'any-jump.vim',
+		'barbar.nvim',
+		'barbecue.nvim',
+		'before.nvim',
+		'blink.cmp',
+		'blink.nvim',
+		'diagflow.nvim',
+		'dracula.nvim',
+		'efmls-configs-nvim',
+		'fidget.nvim',
+		'flash.nvim',
+		'flatten.nvim',
+		'gitsigns.nvim',
+		'glow.nvim',
+		'inc-rename.nvim',
+		'incline.nvim',
+		'lazy.nvim',
+		'lazydev.nvim',
+		'lsp_lines.nvim',
+		'lualine.nvim',
+		'mini.nvim',
+		'moveline.nvim',
+		'none-ls.nvim',
+		'nvim-colorizer.lua',
+		'overseer.nvim',
+		'rainbow-delimiters.nvim',
+		'smart-open.nvim',
+		'sort.nvim',
+		'sqlite.lua',
+		'telescope-repo.nvim',
+		'tiny-devicons-auto-colors.nvim',
+		'todo-comments.nvim',
+		'toggleterm.nvim',
+		'trouble.nvim',
+		'which-key.nvim',
+	}
+	
+	for _, wrongName in ipairs(wrongNames) do
+		pluginList[wrongName] = ''
+	end
 
 	-- HINT: to view the names of all plugins downloaded via nix, use the `:NixCats pawsible` command.
 

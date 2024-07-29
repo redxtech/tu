@@ -1,3 +1,15 @@
+local function sortMap(mod, mode)
+	local rPre = (mod == '') and '' or 'vi' .. mod .. '<Esc>'
+
+	return {
+		'go' .. mod,
+		rPre .. '<cmd>Sort<cr>',
+		desc = 'Sort',
+		silent = true,
+		mode = mode or 'n',
+	}
+end
+
 return {
 	{ 'tpope/vim-eunuch', event = 'BufEnter' },
 	{ 'sitiom/nvim-numbertoggle', event = 'UIEnter' },
@@ -14,6 +26,22 @@ return {
 		cmd = 'URLOpenUnderCursor',
 		keys = { { 'gx', '<cmd>URLOpenUnderCursor<cr>' } },
 		config = true,
+	},
+	{
+		'sQVe/sort.nvim',
+		name = 'sort-nvim',
+		keys = {
+			sortMap('', 'v'),
+			sortMap('"'),
+			sortMap("'"),
+			sortMap('('),
+			sortMap('['),
+			sortMap('{'),
+			sortMap('p'),
+		},
+		config = function(_, opts)
+			require('sort').setup(opts)
+		end,
 	},
 	{
 		'willothy/moveline.nvim',
