@@ -16,27 +16,22 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 return {
-	-- treesitter
-	-- {
-	-- 	'nvim-treesitter/nvim-treesitter',
-	-- 	opts = function(_, opts)
-	-- 		if type(opts.ensure_installed) == 'table' then
-	-- 			vim.list_extend(opts.ensure_installed, { 'terraform', 'hcl' })
-	-- 		end
-	-- 	end,
-	-- },
 	-- LSP/formatting
 	{
 		'neovim/nvim-lspconfig',
 		opts = function(_, opts)
+			-- enable terraformls and tflint servers
 			opts.servers.terraformls = {}
 			opts.servers.tflint = {}
 
+			-- tell efm to work with these filetypes
 			vim.list_extend(opts.servers.efm.filetypes, {
 				'terraform',
 				'tf',
 				'terraform-vars',
 			})
+
+			-- choose efm formatters and linters
 			local terraform_fmt = require('efmls-configs.formatters.terraform_fmt')
 			opts.servers.efm.settings.languages.terraform = { terraform_fmt }
 			opts.servers.efm.settings.languages.tf = { terraform_fmt }

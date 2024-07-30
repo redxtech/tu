@@ -1,21 +1,21 @@
 return {
-	-- treesitter
-	-- {
-	-- 	'nvim-treesitter/nvim-treesitter',
-	-- 	opts = function(_, opts)
-	-- 		if type(opts.ensure_installed) == 'table' then
-	-- 			vim.list_extend(opts.ensure_installed, { 'nix' })
-	-- 		end
-	-- 	end,
-	-- },
 	-- LSP/formatting
 	{
 		'neovim/nvim-lspconfig',
-		dependencies = { { 'creativenull/efmls-configs-nvim', name = 'efmls-configs-nvim' } },
 		opts = function(_, opts)
+			-- enable nil_ls and statix servers
 			opts.servers.nil_ls = {}
+			-- opts.servers.statix = {}
+
+			-- tell efm to work with these filetypes
 			table.insert(opts.servers.efm.filetypes, 'nix')
-			opts.servers.efm.settings.languages.nix = { require('efmls-configs.formatters.nixfmt') }
+
+			-- choose efm formatters and linters
+			opts.servers.efm.settings.languages.nix = {
+				require('efmls-configs.formatters.nixfmt'),
+				require('efmls-configs.linters.statix'),
+				-- require('efmls-configs.formatters.alejandra'),
+			}
 		end,
 	},
 }

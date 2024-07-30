@@ -13,34 +13,24 @@ return {
 		config = true,
 	},
 
-	-- treesitter
-	-- {
-	-- 	'nvim-treesitter/nvim-treesitter',
-	-- 	opts = function(_, opts)
-	-- 		if type(opts.ensure_installed) == 'table' then
-	-- 			vim.list_extend(opts.ensure_installed, {
-	-- 				'typescript',
-	-- 				'tsx',
-	-- 				'javascript',
-	-- 				'purescript',
-	-- 				'jsdoc',
-	-- 				'css',
-	-- 				'scss',
-	-- 				'html',
-	-- 			})
-	-- 		end
-	-- 	end,
-	-- },
-
 	-- linting/formatting
 	{
 		'neovim/nvim-lspconfig',
 		opts = function(_, opts)
-			opts.servers.eslint = {}
+			-- enable eslint, biome, and svelte servers
 			opts.servers.biome = {}
+			opts.servers.cssls = {}
+			opts.servers.eslint = {}
+			opts.servers.graphql = {}
+			opts.servers.html = {}
+			-- opts.servers.htmx = {}
+			opts.servers.jsonls = {}
 			opts.servers.svelte = {}
+			opts.servers.tailwindcss = {}
+			opts.servers.volar = {}
+			-- opts.servers.vtsls = {}
 
-			-- formatting
+			-- tell efm to work with these filetypes
 			vim.list_extend(opts.servers.efm.filetypes, {
 				'javascript',
 				'javascriptreact',
@@ -56,22 +46,42 @@ return {
 				'graphql',
 				'handlebars',
 				'svelte',
+				'vue',
 			})
+
+			-- choose efm formatters and linters
+			-- local biome = require('efmls-configs.formatters.biome')
+			local eslint_d_lint = require('efmls-configs.linters.eslint_d')
+			local eslint_d_fmt = require('efmls-configs.formatters.eslint_d')
 			local prettierd = require('efmls-configs.formatters.prettier_d')
-			opts.servers.efm.settings.languages.javascript = { prettierd }
-			opts.servers.efm.settings.languages.javascriptreact = { prettierd }
-			opts.servers.efm.settings.languages.typescript = { prettierd }
-			opts.servers.efm.settings.languages.typescriptreact = { prettierd }
-			opts.servers.efm.settings.languages.css = { prettierd }
-			opts.servers.efm.settings.languages.scss = { prettierd }
-			opts.servers.efm.settings.languages.less = { prettierd }
-			opts.servers.efm.settings.languages.html = { prettierd }
-			opts.servers.efm.settings.languages.json = { prettierd }
-			opts.servers.efm.settings.languages.jsonc = { prettierd }
-			opts.servers.efm.settings.languages.yaml = { prettierd }
-			opts.servers.efm.settings.languages.graphql = { prettierd }
-			opts.servers.efm.settings.languages.handlebars = { prettierd }
-			opts.servers.efm.settings.languages.svelte = { prettierd }
+
+			local web_efm = {
+				eslint_d_lint,
+				eslint_d_fmt,
+				prettierd,
+			}
+
+			opts.servers.efm.settings.languages.javascript = web_efm
+			opts.servers.efm.settings.languages.javascriptreact = web_efm
+			opts.servers.efm.settings.languages.typescript = web_efm
+			opts.servers.efm.settings.languages.typescriptreact = web_efm
+			opts.servers.efm.settings.languages.css = web_efm
+			opts.servers.efm.settings.languages.scss = web_efm
+			opts.servers.efm.settings.languages.less = web_efm
+			opts.servers.efm.settings.languages.html = web_efm
+			opts.servers.efm.settings.languages.json = {
+				require('efmls-configs.linters.jq'),
+				require('efmls-configs.formatters.fixjson'),
+				eslint_d_lint,
+				eslint_d_fmt,
+				prettierd,
+			}
+			opts.servers.efm.settings.languages.jsonc = web_efm
+			opts.servers.efm.settings.languages.yaml = web_efm
+			opts.servers.efm.settings.languages.graphql = web_efm
+			opts.servers.efm.settings.languages.handlebars = web_efm
+			opts.servers.efm.settings.languages.svelte = web_efm
+			opts.servers.efm.settings.languages.vue = web_efm
 		end,
 	},
 

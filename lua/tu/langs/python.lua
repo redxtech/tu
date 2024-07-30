@@ -22,25 +22,24 @@ return {
 			require('venv-selector').setup(opts)
 		end,
 	},
-	-- treesitter
-	-- {
-	-- 	'nvim-treesitter/nvim-treesitter',
-	-- 	opts = function(_, opts)
-	-- 		if type(opts.ensure_installed) == 'table' then
-	-- 			vim.list_extend(opts.ensure_installed, { 'python', 'ninja' })
-	-- 		end
-	-- 	end,
-	-- },
+
 	-- LSP/formatting
 	{
 		'neovim/nvim-lspconfig',
-		dependencies = { { 'creativenull/efmls-configs-nvim', name = 'efmls-configs-nvim' } },
 		opts = function(_, opts)
-			opts.servers.pyright = {}
-			opts.servers.ruff_lsp = {}
+			-- enable pyright and ruff_lsp servers
+			opts.servers.basedpyright = {}
+			opts.servers.ruff = {}
 
+			-- tell efm to work with these filetypes
 			table.insert(opts.servers.efm.filetypes, 'python')
-			opts.servers.efm.settings.languages.python = { require('efmls-configs.formatters.black') }
+
+			-- choose efm formatters and linters
+			opts.servers.efm.settings.languages.python = {
+				require('efmls-configs.linters.ruff'),
+				require('efmls-configs.formatters.black'),
+				require('efmls-configs.formatters.ruff'),
+			}
 		end,
 	},
 }

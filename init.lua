@@ -78,6 +78,7 @@ if require('nixCatsUtils').isNixCats then
 		'none-ls.nvim',
 		'nui.nvim',
 		'nvim-colorizer.lua',
+		'oil.nvim',
 		'tsc.nvim',
 		'overseer.nvim',
 		'rainbow-delimiters.nvim',
@@ -182,7 +183,6 @@ local oldSpec = {
 	-- { import = 'custom.plugins' },
 }
 
--- NOTE: nixCats: this the lazy wrapper.
 require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, lazySpec, lazyOptions)
 
 require('tu.keys')

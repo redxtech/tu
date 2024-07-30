@@ -30,16 +30,6 @@
     nix-neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
-    # see :help nixCats.flake.inputs
-    # If you want your plugin to be loaded by the standard overlay,
-    # i.e. if it wasnt on nixpkgs, but doesnt have an extra build step.
-    # Then you should name it "plugins-something"
-    # If you wish to define a custom build step not handled by nixpkgs,
-    # then you should name it in a different format, and deal with that in the
-    # overlay defined for custom builds in the overlays directory.
-    # for specific tags, branches and commits, see:
-    # https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#examples
-
     # non-nixpkgs plugins
     blink-cmp.url = "github:saghen/blink.cmp";
     blink-cmp.inputs.nixpkgs.follows = "nixpkgs";
@@ -127,6 +117,7 @@
               gnutar
               gnumake
               nix-doc
+              nurl # get hash from nix url
               sqlite
               stdenv.cc.cc
               trashy
@@ -138,38 +129,57 @@
 
               lua51Packages.luarocks # use jit ?
               lua51Packages.jsregexp # do i need this?
-
-              # lsp
             ];
             blink = with pkgs; [ libgit2 ];
-            format = with pkgs; [ biome efm-langserver prettierd stylua ];
             fugit = with pkgs; [ gpgme libgit2 lua5_1 lua51Packages.luarocks ];
             git = with pkgs; [ git ];
             langs = with pkgs; [
+              # general
+              dprint # formatter for many languages
+              efm-langserver # format & lint lsp
+              treefmt # multui-language format tool
+              vscode-langservers-extracted # a bunch of language servers
+
               # cpp
               clang-tools
               gcc
               gdb
               lldb
 
+              # deno
+              deno
+
+              # docker
+              dockerfile-language-server-nodejs
+              docker-compose-language-service
+              hadolint
+
               # go
               go
               gopls
+              golangci-lint
 
               # lua
               lua-language-server
               stylua
 
+              # markdown
+              markdownlint-cli
+              marksman
+              proselint
+
               # nix
-              nil # language server
-              nurl # get hash from nix url
+              alejandra # very opinionated nix formatter
+              nil
               nixfmt-classic
+              statix
 
               # python
+              basedpyright # fork of pyright
               black
-              ruff-lsp
+              ruff
+              # pyright
               python3Packages.debugpy
-              pyright
 
               # rust
               # TODO: use nightly
@@ -182,6 +192,7 @@
               shellcheck
               shfmt
               nodePackages.bash-language-server
+              fish # for fish_indent
 
               # terraform
               terraform
@@ -190,29 +201,30 @@
 
               # yaml
               yaml-language-server
-              ansible-language-server
+              # ansible-language-server
               kubectl
               helm-ls
-              dockerfile-language-server-nodejs
-              docker-compose-language-service
-              hadolint
 
               # web
               biome
-              deno
               nodePackages.eslint
+              eslint_d
               prettierd
+              nodePackages.prettier
               nodePackages.svelte-language-server
               typescript
               nodePackages.typescript-language-server
+              nodePackages.graphql-language-service-cli
+              fixjson
+              # htmx-lsp
               tailwindcss-language-server
               vscode-extensions.vue.volar
               inputs.vtsls.packages.${pkgs.system}.default
 
-              # formatting
-              efm-langserver
+              # misc
+              buf-language-server # protobuf language server
+              hyprls # hyprland language server
             ];
-            lint = with pkgs; [ markdownlint-cli eslint ];
             utils = with pkgs; [ glow ];
 
             appimage = with pkgs; [
@@ -306,7 +318,7 @@
             debug = with vimExtraPlugins; [ nvim-dap ];
             format = with vimExtraPlugins;
               [
-                conform-nvim # format  TODO: setup
+                conform-nvim # format wrapper plugin
               ];
             fugit = with vimExtraPlugins;
               with nixCatsBuilds; [
@@ -366,6 +378,7 @@
               numb-nvim # peek at line before jump
               nvim-colorizer-lua # colorize hex, rgb, etc. codes
               nvim-ufo # folds
+              oil-nvim # tree explorer
               overseer-nvim # task runner integration
               promise-async # async functions (dep for nvim-ufo)
               sort-nvim # sort lines
@@ -457,7 +470,7 @@
             blink = true;
             cmp = false;
             debug = false;
-            # format = true;
+            format = true;
             fugit = true;
             git = true;
             langs = true;

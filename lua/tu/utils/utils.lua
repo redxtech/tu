@@ -14,6 +14,14 @@ return {
 	{ 'tpope/vim-eunuch', event = 'BufEnter' },
 	{ 'sitiom/nvim-numbertoggle', event = 'UIEnter' },
 	{
+		'stevearc/oil.nvim',
+		name = 'oil-nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		config = function(_, opts)
+			require('oil').setup(opts)
+		end,
+	},
+	{
 		'ellisonleao/glow.nvim',
 		name = 'glow-nvim',
 		cmd = 'Glow',

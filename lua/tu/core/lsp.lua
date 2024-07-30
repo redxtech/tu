@@ -63,20 +63,10 @@ return {
 		'neovim/nvim-lspconfig',
 		event = 'BufRead',
 		dependencies = {
-			{
-				'SmiteshP/nvim-navbuddy',
-				dependencies = {
-					'SmiteshP/nvim-navic',
-					'MunifTanjim/nui.nvim',
-				},
-				opts = { lsp = { auto_attach = true } },
-			},
-			{ 'creativenull/efmls-configs-nvim', name = 'efmls-configs-nvim' },
+			{ 'creativenull/efmls-configs-nvim' },
 			-- enable mason if nix wasnt involved
 			{
 				'williamboman/mason.nvim',
-				-- NOTE: nixCats: use lazyAdd to only enable mason if nix wasnt involved.
-				-- because we will be using nix to download things instead.
 				enabled = require('nixCatsUtils').lazyAdd(true, false),
 				priority = 1000,
 				config = true,
@@ -109,7 +99,6 @@ return {
 		},
 		opts = {
 			servers = {
-				dockerls = {},
 				efm = {
 					filetypes = {},
 					settings = {
@@ -131,6 +120,14 @@ return {
 			end
 		end,
 	},
+
+	-- configure linters and formatters
+	{
+		'creativenull/efmls-configs-nvim',
+		name = 'efmls-configs-nvim',
+	},
+
+	-- fallpack ls functionality
 	{
 		'nvimtools/none-ls.nvim',
 		name = 'none-ls-nvim',

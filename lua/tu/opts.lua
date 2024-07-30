@@ -80,8 +80,7 @@ opt.fillchars = {
 opt.mouse = 'a'
 opt.mousemoveevent = true
 
--- opt.guifont = 'IosevkaCustom Nerd Font:h12'
-opt.guifont = 'Dank Mono,Symbols Nerd Font:h14'
+opt.guifont = 'Iosevka Custom,Symbols Nerd Font:h14'
 
 -- Support for semantic higlighting https://github.com/neovim/neovim/pull/21100
 g.lsp_semantic_enabled = 1
