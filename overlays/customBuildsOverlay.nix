@@ -42,6 +42,17 @@ let
         };
       };
 
+      fugit2-nvim = buildVimPlugin {
+        pname = "fugit2-nvim";
+        version = "0.1.0";
+        src = fetchFromGitHub {
+          owner = "SuperBo";
+          repo = "fugit2.nvim";
+          rev = "e8b262d3f974a301b9efae98a571e6c9e635ab16";
+          hash = "sha256-U9Ve7mgJlQwArgDBOXC2ezaaG7zIOJalLEl5Hyw2jMA=";
+        };
+      };
+
       fzy-lua-native = let
         src = super.stdenv.mkDerivation {
           pname = "fzy-lua-native";
@@ -67,17 +78,6 @@ let
         };
       };
 
-      tiny-devicons-auto-color-nvim = buildVimPlugin {
-        pname = "tiny-devicons-auto-color-nvim";
-        version = "0.1.0";
-        src = fetchFromGitHub {
-          owner = "rachartier";
-          repo = "tiny-devicons-auto-colors.nvim";
-          rev = "9be4af5b1bc1f26a11206ed7ce8bf44312e7941a";
-          hash = "sha256-JGI9y5Y0AocTO2M1Lt28UxVP0rZv20ZHJw0wKurJsh8=";
-        };
-      };
-
       neovim-project = buildVimPlugin {
         pname = "neovim-project";
         version = "0.1.0";
@@ -89,6 +89,28 @@ let
         };
       };
 
+      nvim-numbertoggle = buildVimPlugin {
+        pname = "nvim-numbertoggle";
+        version = "0.1.0";
+        src = fetchFromGitHub {
+          owner = "sitiom";
+          repo = "nvim-numbertoggle";
+          rev = "c5827153f8a955886f1b38eaea6998c067d2992f";
+          hash = "sha256-IkJ9KRrikJZvijjfqgnJ2/QYAuF8KX2/zFX1oUbE3aI=";
+        };
+      };
+
+      nvim-tinygit = buildVimPlugin {
+        pname = "nvim-tinygit";
+        version = "0.1.0";
+        src = fetchFromGitHub {
+          owner = "chrisgrieser";
+          repo = "nvim-tinygit";
+          rev = "a74ef2461770622daae2ab11c84af39aa818ea57";
+          hash = "sha256-It/m0vSQWwIl+j/CMAmwuxr16UWW5s7nF93YPpqtIZc=";
+        };
+      };
+
       nvim-vtsls = buildVimPlugin {
         pname = "nvim-vtsls";
         version = "0.1.0";
@@ -97,6 +119,17 @@ let
           repo = "nvim-vtsls";
           rev = "45c6dfea9f83a126e9bfc5dd63430562b3f8af16";
           hash = "sha256-/y1k7FHfzL1WQNGXcskexEIYCsQjHg03DrMFgZ4nuiI=";
+        };
+      };
+
+      profile-nvim = buildVimPlugin {
+        pname = "profile-nvim";
+        version = "0.1.0";
+        src = fetchFromGitHub {
+          owner = "stevearc";
+          repo = "profile.nvim";
+          rev = "0ee32b7aba31d84b0ca76aaff2ffcb11f8f5449f";
+          hash = "sha256-usyy1kST8hq/3j0sp7Tpf/1mld6RtcVABPo/ygeqzbU=";
         };
       };
 
@@ -122,47 +155,14 @@ let
         };
       };
 
-      fugit2-nvim = buildVimPlugin {
-        pname = "fugit2-nvim";
+      tiny-devicons-auto-color-nvim = buildVimPlugin {
+        pname = "tiny-devicons-auto-color-nvim";
         version = "0.1.0";
         src = fetchFromGitHub {
-          owner = "SuperBo";
-          repo = "fugit2.nvim";
-          rev = "e8b262d3f974a301b9efae98a571e6c9e635ab16";
-          hash = "sha256-U9Ve7mgJlQwArgDBOXC2ezaaG7zIOJalLEl5Hyw2jMA=";
-        };
-      };
-
-      nvim-tinygit = buildVimPlugin {
-        pname = "nvim-tinygit";
-        version = "0.1.0";
-        src = fetchFromGitHub {
-          owner = "chrisgrieser";
-          repo = "nvim-tinygit";
-          rev = "a74ef2461770622daae2ab11c84af39aa818ea57";
-          hash = "sha256-It/m0vSQWwIl+j/CMAmwuxr16UWW5s7nF93YPpqtIZc=";
-        };
-      };
-
-      nvim-numbertoggle = buildVimPlugin {
-        pname = "nvim-numbertoggle";
-        version = "0.1.0";
-        src = fetchFromGitHub {
-          owner = "sitiom";
-          repo = "nvim-numbertoggle";
-          rev = "c5827153f8a955886f1b38eaea6998c067d2992f";
-          hash = "sha256-IkJ9KRrikJZvijjfqgnJ2/QYAuF8KX2/zFX1oUbE3aI=";
-        };
-      };
-
-      profile-nvim = buildVimPlugin {
-        pname = "profile-nvim";
-        version = "0.1.0";
-        src = fetchFromGitHub {
-          owner = "stevearc";
-          repo = "profile.nvim";
-          rev = "0ee32b7aba31d84b0ca76aaff2ffcb11f8f5449f";
-          hash = "sha256-usyy1kST8hq/3j0sp7Tpf/1mld6RtcVABPo/ygeqzbU=";
+          owner = "rachartier";
+          repo = "tiny-devicons-auto-colors.nvim";
+          rev = "9be4af5b1bc1f26a11206ed7ce8bf44312e7941a";
+          hash = "sha256-JGI9y5Y0AocTO2M1Lt28UxVP0rZv20ZHJw0wKurJsh8=";
         };
       };
     };

@@ -131,6 +131,7 @@
               lua51Packages.jsregexp # do i need this?
             ];
             blink = with pkgs; [ libgit2 ];
+            debug = with pkgs; [ gdb lldb ];
             fugit = with pkgs; [ gpgme libgit2 lua5_1 lua51Packages.luarocks ];
             git = with pkgs; [ git ];
             langs = with pkgs; [
@@ -143,8 +144,6 @@
               # cpp
               clang-tools
               gcc
-              gdb
-              lldb
 
               # deno
               deno
@@ -475,7 +474,7 @@
             git = true;
             langs = true;
             utils = true;
-            # profile = false;
+            profile = false;
 
             # ui elements
             colorscheme = "dracula";
@@ -491,14 +490,14 @@
           let tuque = tu { inherit pkgs; };
           in {
             inherit (tuque) categories;
-            settings = {
+            settings = tuque.settings // {
               wrapRc = false;
               aliases = [ "tdev" ];
               unwrappedCfgDir = "~/Code/nvim/tu";
             };
           };
         tu-profile = { pkgs, ... }:
-          let tuque = tuque { inherit pkgs; };
+          let tuque = tu { inherit pkgs; };
           in {
             settings = tuque.settings // { aliases = [ "tup" ]; };
             categories = tuque.categories // { profile = true; };
