@@ -29,6 +29,8 @@
     nix-neovim-plugins.url = "github:NixNeovim/NixNeovimPlugins";
     nix-neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    fenix.url = "github:nix-community/fenix";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
 
     # non-nixpkgs plugins
     blink-cmp.url = "github:saghen/blink.cmp";
@@ -73,6 +75,7 @@
             (utils.standardPluginOverlay inputs)
             # add any flake overlays here.
             inputs.nix-neovim-plugins.overlays.default
+            inputs.fenix.overlays.default
           ];
           # these overlays will be wrapped with ${system}
           # and we will call the same utils.eachSystem function
@@ -181,10 +184,14 @@
               python3Packages.debugpy
 
               # rust
-              # TODO: use nightly
-              cargo
-              rustfmt
-              rust-analyzer
+              (fenix.complete.withComponents [
+                "cargo"
+                "clippy"
+                "rust-src"
+                "rustc"
+                "rustfmt"
+              ])
+              rust-analyzer-nightly
               graphviz
 
               # shell
