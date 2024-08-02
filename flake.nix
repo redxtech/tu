@@ -276,7 +276,6 @@
                 mini-nvim # a bunch of minimal plugins
                 neovim-project # project list
                 neovim-session-manager # session management (dep for neovim-project)
-                nix-reaver-nvim # update rev & hash of fetchFromGitHub
                 noice-nvim # ui replacements
                 none-ls-nvim # fallback lsp
                 nui-nvim # ui library
@@ -384,6 +383,8 @@
                 goto-preview # preview definition in window
                 markview-nvim # markdown preview
                 inputs.moveline.packages.${pkgs.system}.default # move blocks of text
+                nix-develop-nvim # run `nix develop` without restarting neovim
+                nix-reaver-nvim # update rev & hash of fetchFromGitHub
                 numb-nvim # peek at line before jump
                 nvim-colorizer-lua # colorize hex, rgb, etc. codes
                 nvim-lightbulb # show code actions

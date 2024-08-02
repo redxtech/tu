@@ -220,6 +220,10 @@ return {
 	{
 		'folke/todo-comments.nvim',
 		name = 'todo-comments-nvim',
+		keys = {
+			{ '<leader>tq', '<cmd>TodoQuickFix<cr>', desc = 'Todos' },
+			{ '<leader>td', '<cmd>Trouble todo<cr>', desc = 'Todos' },
+		},
 		config = function(_, opts)
 			require('todo-comments').setup(opts)
 		end,

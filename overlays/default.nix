@@ -31,7 +31,7 @@ let
     # for if your customBuildsOverlay gets too long
     # the name here will be the name used when importing items from it in your flake.
     # i.e. these items will be accessed as pkgs.nixCatsBuilds.thenameofthepackage
-    nixCatsBuilds = import ./customBuildsOverlay.nix;
+    nixCatsBuilds = import ./nixCatsBuilds.nix;
   };
 in builtins.attrValues
 (builtins.mapAttrs (name: value: (value name inputs)) overlaySet)

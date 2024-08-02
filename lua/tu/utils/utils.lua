@@ -39,6 +39,15 @@ return {
 		end,
 	},
 	{
+		'figsoda/nix-develop.nvim',
+		name = 'nix-develop-nvim',
+		cmd = {
+			'NixDevelop',
+			'NixShell',
+			'RiffShell',
+		},
+	},
+	{
 		'krivahtoo/silicon.nvim',
 		name = 'silicon-nvim',
 		cmd = 'Silicon',

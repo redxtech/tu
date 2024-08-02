@@ -76,6 +76,7 @@ if require('nixCatsUtils').isNixCats then
 		'markview.nvim',
 		'mini.nvim',
 		'moveline.nvim',
+		'nix-develop.nvim',
 		'nix-reaver.nvim',
 		'noice.nvim',
 		'none-ls.nvim',

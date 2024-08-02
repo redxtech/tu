@@ -23,11 +23,6 @@ return {
 					lualine_c = { 'navic' },
 
 					lualine_x = {
-						{
-							noice.api.statusline.mode.get,
-							cond = noice.api.statusline.mode.has,
-							color = { fg = colors.green },
-						},
 						'filesize',
 						'encoding',
 						'fileformat',
