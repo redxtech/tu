@@ -1,212 +1,70 @@
 return {
 	{
-		'folke/noice-nvim',
-		enabled = false,
-		dependencies = { 'MunifTanjim/nui.nvim', 'j-hui/fidget.nvim' },
+		'folke/noice.nvim',
+		name = 'noice-nvim',
+		dependencies = { 'MunifTanjim/nui.nvim', 'rcarriga/nvim-notify' },
+		event = 'VeryLazy',
+		opts = {
+			lsp = {
+				override = {
+					['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+					['vim.lsp.util.stylize_markdown'] = true,
+				},
+				-- provides signature help while typing
+				signature = { enabled = true },
+			},
+			routes = {
+				{
+					filter = {
+						event = 'msg_show',
+						any = {
+							{ find = '%d+L, %d+B' },
+							{ find = '; after #%d+' },
+							{ find = '; before #%d+' },
+						},
+					},
+					view = 'mini',
+				},
+			},
+			presets = {
+				cmdline_output_to_split = true,
+				command_palette = true,
+				inc_rename = true,
+				long_message_to_split = true,
+				lsp_doc_border = true,
+			},
+		},
+    -- stylua: ignore
+    keys = {
+      { "<leader>sn", "", desc = "+noice"},
+      { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
+      { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+      { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
+      { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
+      { "<leader>snd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
+      { "<leader>snt", function() require("noice").cmd("pick") end, desc = "Noice Picker (Telescope/FzfLua)" },
+      { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll Forward", mode = {"i", "n", "s"} },
+      { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll Backward", mode = {"i", "n", "s"}},
+    },
 		config = function(_, opts)
-			local require = require('noice.util.lazy')
-
-			local Util = require('noice.util')
-			local View = require('noice.view')
-
-			---@class NoiceFidgetOptions
-			---@field timeout integer
-			---@field reverse? boolean
-			local defaults = { timeout = 5000 }
-
-			---@class FidgetView: NoiceView
-			---@field active table<number, NoiceMessage>
-			---@field super NoiceView
-			---@field lsp_handles table<number, ProgressHandle>
-			---@field timers table<number, uv_timer_t>
-			---@diagnostic disable-next-line: undefined-field
-			local FidgetView = View:extend('MiniView')
-
-			function FidgetView:init(opts)
-				FidgetView.super.init(self, opts)
-				self.active = {}
-				self.timers = {}
-				self._instance = 'view'
-				self.lsp_handles = {}
+			-- HACK: noice shows messages from before it was enabled,
+			-- but this is not ideal when Lazy is installing plugins,
+			-- so clear the messages in this case.
+			if vim.o.filetype == 'lazy' then
+				vim.cmd([[messages clear]])
 			end
-
-			function FidgetView:update_options()
-				self._opts = vim.tbl_deep_extend('force', defaults, self._opts)
-			end
-
-			---@param message NoiceMessage
-			function FidgetView:can_hide(message)
-				if message.opts.keep and message.opts.keep() then
-					return false
-				end
-				return not Util.is_blocking()
-			end
-
-			function FidgetView:autohide(id)
-				if not id then
-					return
-				end
-				if not self.timers[id] then
-					self.timers[id] = vim.loop.new_timer()
-				end
-				self.timers[id]:start(self._opts.timeout, 0, function()
-					if not self.active[id] then
-						return
-					end
-					if not self:can_hide(self.active[id]) then
-						return self:autohide(id)
-					end
-					self.active[id] = nil
-					self.timers[id] = nil
-					vim.schedule(function()
-						self:update()
-					end)
-				end)
-			end
-
-			function FidgetView:show()
-				for _, message in ipairs(self._messages) do
-					-- we already have debug info,
-					-- so make sure we dont regen it in the child view
-					message._debug = true
-					self.active[message.id] = message
-					self:autohide(message.id)
-				end
-				self:clear()
-				self:update()
-			end
-
-			function FidgetView:dismiss()
-				self:clear()
-				self.active = {}
-				self:update()
-			end
-
-			function FidgetView:update()
-				---@type NoiceMessage[]
-				local active = vim.tbl_values(self.active)
-				-- sort by id
-				table.sort(
-					active,
-					---@param a NoiceMessage
-					---@param b NoiceMessage
-					function(a, b)
-						local ret = a.id < b.id
-						if self._opts.reverse then
-							return not ret
-						end
-						return ret
-					end
-				)
-
-				self:_handle_lsp(active)
-				self:_handle_messages(active)
-				self:_handle_notify(active)
-			end
-
-			---@param messages NoiceMessage[]
-			function FidgetView:_handle_lsp(messages)
-				local fidget = require('fidget')
-
-				---@type NoiceMessage[]
-				local lsp_messages = vim.tbl_filter(function(message)
-					return message.event == 'lsp'
-				end, messages)
-
-				for _, message in pairs(lsp_messages) do
-					if self.lsp_handles[message.id] then
-						self.lsp_handles[message.id]:report({
-							message = message:content(),
-						})
-					else
-						self.lsp_handles[message.id] = fidget.progress.handle.create({
-							title = message.level or 'info',
-							message = message:content(),
-							level = message.level,
-							lsp_client = {
-								name = self._view_opts.title or 'noice',
-							},
-						})
-					end
-				end
-
-				-- finish lsp handles that are no longer active
-				for id, handle in pairs(self.lsp_handles) do
-					for _, message in pairs(lsp_messages) do
-						if message.id == id then
-							goto continue
-						end
-					end
-
-					handle:finish()
-					self.lsp_handles[id] = nil
-
-					::continue::
-				end
-			end
-
-			---@param messages NoiceMessage[]
-			function FidgetView:_handle_messages(messages)
-				local notify = require('fidget.notification').notify
-
-				local events = require('noice.ui.msg').events
-
-				---@type NoiceMessage[]
-				local msgs = vim.tbl_filter(function(message)
-					for _, event in pairs(events) do
-						if message.event == event then
-							return true
-						end
-					end
-					return false
-				end, messages)
-
-				for _, message in pairs(msgs) do
-					notify(message:content(), message.level)
-				end
-			end
-
-			---@param messages NoiceMessage[]
-			function FidgetView:_handle_notify(messages)
-				local notify = require('fidget.notification').notify
-
-				---@type NoiceMessage[]
-				local notifications = vim.tbl_filter(function(message)
-					return message.event == 'notify'
-				end, messages)
-
-				for _, message in pairs(notifications) do
-					notify(message:content(), message.level)
-				end
-			end
-
-			function FidgetView:hide()
-				for _, handle in pairs(self.lsp_handles) do
-					handle:finish()
-				end
-			end
-
-			package.loaded['noice.view.backend.fidget'] = FidgetView
-
 			require('noice').setup(opts)
 		end,
+	},
+
+	-- notifications
+	{
+		'rcarriga/nvim-notify',
 		opts = {
-				presets = {
-					inc_rename = true, -- enables an input dialog for inc-rename.nvim
-				},
-				messages = {
-					enabled = true,
-					-- view = 'fidget',
-					-- view_warn = 'fidget',
-					-- view_error = 'fidget',
-				},
-				notify = { enabled = false, view = 'fidget' },
-				popupmenu = { enabled = false },
-				lsp = {
-					progress = { enabled = false, view = 'fidget' },
-					-- provides signature help while typing
-					signature = { enabled = true },
-				},
+			stages = 'fade_in_slide_out',
+			render = 'wrapped-compact',
+			fps = 144,
+			minimum_width = 10,
 		},
-	}
+	},
 }

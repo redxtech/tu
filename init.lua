@@ -77,6 +77,7 @@ if require('nixCatsUtils').isNixCats then
 		'mini.nvim',
 		'moveline.nvim',
 		'nix-reaver.nvim',
+		'noice.nvim',
 		'none-ls.nvim',
 		'nui.nvim',
 		'nvim-colorizer.lua',

@@ -9,6 +9,8 @@ return {
 		end,
 		opts = function()
 			local nerdtree = require('lualine.extensions.nerdtree')
+			local noice = require('noice')
+			local colors = require('dracula').colors()
 
 			return {
 				options = {
@@ -21,6 +23,11 @@ return {
 					lualine_c = { 'navic' },
 
 					lualine_x = {
+						{
+							noice.api.statusline.mode.get,
+							cond = noice.api.statusline.mode.has,
+							color = { fg = colors.green },
+						},
 						'filesize',
 						'encoding',
 						'fileformat',

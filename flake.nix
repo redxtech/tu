@@ -283,6 +283,7 @@
                 nvim-lspconfig # lsp configs
                 nvim-navbuddy # navic based navigation
                 nvim-navic # breadcrumbs provider
+                nvim-notify # notifications
                 nvim-numbertoggle # toggle line numbers automatically
                 nvim-spectre # search and replace
                 vimPlugins.nvim-treesitter.withAllGrammars # syntax highlighting

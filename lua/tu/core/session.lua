@@ -8,6 +8,7 @@ return {
 			'Shatur/neovim-session-manager',
 			'nvim-telescope/telescope.nvim',
 			'OXY2DEV/markview.nvim',
+			'kevinhwang91/nvim-ufo',
 		},
 		cmd = { 'NeovimProjectLoad', 'NeovimProjectLoadDashboard' },
 		keys = {
