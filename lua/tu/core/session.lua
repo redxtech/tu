@@ -15,7 +15,7 @@ return {
 		cmd = { 'NeovimProjectLoad', 'NeovimProjectLoadDashboard' },
 		keys = {
 			{ '<leader>fp', '<cmd>Telescope neovim-project discover<cr>', desc = 'Projects' },
-			{ '<leader>fs', '<cmd>Telescope neovim-project history<cr>', desc = 'Sessions' },
+			{ '<leader>fh', '<cmd>Telescope neovim-project history<cr>', desc = 'Sessions' },
 		},
 		init = function()
 			-- todo: open blink tree if it was previously open

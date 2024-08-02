@@ -230,6 +230,7 @@
               buf # protobuf utility
               buf-language-server # protobuf language server
               hyprls # hyprland language server
+              taplo # toml toolkit
             ];
 
             appimage = with pkgs; [
@@ -574,7 +575,7 @@
             categoryDefinitions packageDefinitions nixpkgs;
         };
         # and the same for home manager
-        homeModule = utils.mkHomeModules {
+        homeManagerModules.default = utils.mkHomeModules {
           inherit defaultPackageName dependencyOverlays luaPath
             categoryDefinitions packageDefinitions nixpkgs;
         };

@@ -68,11 +68,11 @@ return {
 			},
 			wo = { winbar = false },
 			options = {
-				left = { size = 40 },
+				left = { size = 35 },
 				right = { size = 80 },
 			},
 			bottom = {
-				'Trouble',
+				{ ft = 'trouble', title = 'Trouble', size = { height = 0.3 } },
 				{ ft = 'qf', title = 'QuickFix' },
 				{
 					ft = 'help',

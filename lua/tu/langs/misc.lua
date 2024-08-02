@@ -28,7 +28,7 @@ return {
 			}
 
 			opts.servers.efm.settings.languages.toml = {
-				require('efmls-configs.formatters.dprint'),
+				require('efmls-configs.formatters.taplo'),
 			}
 		end,
 	},

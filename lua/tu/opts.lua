@@ -86,7 +86,7 @@ opt.guifont = 'Iosevka Custom,Symbols Nerd Font:h14'
 g.lsp_semantic_enabled = 1
 
 if g.neovide then
-	opt.linespace = 4
+	opt.linespace = 0
 	g.neovide_transparency = 0.9
 	g.neovide_scale_factor = 1.0
 	g.neovide_refresh_rate = 288
@@ -94,8 +94,8 @@ if g.neovide then
 	g.neovide_cursor_animation_length = 0.05
 	g.neovide_scroll_animation_length = 0.1 -- 0.1 to enable, 0 to disable
 	-- https://github.com/neovide/neovide/issues/1325#issuecomment-1281570219
-	-- g.neovide_font_hinting = 'none'
-	-- g.neovide_font_edging = 'subpixelantialias'
+	g.neovide_font_hinting = 'none'
+	g.neovide_font_edging = 'subpixelantialias'
 end
 
 local query_parse = vim.treesitter.query.parse
