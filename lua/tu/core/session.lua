@@ -7,8 +7,10 @@ return {
 			'nvim-lua/plenary.nvim',
 			'Shatur/neovim-session-manager',
 			'nvim-telescope/telescope.nvim',
+			-- to avoid calling before loaded
 			'OXY2DEV/markview.nvim',
 			'kevinhwang91/nvim-ufo',
+			'saghen/blink.nvim',
 		},
 		cmd = { 'NeovimProjectLoad', 'NeovimProjectLoadDashboard' },
 		keys = {

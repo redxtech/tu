@@ -9,7 +9,11 @@ return {
 		'neovim/nvim-lspconfig',
 		opts = function(_, opts)
 			-- enable rust_analyzer server
-			opts.servers.rust_analyzer = {}
+			-- NOTE: we shouldn't use this version, since the version
+			-- will likely not match the version of the rust toolchain
+			-- for whichever project we are working on.
+			-- it's better to let rustaceanvim handle this.
+			-- opts.servers.rust_analyzer = {}
 
 			-- tell efm to work with these filetypes
 			table.insert(opts.servers.efm.filetypes, 'rust')

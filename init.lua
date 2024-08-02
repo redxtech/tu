@@ -50,7 +50,6 @@ if require('nixCatsUtils').isNixCats then
 		'any-jump.vim',
 		'before.nvim',
 		'better-escape.nvim',
-		'blink.cmp',
 		'blink.nvim',
 		'bufferline.nvim',
 		'diagflow.nvim',

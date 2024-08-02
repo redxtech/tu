@@ -34,8 +34,6 @@
     fenix.inputs.nixpkgs.follows = "nixpkgs";
 
     # non-nixpkgs plugins
-    blink-cmp.url = "github:saghen/blink.cmp";
-    blink-cmp.inputs.nixpkgs.follows = "nixpkgs";
     blink-nvim.url = "github:saghen/blink.nvim";
     blink-nvim.inputs.nixpkgs.follows = "nixpkgs";
     dracula.url = "github:redxtech/dracula.nvim";
@@ -229,6 +227,7 @@
               inputs.vtsls.packages.${pkgs.system}.default
 
               # misc
+              buf # protobuf utility
               buf-language-server # protobuf language server
               hyprls # hyprland language server
             ];
@@ -309,9 +308,7 @@
 
             ai = [ vimPlugins.supermaven-nvim ];
             blink = [
-              inputs.blink-cmp.packages.${pkgs.system}.default
               inputs.blink-nvim.packages.${pkgs.system}.default
-              # lazy
               vimPlugins.nvim-snippets
               vimExtraPlugins.friendly-snippets
             ];

@@ -16,7 +16,7 @@
         "type": "github"
       }
     },
-    "blink-cmp": {
+    "blink-nvim": {
       "inputs": {
         "devenv": "devenv",
         "fenix": "fenix",
@@ -26,32 +26,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722211340,
-        "narHash": "sha256-kbuihvB4Pb6bhVBh51Ynzz5qzLFZbfP84gtaQf0UYmk=",
-        "owner": "saghen",
-        "repo": "blink.cmp",
-        "rev": "4ae4cfe4b7176d188fb611146f958e084e1e3e90",
-        "type": "github"
-      },
-      "original": {
-        "owner": "saghen",
-        "repo": "blink.cmp",
-        "type": "github"
-      }
-    },
-    "blink-nvim": {
-      "inputs": {
-        "flake-parts": "flake-parts_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1722290642,
-        "narHash": "sha256-ueBkh3Q6UhsWlmBG4NmQFNbX06lgXcZB4c08jojMGHo=",
+        "lastModified": 1722625463,
+        "narHash": "sha256-dvQfaiYJeaZ1bh7RLw2rfMVdcO2+R8PAcBfqRpUKwcc=",
         "owner": "saghen",
         "repo": "blink.nvim",
-        "rev": "8bd3d7629063e30ed29796ef21ac03935cb58f88",
+        "rev": "a5fe62474dc03e725ccf0b1b916e5cf0451449a0",
         "type": "github"
       },
       "original": {
@@ -64,17 +43,17 @@
       "inputs": {
         "devenv": "devenv_2",
         "flake-compat": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "flake-compat"
         ],
         "nixpkgs": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "nixpkgs"
         ],
         "pre-commit-hooks": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "pre-commit-hooks"
         ]
@@ -118,7 +97,7 @@
     "devenv_2": {
       "inputs": {
         "flake-compat": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "cachix",
           "flake-compat"
@@ -127,7 +106,7 @@
         "nixpkgs": "nixpkgs",
         "poetry2nix": "poetry2nix",
         "pre-commit-hooks": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "cachix",
           "pre-commit-hooks"
@@ -150,7 +129,7 @@
     },
     "dracula": {
       "inputs": {
-        "flake-parts": "flake-parts_3",
+        "flake-parts": "flake-parts_2",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -172,7 +151,7 @@
     "fenix": {
       "inputs": {
         "nixpkgs": [
-          "blink-cmp",
+          "blink-nvim",
           "nixpkgs"
         ],
         "rust-analyzer-src": "rust-analyzer-src"
@@ -337,11 +316,11 @@
         "nixpkgs-lib": "nixpkgs-lib_2"
       },
       "locked": {
-        "lastModified": 1715865404,
-        "narHash": "sha256-/GJvTdTpuDjNn84j82cU6bXztE0MSkdnTWClUCRub78=",
+        "lastModified": 1719994518,
+        "narHash": "sha256-pQMhCCHyQGRzdfAkdJ4cIWiw+JNuWsTX7f0ZYSyz0VY=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "8dc45382d5206bd292f9c2768b8058a8fd8311d9",
+        "rev": "9227223f6d922fee3c7b190b2cc238a99527bbb7",
         "type": "github"
       },
       "original": {
@@ -370,24 +349,6 @@
     },
     "flake-parts_4": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib_4"
-      },
-      "locked": {
-        "lastModified": 1719994518,
-        "narHash": "sha256-pQMhCCHyQGRzdfAkdJ4cIWiw+JNuWsTX7f0ZYSyz0VY=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "9227223f6d922fee3c7b190b2cc238a99527bbb7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
-    "flake-parts_5": {
-      "inputs": {
         "nixpkgs-lib": [
           "neovim-nightly-overlay",
           "nixpkgs"
@@ -407,7 +368,7 @@
         "type": "github"
       }
     },
-    "flake-parts_6": {
+    "flake-parts_5": {
       "inputs": {
         "nixpkgs-lib": [
           "neovim-nightly-overlay",
@@ -428,9 +389,9 @@
         "type": "indirect"
       }
     },
-    "flake-parts_7": {
+    "flake-parts_6": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib_5"
+        "nixpkgs-lib": "nixpkgs-lib_4"
       },
       "locked": {
         "lastModified": 1719994518,
@@ -545,7 +506,7 @@
     "gitignore": {
       "inputs": {
         "nixpkgs": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "pre-commit-hooks",
           "nixpkgs"
@@ -589,7 +550,7 @@
     },
     "hercules-ci-effects": {
       "inputs": {
-        "flake-parts": "flake-parts_6",
+        "flake-parts": "flake-parts_5",
         "nixpkgs": [
           "neovim-nightly-overlay",
           "nixpkgs"
@@ -612,7 +573,7 @@
     "moveline": {
       "inputs": {
         "fenix": "fenix_3",
-        "flake-parts": "flake-parts_4",
+        "flake-parts": "flake-parts_3",
         "naersk": "naersk",
         "nixpkgs": [
           "nixpkgs"
@@ -656,7 +617,7 @@
     "neovim-nightly-overlay": {
       "inputs": {
         "flake-compat": "flake-compat_3",
-        "flake-parts": "flake-parts_5",
+        "flake-parts": "flake-parts_4",
         "git-hooks": "git-hooks",
         "hercules-ci-effects": "hercules-ci-effects",
         "neovim-src": "neovim-src",
@@ -696,7 +657,7 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "nixpkgs": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "cachix",
           "devenv",
@@ -746,7 +707,7 @@
     "nix-github-actions": {
       "inputs": {
         "nixpkgs": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "cachix",
           "devenv",
@@ -835,12 +796,12 @@
     "nix_2": {
       "inputs": {
         "flake-compat": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "flake-compat"
         ],
         "nixpkgs": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "nixpkgs"
         ],
@@ -891,14 +852,14 @@
     },
     "nixpkgs-lib_2": {
       "locked": {
-        "lastModified": 1714640452,
-        "narHash": "sha256-QBx10+k6JWz6u7VsohfSw8g8hjdBZEf8CFzXH1/1Z94=",
+        "lastModified": 1719876945,
+        "narHash": "sha256-Fm2rDDs86sHy0/1jxTOKB1118Q0O3Uc7EC0iXvXKpbI=",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/50eb7ecf4cd0a5756d7275c8ba36790e5bd53e33.tar.gz"
+        "url": "https://github.com/NixOS/nixpkgs/archive/5daf0514482af3f97abaefc78a6606365c9108e2.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/50eb7ecf4cd0a5756d7275c8ba36790e5bd53e33.tar.gz"
+        "url": "https://github.com/NixOS/nixpkgs/archive/5daf0514482af3f97abaefc78a6606365c9108e2.tar.gz"
       }
     },
     "nixpkgs-lib_3": {
@@ -914,18 +875,6 @@
       }
     },
     "nixpkgs-lib_4": {
-      "locked": {
-        "lastModified": 1719876945,
-        "narHash": "sha256-Fm2rDDs86sHy0/1jxTOKB1118Q0O3Uc7EC0iXvXKpbI=",
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/5daf0514482af3f97abaefc78a6606365c9108e2.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/5daf0514482af3f97abaefc78a6606365c9108e2.tar.gz"
-      }
-    },
-    "nixpkgs-lib_5": {
       "locked": {
         "lastModified": 1719876945,
         "narHash": "sha256-Fm2rDDs86sHy0/1jxTOKB1118Q0O3Uc7EC0iXvXKpbI=",
@@ -1038,7 +987,7 @@
         "flake-utils": "flake-utils",
         "nix-github-actions": "nix-github-actions",
         "nixpkgs": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "cachix",
           "devenv",
@@ -1088,14 +1037,14 @@
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "flake-compat"
         ],
         "flake-utils": "flake-utils_2",
         "gitignore": "gitignore",
         "nixpkgs": [
-          "blink-cmp",
+          "blink-nvim",
           "devenv",
           "nixpkgs"
         ],
@@ -1117,7 +1066,6 @@
     },
     "root": {
       "inputs": {
-        "blink-cmp": "blink-cmp",
         "blink-nvim": "blink-nvim",
         "dracula": "dracula",
         "fenix": "fenix_2",
@@ -1244,7 +1192,7 @@
     },
     "vtsls": {
       "inputs": {
-        "flake-parts": "flake-parts_7",
+        "flake-parts": "flake-parts_6",
         "nixpkgs": [
           "nixpkgs"
         ]
