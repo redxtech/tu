@@ -29,6 +29,7 @@
     nix-neovim-plugins.url = "github:NixNeovim/NixNeovimPlugins";
     nix-neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
     fenix.url = "github:nix-community/fenix";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -231,7 +232,10 @@
               buf-language-server # protobuf language server
               hyprls # hyprland language server
             ];
-            utils = with pkgs; [ glow ];
+            utils = with pkgs;
+              [
+                glow # markdown preview
+              ];
 
             appimage = with pkgs; [
               coreutils-full
@@ -275,6 +279,7 @@
                 mini-nvim # a bunch of minimal plugins
                 neovim-project # project list
                 neovim-session-manager # session management (dep for neovim-project)
+                nix-reaver-nvim # update rev & hash of fetchFromGitHub
                 noice-nvim # ui replacements
                 none-ls-nvim # fallback lsp
                 nui-nvim # ui library

@@ -89,6 +89,17 @@ let
         };
       };
 
+      nix-reaver-nvim = buildVimPlugin {
+        pname = "nix-reaver-nvim";
+        version = "0.1.0";
+        src = fetchFromGitHub {
+          owner = "redxtech";
+          repo = "nix-reaver.nvim";
+          rev = "22b7cc7e34f8c9b5eec314a74a3bdab842b12c7e";
+          hash = "sha256-CUuyBsthZTQed4FwpRRkrcIGE5GUunSsl7H/b2x4RAc=";
+        };
+      };
+
       nvim-numbertoggle = buildVimPlugin {
         pname = "nvim-numbertoggle";
         version = "0.1.0";

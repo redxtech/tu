@@ -21,16 +21,21 @@ return {
 			{ '-', '<cmd>Oil<cr>', desc = 'Open parent directory' },
 		},
 		opts = {
-			columns = {
-				'icon',
-				'permissions',
-				'size',
-				'mtime',
-			},
+			columns = { 'icon', 'size' },
 			delete_to_trash = true,
 		},
 		config = function(_, opts)
 			require('oil').setup(opts)
+		end,
+	},
+	{
+		'redxtech/nix-reaver.nvim',
+		name = 'nix-reaver-nvim',
+		keys = {
+			{ '<leader>ur', ':NixReaver<cr>', desc = 'Update fetchFromGitHub rev and hash' },
+		},
+		config = function(_, opts)
+			require('nix-reaver').setup(opts)
 		end,
 	},
 	{
