@@ -1,0 +1,48 @@
+name: "CI"
+on:
+  push:
+    branches:
+      - master
+  # pull_request:
+jobs:
+  release:
+    strategy:
+      matrix:
+        system:
+          - x86_64-linux
+          - aarch64-linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: experimental-features = nix-command flakes repl-flake
+      - name: Run the magic nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+      - run: nix build .#app-images.${{ matrix.system }}.default  --print-build-logs
+
+      - name: Create Draft Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_name: nightly
+          draft: true
+          prerelease: true
+
+      - uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./result
+          asset_name: tu.AppImage
+          asset_content_type: application/x-executable
+
+      - uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{ steps.create_release.outputs.id }}
