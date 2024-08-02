@@ -232,10 +232,6 @@
               buf-language-server # protobuf language server
               hyprls # hyprland language server
             ];
-            utils = with pkgs;
-              [
-                glow # markdown preview
-              ];
 
             appimage = with pkgs; [
               coreutils-full
@@ -268,6 +264,7 @@
                 before-nvim # go to previous edit
                 # Comment-nvim # commenting  TODO: is this needed?
                 diagflow-nvim # show diagnostics in corner
+                eagle-nvim # lsp signature on mouse hover
                 vimPlugins.edgy-nvim # window management
                 fidget-nvim # lsp status in bottom right
                 flash-nvim # movement with s/S f/F
@@ -379,23 +376,25 @@
               [
                 bufferline-nvim # bufferline
               ];
-            utils = with vimExtraPlugins; [
-              better-escape-nvim # jk to escape insert mode
-              dressing-nvim # ui lib (dep for overseer-nvim)
-              glow-nvim # markdown preview
-              goto-preview # preview definition in window
-              nvim-lightbulb # show code actions
-              inputs.moveline.packages.${pkgs.system}.default # move blocks of text
-              numb-nvim # peek at line before jump
-              nvim-colorizer-lua # colorize hex, rgb, etc. codes
-              nvim-ufo # folds
-              oil-nvim # tree explorer
-              overseer-nvim # task runner integration
-              promise-async # async functions (dep for nvim-ufo)
-              sort-nvim # sort lines
-              url-open # open more urls
-              vimPlugins.vim-eunuch # unix tools
-            ];
+            utils = with vimExtraPlugins;
+              with nixCatsBuilds; [
+                better-escape-nvim # jk to escape insert mode
+                dressing-nvim # ui lib (dep for overseer-nvim)
+                goto-preview # preview definition in window
+                markview-nvim # markdown preview
+                inputs.moveline.packages.${pkgs.system}.default # move blocks of text
+                numb-nvim # peek at line before jump
+                nvim-colorizer-lua # colorize hex, rgb, etc. codes
+                nvim-lightbulb # show code actions
+                nvim-ufo # folds
+                oil-nvim # tree explorer
+                overseer-nvim # task runner integration
+                promise-async # async functions (dep for nvim-ufo)
+                silicon-nvim # screenshot code
+                sort-nvim # sort lines
+                url-open # open more urls
+                vimPlugins.vim-eunuch # unix tools
+              ];
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH

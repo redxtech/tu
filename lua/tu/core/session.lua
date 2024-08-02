@@ -7,6 +7,7 @@ return {
 			'nvim-lua/plenary.nvim',
 			'Shatur/neovim-session-manager',
 			'nvim-telescope/telescope.nvim',
+			'OXY2DEV/markview.nvim',
 		},
 		cmd = { 'NeovimProjectLoad', 'NeovimProjectLoadDashboard' },
 		keys = {

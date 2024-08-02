@@ -4,7 +4,7 @@ importName: inputs:
 let
   overlay = self: super: {
     ${importName} = let
-      inherit (super) vimUtils fetchFromGitHub;
+      inherit (super) lib vimUtils fetchFromGitHub;
       inherit (vimUtils) buildVimPlugin;
     in {
       # define your overlay derivations here
@@ -78,6 +78,18 @@ let
         };
       };
 
+      markview-nvim = buildVimPlugin {
+        pname = "markview-nvim";
+        version = "0.1.0";
+        src = fetchFromGitHub {
+          owner = "OXY2DEV";
+          repo = "markview.nvim";
+          rev = "d0ccc97b5c988fb28e5033abdf7b832b9dfaf897";
+          hash = "sha256-mhRg/cszW/3oXdC1yvbpCeqWQA9WLW5FvcqGd/wBTnE=";
+          fetchSubmodules = true;
+        };
+      };
+
       neovim-project = buildVimPlugin {
         pname = "neovim-project";
         version = "0.1.0";
@@ -142,6 +154,38 @@ let
           rev = "0ee32b7aba31d84b0ca76aaff2ffcb11f8f5449f";
           hash = "sha256-usyy1kST8hq/3j0sp7Tpf/1mld6RtcVABPo/ygeqzbU=";
         };
+      };
+
+      silicon-nvim = let
+        version = "0.5.0";
+        silicon-lib = super.stdenv.mkDerivation {
+          inherit version;
+          pname = "silicon-lib";
+          src = super.fetchzip {
+            url =
+              "https://github.com/krivahtoo/silicon.nvim/releases/download/v${version}/silicon-linux.tar.gz";
+            hash = "sha256-83+8y1uunrolygycUEgNK0ff40a2P8kOIJk/6doE2wI=";
+          };
+          nativeBuildInputs = with super; [ autoPatchelfHook ];
+          buildInputs = with super; [ stdenv.cc.cc.lib fontconfig.lib ];
+          installPhase = ''
+            mkdir -p $out/lib
+            cp -r silicon.so $out/lib/silicon.so
+            patchelf $out/lib/silicon.so --add-needed libfontconfig.so.1
+          '';
+        };
+      in buildVimPlugin {
+        inherit version;
+        pname = "silicon-nvim";
+        src = fetchFromGitHub {
+          owner = "krivahtoo";
+          repo = "silicon.nvim";
+          rev = "v${version}";
+          hash = "sha256-7YSke9HBnKXvWx9+FrzKUY5Q+ITibSbbNb4Oebb10OE=";
+        };
+        preInstall = ''
+          ln -s ${silicon-lib}/lib/silicon.so lua/silicon.so
+        '';
       };
 
       smart-open-nvim = buildVimPlugin {

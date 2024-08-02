@@ -8,7 +8,7 @@ return {
 			opts.servers.dprint = {}
 			opts.servers.hyprls = {}
 			opts.servers.marksman = {}
-			opts.servers.remark_ls = {} -- TODO: look into remark
+			-- opts.servers.remark_ls = {} -- TODO: look into remark
 
 			-- tell efm to work with these filetypes
 			vim.list_extend(opts.servers.efm.filetypes, {
