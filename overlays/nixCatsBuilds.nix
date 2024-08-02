@@ -67,6 +67,18 @@ let
         inherit src;
       };
 
+      lazy-nvim = let version = "11.14.1";
+      in buildVimPlugin {
+        pname = "lazy-nvim";
+        version = "${version}";
+        src = fetchFromGitHub {
+          owner = "folke";
+          repo = "lazy.nvim";
+          rev = "v${version}";
+          hash = "sha256-Rd5r7AcdXYJ+gIsvh0N3WIAgg7xXqEVo+62VzIT5QHo=";
+        };
+      };
+
       luvit-meta = buildVimPlugin {
         pname = "luvit-meta";
         version = "0.1.0";
