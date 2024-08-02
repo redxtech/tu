@@ -5,6 +5,7 @@ return {
 			keymaps = {
 				accept_suggestion = '<M-i>',
 			},
+			ignore_filetypes = { NeogitCommitMessage = true },
 			color = {
 				-- TODO: use dracula colors
 				suggestion_color = '#585b70',

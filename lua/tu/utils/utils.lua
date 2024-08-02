@@ -17,6 +17,18 @@ return {
 		'stevearc/oil.nvim',
 		name = 'oil-nvim',
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		keys = {
+			{ '-', '<cmd>Oil<cr>', desc = 'Open parent directory' },
+		},
+		opts = {
+			columns = {
+				'icon',
+				'permissions',
+				'size',
+				'mtime',
+			},
+			delete_to_trash = true,
+		},
 		config = function(_, opts)
 			require('oil').setup(opts)
 		end,

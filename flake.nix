@@ -560,7 +560,6 @@
         # and you export overlays so people dont have to redefine stuff.
         inherit customPackager;
       }) // {
-
         # these outputs will be NOT wrapped with ${system}
 
         # this will make an overlay out of each of the packageDefinitions defined above
@@ -589,5 +588,4 @@
         inherit (utils) templates baseBuilder;
         keepLuaBuilder = utils.baseBuilder luaPath;
       };
-
 }
