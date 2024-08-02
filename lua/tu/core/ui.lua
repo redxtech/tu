@@ -4,7 +4,6 @@ return {
 	{
 		'b0o/incline.nvim',
 		name = 'incline-nvim',
-		enabled = nixCats('uiElements').incline,
 		event = 'VeryLazy',
 		config = function(_, opts)
 			require('incline').setup(opts)
@@ -55,26 +54,6 @@ return {
 				}
 			end,
 		},
-	},
-
-	-- barbecue winbar
-	{
-		'utilyre/barbecue.nvim',
-		name = 'barbecue-nvim',
-		enabled = nixCats('uiElements').barbecue,
-		version = '*',
-		event = 'VeryLazy',
-		dependencies = {
-			'nvim-tree/nvim-web-devicons',
-			'SmiteshP/nvim-navic',
-		},
-		opts = {
-			show_dirname = false,
-			no_name_title = '[no name]',
-		},
-		config = function(_, opts)
-			require('barbecue').setup(opts)
-		end,
 	},
 
 	-- partition UI elements

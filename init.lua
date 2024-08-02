@@ -27,10 +27,6 @@ require('nixCatsUtils').setup({
 	colorscheme = 'dracula',
 	statusline = true,
 	bufferline = true,
-	uiElements = {
-		barbecue = false,
-		incline = true,
-	},
 })
 
 vim.g.have_nerd_font = nixCats('have_nerd_font')
@@ -52,7 +48,6 @@ if require('nixCatsUtils').isNixCats then
 
 	local wrongNames = {
 		'any-jump.vim',
-		'barbecue.nvim',
 		'before.nvim',
 		'better-escape.nvim',
 		'blink.cmp',

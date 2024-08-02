@@ -9,8 +9,6 @@ return {
 		end,
 		opts = function()
 			local nerdtree = require('lualine.extensions.nerdtree')
-			local noice = require('noice')
-			local colors = require('dracula').colors()
 
 			return {
 				options = {
@@ -48,6 +46,7 @@ return {
 	-- cursor context
 	{
 		'SmiteshP/nvim-navic',
+		event = 'BufEnter',
 		dependencies = { 'neovim/nvim-lspconfig' },
 		opts = {
 			lsp = { auto_attach = true },

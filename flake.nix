@@ -260,7 +260,6 @@
             core = with vimExtraPlugins;
               with nixCatsBuilds; [
                 any-jump-vim # fallback goto when no lsp
-                barbecue-nvim # bufferline breadcrumbs
                 before-nvim # go to previous edit
                 # Comment-nvim # commenting  TODO: is this needed?
                 diagflow-nvim # show diagnostics in corner
@@ -493,10 +492,6 @@
             colorscheme = "dracula";
             bufferline = true;
             statusline = true;
-            uiElements = {
-              barbecue = false;
-              incline = true;
-            };
           };
         };
         tu-dev = { pkgs, ... }:
