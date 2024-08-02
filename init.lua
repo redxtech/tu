@@ -80,6 +80,7 @@ if require('nixCatsUtils').isNixCats then
 		'tsc.nvim',
 		'overseer.nvim',
 		'rainbow-delimiters.nvim',
+		'screenkey.nvim',
 		'silicon.nvim',
 		'smart-open.nvim',
 		'sort.nvim',

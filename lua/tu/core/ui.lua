@@ -1,5 +1,4 @@
 return {
-
 	-- buffer winbar replacement
 	{
 		'b0o/incline.nvim',

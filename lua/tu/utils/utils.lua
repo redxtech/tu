@@ -165,4 +165,13 @@ return {
 			},
 		},
 	},
+	-- screenkey
+	{
+		'NStefan002/screenkey.nvim',
+		name = 'screenkey-nvim',
+		cmd = 'Screenkey',
+		keys = {
+			{ '<leader>sK', '<cmd>Screenkey<cr>', desc = 'Toggle Screenkey' },
+		},
+	},
 }

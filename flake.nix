@@ -389,6 +389,7 @@
                 oil-nvim # tree explorer
                 overseer-nvim # task runner integration
                 promise-async # async functions (dep for nvim-ufo)
+                screenkey-nvim # screenkey in neovim
                 silicon-nvim # screenshot code
                 sort-nvim # sort lines
                 url-open # open more urls

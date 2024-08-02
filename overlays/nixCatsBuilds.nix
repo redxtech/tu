@@ -156,6 +156,17 @@ let
         };
       };
 
+      screenkey-nvim = buildVimPlugin {
+        pname = "screenkey-nvim";
+        version = "0.1.0";
+        src = fetchFromGitHub {
+          owner = "NStefan002";
+          repo = "screenkey.nvim";
+          rev = "6c9b5a8a38d56f425a44bb8e4d3d49e6bb0cfa7d";
+          hash = "sha256-Lb/jpSKR5ehW2fBvWZ6Y4zJ7w6aNtXa2Apu4WDvs5ek=";
+        };
+      };
+
       silicon-nvim = let
         version = "0.5.0";
         silicon-lib = super.stdenv.mkDerivation {

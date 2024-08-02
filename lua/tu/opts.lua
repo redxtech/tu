@@ -86,7 +86,9 @@ opt.guifont = 'Iosevka Custom,Symbols Nerd Font:h14'
 g.lsp_semantic_enabled = 1
 
 if g.neovide then
+	opt.clipboard = 'unnamedplus' -- use system clipboard
 	opt.linespace = 0
+
 	g.neovide_transparency = 0.9
 	g.neovide_scale_factor = 1.0
 	g.neovide_refresh_rate = 288
