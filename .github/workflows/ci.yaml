@@ -20,8 +20,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run the magic nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
-      - run: nix build .#app-images.${{ matrix.system }}.default --show-trace  --print-build-logs
-
+      - run: nix build .#app-images.${{ matrix.system }}.default --accept-flake-config --print-build-logs
       - run: cp $(realpath result) tu-${{ matrix.system }}.AppImage
 
       - name: Create Release
@@ -31,4 +30,4 @@ jobs:
           tag_name: nightly
           prerelease: true
           files: tu*.AppImage
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_RELEASE_TOKEN }}
