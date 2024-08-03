@@ -289,6 +289,7 @@
                 plenary-nvim # lua helpers
                 promise-async # async functions (dep for nvim-ufo)
                 rainbow-delimiters-nvim # rainbow {}[]()
+                satellite-nvim # scrollbar
                 smart-open-nvim # better file search
                 sqlite-lua # sqlite bindings
                 telescope-nvim # pickers

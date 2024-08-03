@@ -190,6 +190,14 @@ return {
 		},
 	},
 
+	{
+		'lewis6991/satellite.nvim',
+		name = 'satellite-nvim',
+		config = function(_, opts)
+			require('satellite').setup(opts)
+		end,
+	},
+
 	-- ui library
 	{ 'MunifTanjim/nui.nvim', name = 'nui-nvim' },
 

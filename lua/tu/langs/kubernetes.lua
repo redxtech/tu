@@ -21,7 +21,7 @@ return {
 			{ '<leader>fy', '<cmd>Telescope yaml_schema<CR>', desc = 'YAML Schemas' },
 		},
 		config = function()
-			local cfg = require('yaml-companion-nvim').setup()
+			local cfg = require('yaml-companion').setup()
 			require('lspconfig').yamlls.setup(cfg)
 			require('lspconfig').helm_ls.setup({
 				settings = {
