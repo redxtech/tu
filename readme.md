@@ -32,7 +32,7 @@ will make most of them optional, but for now, they are all enabled.
 - completion with `blink.cmp`
   - new completion engine to replace `nvim-cmp`. uses a custom fuzzy searcher.
     performance is improved through use of good algorithms in rust.
-  - `blink.nvim` come with a couple other plugins:
+  - `blink.nvim` comes with a couple other plugins:
     - `blink.chartoggle`: toggles `;` and `,` at end of line
     - `blink.indent`: fast version of indent-blankline
     - `blink.tree`: fast file tree, inspired by `neo-tree`
@@ -46,7 +46,7 @@ will make most of them optional, but for now, they are all enabled.
 - linting and formatting
   - uses efm as a wrapper for many linters and formatters
 - ui customization
-  - `dracula.nvim`: my form of the classic colorscheme
+  - `dracula.nvim`: my fork of the classic colorscheme
   - `bufferline.nvim`
   - `incline.nvim` (winbar)
   - `lualine.nvim`
@@ -127,3 +127,11 @@ can try out new plugins without having to add the plugin package to the nix conf
 this is the base `tu` binary, but with the `profile.nvim` plugin enabled. it will
 start profiling as soon as you start neovim, and will stop profiling when you
 press `<leader>q`.
+
+## appimage
+
+if you don't use nix, you can still use `tu` via the appimage!
+
+it's quite large, but it has *everything* you need. language servers, binaries, everything.
+
+you can download the latest appimage from the [releases page](https://github.com/redxtech/tu/releases).
