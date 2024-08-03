@@ -11,7 +11,7 @@ let
 
       any-jump-vim = buildVimPlugin {
         pname = "any-jump-vim";
-        version = "0.1.0";
+        version = "2024-03-22";
         src = fetchFromGitHub {
           owner = "pechorin";
           repo = "any-jump.vim";
@@ -22,7 +22,7 @@ let
 
       before-nvim = buildVimPlugin {
         pname = "before-nvim";
-        version = "0.1.0";
+        version = "2024-03-19";
         src = fetchFromGitHub {
           owner = "bloznelis";
           repo = "before.nvim";
@@ -33,7 +33,7 @@ let
 
       diagflow-nvim = buildVimPlugin {
         pname = "diagflow-nvim";
-        version = "0.1.0";
+        version = "2024-07-18";
         src = fetchFromGitHub {
           owner = "dgagn";
           repo = "diagflow.nvim";
@@ -42,35 +42,34 @@ let
         };
       };
 
-      fugit2-nvim = buildVimPlugin {
+      fugit2-nvim = buildVimPlugin rec {
         pname = "fugit2-nvim";
-        version = "0.1.0";
+        version = "0.2.1";
         src = fetchFromGitHub {
           owner = "SuperBo";
           repo = "fugit2.nvim";
-          rev = "e8b262d3f974a301b9efae98a571e6c9e635ab16";
+          rev = "v${version}";
           hash = "sha256-U9Ve7mgJlQwArgDBOXC2ezaaG7zIOJalLEl5Hyw2jMA=";
         };
       };
 
       fzy-lua-native = let
+        version = "2023-07-08";
         src = super.stdenv.mkDerivation {
+          inherit version;
           pname = "fzy-lua-native";
-          version = "0.1.0";
           src = ./.;
           buildInputs = [ super.stdenv.cc.cc ];
           installPhase = "cp -r . $out";
         };
       in buildVimPlugin {
         pname = "fzy-lua-native";
-        version = "0.1.0";
-        inherit src;
+        inherit src version;
       };
 
-      lazy-nvim = let version = "11.14.1";
-      in buildVimPlugin {
+      lazy-nvim = buildVimPlugin rec {
         pname = "lazy-nvim";
-        version = "${version}";
+        version = "11.14.1";
         src = fetchFromGitHub {
           owner = "folke";
           repo = "lazy.nvim";
@@ -81,7 +80,7 @@ let
 
       luvit-meta = buildVimPlugin {
         pname = "luvit-meta";
-        version = "0.1.0";
+        version = "2024-01-20";
         src = fetchFromGitHub {
           owner = "Bilal2453";
           repo = "luvit-meta";
@@ -90,21 +89,21 @@ let
         };
       };
 
-      markview-nvim = buildVimPlugin {
+      markview-nvim = buildVimPlugin rec {
         pname = "markview-nvim";
-        version = "0.1.0";
+        version = "1.0.0";
         src = fetchFromGitHub {
           owner = "OXY2DEV";
           repo = "markview.nvim";
-          rev = "d0ccc97b5c988fb28e5033abdf7b832b9dfaf897";
-          hash = "sha256-mhRg/cszW/3oXdC1yvbpCeqWQA9WLW5FvcqGd/wBTnE=";
+          rev = "v${version}";
+          hash = "sha256-V0AXILgdgP8M6I4Cy0IjuVnzivLGPa5ZBHw+gSgVllY=";
           fetchSubmodules = true;
         };
       };
 
       neovim-project = buildVimPlugin {
         pname = "neovim-project";
-        version = "0.1.0";
+        version = "2024-07-08";
         src = fetchFromGitHub {
           owner = "coffebar";
           repo = "neovim-project";
@@ -115,7 +114,7 @@ let
 
       nix-reaver-nvim = buildVimPlugin {
         pname = "nix-reaver-nvim";
-        version = "0.1.0";
+        version = "2024-08-02";
         src = fetchFromGitHub {
           owner = "redxtech";
           repo = "nix-reaver.nvim";
@@ -126,7 +125,7 @@ let
 
       nvim-numbertoggle = buildVimPlugin {
         pname = "nvim-numbertoggle";
-        version = "0.1.0";
+        version = "2024-03-29";
         src = fetchFromGitHub {
           owner = "sitiom";
           repo = "nvim-numbertoggle";
@@ -137,7 +136,7 @@ let
 
       nvim-tinygit = buildVimPlugin {
         pname = "nvim-tinygit";
-        version = "0.1.0";
+        version = "2024-07-25";
         src = fetchFromGitHub {
           owner = "chrisgrieser";
           repo = "nvim-tinygit";
@@ -148,7 +147,7 @@ let
 
       nvim-vtsls = buildVimPlugin {
         pname = "nvim-vtsls";
-        version = "0.1.0";
+        version = "2024-06-27";
         src = fetchFromGitHub {
           owner = "yioneko";
           repo = "nvim-vtsls";
@@ -159,7 +158,7 @@ let
 
       profile-nvim = buildVimPlugin {
         pname = "profile-nvim";
-        version = "0.1.0";
+        version = "2024-04-23";
         src = fetchFromGitHub {
           owner = "stevearc";
           repo = "profile.nvim";
@@ -168,13 +167,13 @@ let
         };
       };
 
-      screenkey-nvim = buildVimPlugin {
+      screenkey-nvim = buildVimPlugin rec {
         pname = "screenkey-nvim";
-        version = "0.1.0";
+        version = "2.2.1";
         src = fetchFromGitHub {
           owner = "NStefan002";
           repo = "screenkey.nvim";
-          rev = "6c9b5a8a38d56f425a44bb8e4d3d49e6bb0cfa7d";
+          rev = "v${version}";
           hash = "sha256-Lb/jpSKR5ehW2fBvWZ6Y4zJ7w6aNtXa2Apu4WDvs5ek=";
         };
       };
@@ -213,7 +212,7 @@ let
 
       smart-open-nvim = buildVimPlugin {
         pname = "smart-open-nvim";
-        version = "0.1.0";
+        version = "2024-06-12";
         src = fetchFromGitHub {
           owner = "danielfalk";
           repo = "smart-open.nvim";
@@ -224,7 +223,7 @@ let
 
       telescope-repo-nvim = buildVimPlugin {
         pname = "telescope-repo-nvim";
-        version = "0.1.0";
+        version = "2024-04-25";
         src = fetchFromGitHub {
           owner = "cljoly";
           repo = "telescope-repo.nvim";
@@ -235,7 +234,7 @@ let
 
       tiny-devicons-auto-color-nvim = buildVimPlugin {
         pname = "tiny-devicons-auto-color-nvim";
-        version = "0.1.0";
+        version = "2024-06-16";
         src = fetchFromGitHub {
           owner = "rachartier";
           repo = "tiny-devicons-auto-colors.nvim";
