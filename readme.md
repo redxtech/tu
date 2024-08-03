@@ -32,7 +32,8 @@ will make most of them optional, but for now, they are all enabled.
 - completion with `blink.cmp`
   - new completion engine to replace `nvim-cmp`. uses a custom fuzzy searcher.
     performance is improved through use of good algorithms in rust.
-  - `blink.nvim` comes with a couple other plugins:
+  - [`blink.nvim`](https://github.com/saghen/blink.nvim) comes with a couple
+    other plugins:
     - `blink.chartoggle`: toggles `;` and `,` at end of line
     - `blink.indent`: fast version of indent-blankline
     - `blink.tree`: fast file tree, inspired by `neo-tree`
