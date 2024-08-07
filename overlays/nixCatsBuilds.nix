@@ -4,7 +4,7 @@ importName: inputs:
 let
   overlay = self: super: {
     ${importName} = let
-      inherit (super) lib vimUtils fetchFromGitHub;
+      inherit (super) vimUtils fetchFromGitHub;
       inherit (vimUtils) buildVimPlugin;
     in {
       # define your overlay derivations here
@@ -21,7 +21,14 @@ let
             hash = "sha256-Ja4xNGruETSU1nq+r+hkJiFpnMbmL9m2JIKC6gHFGf4=";
           };
           buildInputs = [ super.stdenv.cc.cc ];
-          installPhase = "cp -r . $out";
+          installPhase = ''
+            cp -r . $out
+
+            # make plugin available in runtimepath/deps so that it can be loaded by
+            # telescope-fzy-native.nvim
+            mkdir -p $out/deps
+            ln -s $out $out/deps/fzy-lua-native
+          '';
         };
       };
 
@@ -66,6 +73,18 @@ let
         preInstall = ''
           ln -s ${silicon-lib}/lib/silicon.so lua/silicon.so
         '';
+      };
+
+      telescope-fzy-native-nvim = buildVimPlugin {
+        pname = "telescope-fzy-native-nvim";
+        version = "2022-09-11";
+        src = fetchFromGitHub {
+          owner = "nvim-telescope";
+          repo = "telescope-fzy-native.nvim";
+          rev = "282f069504515eec762ab6d6c89903377252bf5b";
+          sha256 = "1197jravq8li5xdmgh7zwvl91xbwm7l7abaw2vxgmaik4cf4vskh";
+          fetchSubmodules = true;
+        };
       };
     };
   };

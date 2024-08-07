@@ -81,7 +81,7 @@ return {
 	{
 		'OXY2DEV/markview.nvim',
 		name = 'markview-nvim',
-		ft = 'markdown',
+		lazy = false,
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
 		keys = {
 			{ '<leader>mv', '<cmd>Markview toggle<cr>', desc = 'Toggle markview for current buffer' },

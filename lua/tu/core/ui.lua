@@ -58,7 +58,11 @@ return {
 	-- partition UI elements
 	{
 		'folke/edgy.nvim',
+		name = 'edgy-nvim',
 		event = 'VeryLazy',
+		config = function(_, opts)
+			require('edgy').setup(opts)
+		end,
 		opts = {
 			animate = { enabled = false },
 			icons = {

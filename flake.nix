@@ -75,10 +75,7 @@
           # at BUILD TIME for plugins. WILL NOT be available to PATH
           # However, they WILL be available to the shell 
           # and neovim path when using nix develop
-          propagatedBuildInputs = {
-            core = with pkgs; [ libgit2 ];
-            # blink = with pkgs; [ inputs.blink-nvim.packages.${system}.default ];
-          };
+          propagatedBuildInputs = { core = with pkgs; [ libgit2 ]; };
 
           # lspsAndRuntimeDeps:
           # this section is for dependencies that should be available
@@ -108,10 +105,9 @@
               lua51Packages.luarocks # use jit ?
               lua51Packages.jsregexp # do i need this?
             ];
-            blink = with pkgs; [ libgit2 ];
             debug = with pkgs; [ gdb lldb ];
             fugit = with pkgs; [ gpgme libgit2 lua5_1 lua51Packages.luarocks ];
-            git = with pkgs; [ git ];
+            git = with pkgs; [ git libgit2 ];
             langs = with pkgs; [
               # general
               dprint # formatter for many languages
@@ -235,12 +231,14 @@
             core = [
               any-jump-vim # fallback goto when no lsp
               before-nvim # go to previous edit
+              inputs.blink-nvim.packages.${pkgs.system}.default
               # Comment-nvim # commenting  TODO: is this needed?
               diagflow-nvim # show diagnostics in corner
               eagle-nvim # lsp signature on mouse hover
-              vimPlugins.edgy-nvim # window management
+              edgy-nvim # window management
               fidget-nvim # lsp status in bottom right
               flash-nvim # movement with s/S f/F
+              friendly-snippets
               nixCatsBuilds.fzy-lua-native # native fzy
               incline-nvim # alternative to winbar
               inc-rename-nvim # visual rename variables with lsp
@@ -258,6 +256,7 @@
               nvim-notify # notifications
               nvim-numbertoggle # toggle line numbers automatically
               nvim-spectre # search and replace
+              nvim-snippets
               vimPlugins.nvim-treesitter.withAllGrammars # syntax highlighting
               nvim-web-devicons # file icons
               plenary-nvim # lua helpers
@@ -268,7 +267,7 @@
               sqlite-lua # sqlite bindings
               telescope-nvim # pickers
               telescope-repo-nvim # repo picker
-              vimPlugins.telescope-fzy-native-nvim
+              telescope-fzy-native-nvim
               telescope-zoxide # zoxide integration
               tiny-devicons-auto-colors-nvim # colour devicons with theme colors
               todo-comments-nvim # highlight TODOs, FIXMEs, etc.
@@ -282,12 +281,7 @@
               tokyonight-nvim
             ];
 
-            ai = [ vimPlugins.supermaven-nvim ];
-            blink = [
-              inputs.blink-nvim.packages.${pkgs.system}.default
-              vimPlugins.nvim-snippets
-              friendly-snippets
-            ];
+            ai = [ supermaven-nvim ];
             cmp = [ nvim-cmp LuaSnip cmp-luasnip cmp-nvim-lsp cmp-path ];
             debug = [ nvim-dap ];
             format = [
@@ -299,14 +293,13 @@
               dressing-nvim # ui lib (dep for overseer-nvim)
               fugit2-nvim # git client
               nvim-tinygit # github issue integration
-              nui-nvim # ui library
             ];
-            git = with vimPlugins; [
+            git = [
               diffview-nvim # git diff viewer
               gitsigns-nvim # git signs in gutter
               neogit # git integration
             ];
-            langs = with vimPlugins; [
+            langs = [
               # format tool
               efmls-configs-nvim
 
@@ -354,19 +347,14 @@
               nixCatsBuilds.silicon-nvim # screenshot code
               sort-nvim # sort lines
               url-open # open more urls
-              vimPlugins.vim-eunuch # unix tools
+              vim-eunuch # unix tools
             ];
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH
           # variable available to nvim runtime
           sharedLibraries = {
-            core = with pkgs; [
-              libgit2
-              sqlite
-              # inputs.blink-nvim.packages.${pkgs.system}.default
-            ];
-
+            core = with pkgs; [ libgit2 sqlite ];
             fugit = with pkgs; [ gpgme libgit2 ];
           };
 
@@ -438,7 +426,6 @@
             core = true;
 
             ai = true;
-            blink = true;
             cmp = false;
             debug = false;
             format = true;

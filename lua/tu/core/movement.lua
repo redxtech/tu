@@ -58,7 +58,6 @@ return {
 			'nvim-telescope/telescope.nvim',
 			-- 'numToStr/Comment.nvim', -- Optional
 		},
-		event = 'LspAttach',
 		cmd = { 'Navbuddy' },
 		keys = { { '<leader>nv', '<cmd>Navbuddy<cr>', desc = 'Navigate' } },
 		opts = { lsp = { auto_attach = true } },

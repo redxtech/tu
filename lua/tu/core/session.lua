@@ -9,7 +9,7 @@ return {
 			'nvim-telescope/telescope.nvim',
 			-- to avoid calling before loaded
 			'nvim-treesitter/nvim-treesitter',
-			'OXY2DEV/markview.nvim',
+			{ 'OXY2DEV/markview.nvim', name = 'markview-nvim' },
 			'kevinhwang91/nvim-ufo',
 			'saghen/blink.nvim',
 		},

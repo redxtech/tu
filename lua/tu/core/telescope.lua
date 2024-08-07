@@ -1,6 +1,7 @@
 return {
 	{
 		'nvim-telescope/telescope-fzy-native.nvim',
+		name = 'telescope-fzy-native-nvim',
 		dependencies = {
 			{
 				'romgrk/fzy-lua-native',
@@ -19,6 +20,7 @@ return {
 	},
 	{
 		'nvim-telescope/telescope.nvim',
+		name = 'telescope-nvim',
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		keys = {
 			{ '<leader>.', '<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>', desc = 'Buffers' },
@@ -61,6 +63,9 @@ return {
 			{ '<leader>so', '<cmd>Telescope vim_options<cr>', desc = 'Options' },
 			{ '<leader>cl', '<cmd>Telescope filetypes<cr>', desc = 'Pick Language' },
 		},
+		config = function(_, opts)
+			require('telescope').setup(opts)
+		end,
 		opts = function()
 			-- local resolve = require('telescope.resolve')
 			local actions = require('telescope.actions')
