@@ -7,7 +7,8 @@
     nixCats.inputs.nixpkgs.follows = "nixpkgs";
     nix-appimage.url = "github:ralismark/nix-appimage";
     nix-appimage.inputs.nixpkgs.follows = "nixpkgs";
-    nix-neovim-plugins.url = "github:NixNeovim/NixNeovimPlugins";
+    nix-neovim-plugins.url =
+      "github:redxtech/NixNeovimPlugins/add-more-plugins";
     nix-neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
