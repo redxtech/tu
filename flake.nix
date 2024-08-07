@@ -1,22 +1,3 @@
-# Copyright (c) 2023 BirdeeHub
-# Licensed under the MIT license
-
-# This is an empty nixCats config.
-# you may import this template directly into your nvim folder
-# and then add plugins to categories here,
-# and call the plugins with their default functions
-# within your lua, rather than through the nvim package manager's method.
-# Use the help, and the example repository https://github.com/BirdeeHub/nixCats-nvim
-
-# It allows for easy adoption of nix,
-# while still providing all the extra nix features immediately.
-# Configure in lua, check for a few categories, set a few settings,
-# output packages with combinations of those categories and settings.
-
-# All the same options you make here will be automatically exported in a form available
-# in home manager and in nixosModules, as well as from other flakes.
-# each section is tagged with its relevant help section.
-
 {
   description = "A Lua-natic's neovim flake, with extra cats! nixCats!";
 
@@ -67,12 +48,7 @@
         let
           # see :help nixCats.flake.outputs.overlays
           dependencyOverlays = (import ./overlays inputs) ++ [
-            # This overlay grabs all the inputs named in the format
-            # `plugins-<pluginName>`
-            # Once we add this overlay to our nixpkgs, we are able to
-            # use `pkgs.neovimPlugins`, which is a set of our plugins.
             (utils.standardPluginOverlay inputs)
-            # add any flake overlays here.
             inputs.nix-neovim-plugins.overlays.default
             inputs.fenix.overlays.default
           ];
@@ -243,159 +219,143 @@
             ];
           };
 
-          startupPlugins = {
-            core = with vimExtraPlugins;
-              with nixCatsBuilds; [
-                lazy-nvim # lazy package manager
-                inputs.dracula.packages.${pkgs.system}.default # dracula theme
-                dashboard-nvim # dashboard  TODO: move to lazy ?
-                flatten-nvim # open nested nvim instances in current window
-              ];
+          startupPlugins = with vimExtraPlugins; {
+            core = [
+              lazy-nvim # lazy package manager
+              inputs.dracula.packages.${pkgs.system}.default # dracula theme
+              dashboard-nvim # dashboard  TODO: move to lazy ?
+              flatten-nvim # open nested nvim instances in current window
+            ];
 
-            profile = with nixCatsBuilds; [ profile-nvim ];
+            profile = [ profile-nvim ];
           };
 
           # not loaded automatically at startup.
-          optionalPlugins = {
-            core = with vimExtraPlugins;
-              with nixCatsBuilds; [
-                any-jump-vim # fallback goto when no lsp
-                before-nvim # go to previous edit
-                # Comment-nvim # commenting  TODO: is this needed?
-                diagflow-nvim # show diagnostics in corner
-                eagle-nvim # lsp signature on mouse hover
-                vimPlugins.edgy-nvim # window management
-                fidget-nvim # lsp status in bottom right
-                flash-nvim # movement with s/S f/F
-                fzy-lua-native # native fzy
-                incline-nvim # alternative to winbar
-                inc-rename-nvim # visual rename variables with lsp
-                lazydev-nvim # load lua lsp faster
-                lsp-lines-nvim # show lsp diagnostics as virtual text;
-                mini-nvim # a bunch of minimal plugins
-                neovim-project # project list
-                neovim-session-manager # session management (dep for neovim-project)
-                noice-nvim # ui replacements
-                none-ls-nvim # fallback lsp
-                nui-nvim # ui library
-                nvim-lspconfig # lsp configs
-                nvim-navbuddy # navic based navigation
-                nvim-navic # breadcrumbs provider
-                nvim-notify # notifications
-                nvim-numbertoggle # toggle line numbers automatically
-                nvim-spectre # search and replace
-                vimPlugins.nvim-treesitter.withAllGrammars # syntax highlighting
-                nvim-web-devicons # file icons
-                plenary-nvim # lua helpers
-                promise-async # async functions (dep for nvim-ufo)
-                rainbow-delimiters-nvim # rainbow {}[]()
-                satellite-nvim # scrollbar
-                smart-open-nvim # better file search
-                sqlite-lua # sqlite bindings
-                telescope-nvim # pickers
-                telescope-repo-nvim # repo picker
-                vimPlugins.telescope-fzy-native-nvim
-                telescope-zoxide # zoxide integration
-                tiny-devicons-auto-colors-nvim # colour devicons with theme colors
-                todo-comments-nvim # highlight TODOs, FIXMEs, etc.
-                toggleterm-nvim # toggleable terminal
-                treesj # splits and joins
-                trouble-nvim # quickfix and location list
-                which-key-nvim # show keymaps
+          optionalPlugins = with vimExtraPlugins; {
+            core = [
+              any-jump-vim # fallback goto when no lsp
+              before-nvim # go to previous edit
+              # Comment-nvim # commenting  TODO: is this needed?
+              diagflow-nvim # show diagnostics in corner
+              eagle-nvim # lsp signature on mouse hover
+              vimPlugins.edgy-nvim # window management
+              fidget-nvim # lsp status in bottom right
+              flash-nvim # movement with s/S f/F
+              nixCatsBuilds.fzy-lua-native # native fzy
+              incline-nvim # alternative to winbar
+              inc-rename-nvim # visual rename variables with lsp
+              lazydev-nvim # load lua lsp faster
+              lsp-lines-nvim # show lsp diagnostics as virtual text;
+              mini-nvim # a bunch of minimal plugins
+              neovim-project # project list
+              neovim-session-manager # session management (dep for neovim-project)
+              noice-nvim # ui replacements
+              none-ls-nvim # fallback lsp
+              nui-nvim # ui library
+              nvim-lspconfig # lsp configs
+              nvim-navbuddy # navic based navigation
+              nvim-navic # breadcrumbs provider
+              nvim-notify # notifications
+              nvim-numbertoggle # toggle line numbers automatically
+              nvim-spectre # search and replace
+              vimPlugins.nvim-treesitter.withAllGrammars # syntax highlighting
+              nvim-web-devicons # file icons
+              plenary-nvim # lua helpers
+              promise-async # async functions (dep for nvim-ufo)
+              rainbow-delimiters-nvim # rainbow {}[]()
+              satellite-nvim # scrollbar
+              smart-open-nvim # better file search
+              sqlite-lua # sqlite bindings
+              telescope-nvim # pickers
+              telescope-repo-nvim # repo picker
+              vimPlugins.telescope-fzy-native-nvim
+              telescope-zoxide # zoxide integration
+              tiny-devicons-auto-colors-nvim # colour devicons with theme colors
+              todo-comments-nvim # highlight TODOs, FIXMEs, etc.
+              toggleterm-nvim # toggleable terminal
+              treesj # splits and joins
+              trouble-nvim # quickfix and location list
+              which-key-nvim # show keymaps
 
-                # alternate themes
-                onedark-nvim
-                tokyonight-nvim
-              ];
+              # alternate themes
+              onedark-nvim
+              tokyonight-nvim
+            ];
 
             ai = [ vimPlugins.supermaven-nvim ];
             blink = [
               inputs.blink-nvim.packages.${pkgs.system}.default
               vimPlugins.nvim-snippets
-              vimExtraPlugins.friendly-snippets
+              friendly-snippets
             ];
-            cmp = with vimExtraPlugins; [
-              nvim-cmp
-              LuaSnip
-              cmp-luasnip
-              cmp-nvim-lsp
-              cmp-path
+            cmp = [ nvim-cmp LuaSnip cmp-luasnip cmp-nvim-lsp cmp-path ];
+            debug = [ nvim-dap ];
+            format = [
+              conform-nvim # format wrapper plugin
             ];
-            debug = with vimExtraPlugins; [ nvim-dap ];
-            format = with vimExtraPlugins;
-              [
-                conform-nvim # format wrapper plugin
-              ];
-            fugit = with vimExtraPlugins;
-              with nixCatsBuilds; [
-                # lazy
-                diffview-nvim # git diff viewer
-                dressing-nvim # ui lib (dep for overseer-nvim)
-                fugit2-nvim # git client
-                nvim-tinygit # github issue integration
-                nui-nvim # ui library
-              ];
-            git = with vimPlugins;
-              with vimExtraPlugins; [
-                diffview-nvim # git diff viewer
-                gitsigns-nvim # git signs in gutter
-                neogit # git integration
-              ];
-            langs = with vimPlugins;
-              with vimExtraPlugins;
-              with nixCatsBuilds; [
-                # format tool
-                efmls-configs-nvim
+            fugit = [
+              # lazy
+              diffview-nvim # git diff viewer
+              dressing-nvim # ui lib (dep for overseer-nvim)
+              fugit2-nvim # git client
+              nvim-tinygit # github issue integration
+              nui-nvim # ui library
+            ];
+            git = with vimPlugins; [
+              diffview-nvim # git diff viewer
+              gitsigns-nvim # git signs in gutter
+              neogit # git integration
+            ];
+            langs = with vimPlugins; [
+              # format tool
+              efmls-configs-nvim
 
-                # lua
-                luvit-meta
+              # lua
+              luvit-meta
 
-                # python
-                venv-selector-nvim
+              # python
+              venv-selector-nvim
 
-                # rust
-                rustaceanvim
+              # rust
+              rustaceanvim
 
-                # yaml
-                vim-helm
-                yaml-companion-nvim
+              # yaml
+              vim-helm
+              yaml-companion-nvim
 
-                # web
-                nvim-ts-autotag
-                nvim-vtsls
-                tsc-nvim
-              ];
-            statusline = with vimExtraPlugins;
-              [
-                lualine-nvim # statusline
-                # vimPlugins.lualine-lsp-progress # lsp progress
-              ];
-            bufferline = with vimExtraPlugins;
-              [
-                bufferline-nvim # bufferline
-              ];
-            utils = with vimExtraPlugins;
-              with nixCatsBuilds; [
-                better-escape-nvim # jk to escape insert mode
-                dressing-nvim # ui lib (dep for overseer-nvim)
-                goto-preview # preview definition in window
-                markview-nvim # markdown preview
-                inputs.moveline.packages.${pkgs.system}.default # move blocks of text
-                nix-develop-nvim # run `nix develop` without restarting neovim
-                nix-reaver-nvim # update rev & hash of fetchFromGitHub
-                numb-nvim # peek at line before jump
-                nvim-colorizer-lua # colorize hex, rgb, etc. codes
-                nvim-lightbulb # show code actions
-                nvim-ufo # folds
-                oil-nvim # tree explorer
-                overseer-nvim # task runner integration
-                promise-async # async functions (dep for nvim-ufo)
-                screenkey-nvim # screenkey in neovim
-                silicon-nvim # screenshot code
-                sort-nvim # sort lines
-                url-open # open more urls
-                vimPlugins.vim-eunuch # unix tools
-              ];
+              # web
+              nvim-ts-autotag
+              nvim-vtsls
+              tsc-nvim
+            ];
+            statusline = [
+              lualine-nvim # statusline
+              # vimPlugins.lualine-lsp-progress # lsp progress
+            ];
+            bufferline = [
+              bufferline-nvim # bufferline
+            ];
+            utils = [
+              better-escape-nvim # jk to escape insert mode
+              dressing-nvim # ui lib (dep for overseer-nvim)
+              goto-preview # preview definition in window
+              markview-nvim # markdown preview
+              inputs.moveline.packages.${pkgs.system}.default # move blocks of text
+              nix-develop-nvim # run `nix develop` without restarting neovim
+              nixCatsBuilds.nix-reaver-nvim # update rev & hash of fetchFromGitHub
+              numb-nvim # peek at line before jump
+              nvim-colorizer-lua # colorize hex, rgb, etc. codes
+              nvim-lightbulb # show code actions
+              nvim-ufo # folds
+              oil-nvim # tree explorer
+              overseer-nvim # task runner integration
+              promise-async # async functions (dep for nvim-ufo)
+              screenkey-nvim # screenkey in neovim
+              nixCatsBuilds.silicon-nvim # screenshot code
+              sort-nvim # sort lines
+              url-open # open more urls
+              vimPlugins.vim-eunuch # unix tools
+            ];
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH

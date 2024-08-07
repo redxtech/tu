@@ -8,6 +8,7 @@ return {
 			'Shatur/neovim-session-manager',
 			'nvim-telescope/telescope.nvim',
 			-- to avoid calling before loaded
+			'nvim-treesitter/nvim-treesitter',
 			'OXY2DEV/markview.nvim',
 			'kevinhwang91/nvim-ufo',
 			'saghen/blink.nvim',
