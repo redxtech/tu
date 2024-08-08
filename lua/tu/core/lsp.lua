@@ -145,15 +145,4 @@ return {
 			vim.g.any_jump_disable_default_keybindings = 1
 		end,
 	},
-
-	{
-		'soulis-1256/eagle.nvim',
-		name = 'eagle-nvim',
-		init = function()
-			vim.o.mousemoveevent = true
-		end,
-		config = function(_, opts)
-			require('eagle').setup(opts)
-		end,
-	},
 }

@@ -235,7 +235,6 @@
               inputs.blink-nvim.packages.${pkgs.system}.default
               # Comment-nvim # commenting  TODO: is this needed?
               diagflow-nvim # show diagnostics in corner
-              eagle-nvim # lsp signature on mouse hover
               edgy-nvim # window management
               fidget-nvim # lsp status in bottom right
               flash-nvim # movement with s/S f/F

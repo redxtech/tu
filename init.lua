@@ -55,7 +55,6 @@ if require('nixCatsUtils').isNixCats then
 		'diagflow.nvim',
 		'diffview.nvim',
 		'dracula.nvim',
-		'eagle.nvim',
 		'edgy.nvim',
 		'efmls-configs-nvim',
 		'fidget.nvim',
