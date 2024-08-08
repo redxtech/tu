@@ -110,6 +110,15 @@ return {
 		},
 	},
 
+	-- scrolling animation
+	{
+		'karb94/neoscroll.nvim',
+		name = 'neoscroll-nvim',
+		config = function(_, opts)
+			require('neoscroll').setup(opts)
+		end,
+	},
+
 	-- show keymaps
 	{ -- Useful plugin to show you pending keybinds.
 		'folke/which-key.nvim',

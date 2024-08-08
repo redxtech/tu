@@ -29,6 +29,14 @@ return {
 		end,
 	},
 	{
+		'nkakouros-original/scrollofffraction.nvim',
+		name = 'scrollofffraction-nvim',
+		event = 'BufEnter',
+		config = function(_, opts)
+			require('scrollofffraction').setup(opts)
+		end,
+	},
+	{
 		'redxtech/nix-reaver.nvim',
 		name = 'nix-reaver-nvim',
 		keys = {

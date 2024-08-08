@@ -242,9 +242,11 @@
               nixCatsBuilds.fzy-lua-native # native fzy
               incline-nvim # alternative to winbar
               inc-rename-nvim # visual rename variables with lsp
+              instant-nvim # session sharing
               lazydev-nvim # load lua lsp faster
               lsp-lines-nvim # show lsp diagnostics as virtual text;
               mini-nvim # a bunch of minimal plugins
+              neoscroll-nvim # smooth scrolling
               neovim-project # project list
               neovim-session-manager # session management (dep for neovim-project)
               noice-nvim # ui replacements
@@ -263,6 +265,7 @@
               promise-async # async functions (dep for nvim-ufo)
               rainbow-delimiters-nvim # rainbow {}[]()
               satellite-nvim # scrollbar
+              scrollofffraction-nvim # auto scrolloff size
               smart-open-nvim # better file search
               sqlite-lua # sqlite bindings
               telescope-nvim # pickers
