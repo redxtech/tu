@@ -43,6 +43,17 @@ let
         };
       };
 
+      sharing-nvim = buildVimPlugin {
+        pname = "sharing-nvim";
+        version = "2024-08-08";
+        src = fetchFromGitHub {
+          owner = "redxtech";
+          repo = "sharing.nvim";
+          rev = "e4b96343b0fadc7e87d13bd637551ab1d4b9db35";
+          hash = "sha256-53HVnJUvm5aRb6iRATq/sbwhe1bo+6/5moPVnbyDwo8=";
+        };
+      };
+
       silicon-nvim = let
         version = "0.5.0";
         silicon-lib = super.stdenv.mkDerivation {

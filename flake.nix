@@ -266,6 +266,7 @@
               rainbow-delimiters-nvim # rainbow {}[]()
               satellite-nvim # scrollbar
               scrollofffraction-nvim # auto scrolloff size
+              nixCatsBuilds.sharing-nvim # session sharing QoL
               smart-open-nvim # better file search
               sqlite-lua # sqlite bindings
               telescope-nvim # pickers

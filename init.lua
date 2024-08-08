@@ -85,6 +85,7 @@ if require('nixCatsUtils').isNixCats then
 		'satellite.nvim',
 		'screenkey.nvim',
 		'scrollofffraction.nvim',
+		'sharing.nvim',
 		'silicon.nvim',
 		'smart-open.nvim',
 		'sort.nvim',
