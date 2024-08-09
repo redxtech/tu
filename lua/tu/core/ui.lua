@@ -219,6 +219,7 @@ return {
 	{
 		'folke/todo-comments.nvim',
 		name = 'todo-comments-nvim',
+		event = 'BufRead',
 		keys = {
 			{ '<leader>tq', '<cmd>TodoQuickFix<cr>', desc = 'Todos' },
 			{ '<leader>td', '<cmd>Trouble todo<cr>', desc = 'Todos' },
