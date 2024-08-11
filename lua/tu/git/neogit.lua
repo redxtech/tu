@@ -2,7 +2,11 @@ return {
 	-- client
 	{
 		'NeogitOrg/neogit',
-		dependencies = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim', 'nvim-telescope/telescope.nvim' },
+		dependencies = {
+			'sindrets/diffview.nvim',
+			'nvim-telescope/telescope.nvim',
+			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
+		},
 		keys = {
 			{ '<leader>gg', '<cmd>Neogit kind=auto<cr>', desc = 'Open Neogit' },
 		},

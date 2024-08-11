@@ -21,7 +21,9 @@ return {
 	{
 		'nvim-telescope/telescope.nvim',
 		name = 'telescope-nvim',
-		dependencies = { 'nvim-lua/plenary.nvim' },
+		dependencies = {
+			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
+		},
 		keys = {
 			{ '<leader>.', '<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>', desc = 'Buffers' },
 			{ '<leader>:', '<cmd>Telescope command_history<cr>', desc = 'Command History' },
@@ -168,8 +170,8 @@ return {
 		'cljoly/telescope-repo.nvim',
 		name = 'telescope-repo-nvim',
 		dependencies = {
-			'nvim-lua/plenary.nvim',
 			'nvim-telescope/telescope.nvim',
+			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
 		},
 		keys = {
 			{ '<leader>fg', "<cmd>lua require'telescope'.extensions.repo.list{}<cr>", desc = 'Git Repositories' },

@@ -13,7 +13,7 @@ return {
 		name = 'yaml-companion-nvim',
 		dependencies = {
 			{ 'neovim/nvim-lspconfig' },
-			{ 'nvim-lua/plenary.nvim' },
+			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
 			{ 'nvim-telescope/telescope.nvim' },
 		},
 		ft = 'yaml',

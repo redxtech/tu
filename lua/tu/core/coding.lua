@@ -30,7 +30,9 @@ return {
 	-- find and replace across workspace
 	{
 		'nvim-pack/nvim-spectre',
-		dependencies = { 'nvim-lua/plenary.nvim' },
+		dependencies = {
+			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
+		},
 		keys = {
 			{ '<leader>H', '<cmd>lua require("spectre").toggle()<cr>', desc = 'Find and Replace (Workspace)' },
 		},

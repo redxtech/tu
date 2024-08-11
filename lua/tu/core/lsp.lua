@@ -131,7 +131,9 @@ return {
 	{
 		'nvimtools/none-ls.nvim',
 		name = 'none-ls-nvim',
-		dependencies = { 'nvim-lua/plenary.nvim' },
+		dependencies = {
+			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
+		},
 	},
 
 	-- emulates the LSP definition and references when unsupported

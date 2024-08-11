@@ -4,9 +4,9 @@ return {
 		'coffebar/neovim-project',
 		lazy = vim.fn.getcwd() == os.getenv('HOME'),
 		dependencies = {
-			'nvim-lua/plenary.nvim',
 			'Shatur/neovim-session-manager',
 			'nvim-telescope/telescope.nvim',
+			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
 			-- to avoid calling before loaded
 			'nvim-treesitter/nvim-treesitter',
 			{ 'OXY2DEV/markview.nvim', name = 'markview-nvim' },
@@ -57,6 +57,7 @@ return {
 				'~/Code/*',
 				'~/Code/nvim/*',
 				'~/Software/*',
+				'~/Work/*/*',
 
 				-- dotfiles
 				-- '~/.config/*',
