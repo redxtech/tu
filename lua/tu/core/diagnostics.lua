@@ -65,11 +65,18 @@ return {
 	},
 
 	-- Show diagnostics in the top right instead of inline
-	-- TODO: gets in the way sometimes, consolidate with fidget and noice?
 	{
 		'dgagn/diagflow.nvim',
 		name = 'diagflow-nvim',
-		-- enabled = false,
+		keys = {
+			{
+				'<leader>uD',
+				function()
+					require('diagflow').toggle()
+				end,
+				desc = 'Toggle diagflow',
+			},
+		},
 		event = 'LspAttach',
 		config = function(_, opts)
 			require('diagflow').setup(opts)
@@ -80,17 +87,11 @@ return {
 	{
 		'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
 		name = 'lsp-lines-nvim',
-		-- enabled = false,
 		keys = {
 			{
 				'<leader>ud',
 				function()
-					vim.g.lsp_lines_active = not vim.g.lsp_lines_active
-					vim.diagnostic.config({
-						virtual_lines = vim.g.lsp_lines_active,
-					})
 					require('lsp_lines').toggle()
-					require('diagflow').toggle()
 				end,
 				desc = 'Toggle Verbose Diagnostics',
 			},
