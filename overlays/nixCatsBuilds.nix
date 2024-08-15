@@ -32,6 +32,17 @@ let
         };
       };
 
+      neogit = buildVimPlugin {
+        pname = "neogit";
+        version = "2023-08-01";
+        src = fetchFromGitHub {
+          owner = "NeogitOrg";
+          repo = "neogit";
+          rev = "2b74a777b963dfdeeabfabf84d5ba611666adab4";
+          hash = "sha256-K9KbLRrEPfKGSbLl/dMoUcILsMmpv3kyCALmgX7if80=";
+        };
+      };
+
       nix-reaver-nvim = buildVimPlugin {
         pname = "nix-reaver-nvim";
         version = "2024-08-02";

@@ -760,16 +760,16 @@
         "poetry2nix": "poetry2nix_2"
       },
       "locked": {
-        "lastModified": 1723057941,
-        "narHash": "sha256-zRzchgNto7RPK2TmpAtLRNF1+Re6IaWLiJLLziHgxK8=",
+        "lastModified": 1723400004,
+        "narHash": "sha256-L1B0feXYWM/oaGaJAegVsDAWLVBtEcqcZ4gI+/cnYjY=",
         "owner": "redxtech",
         "repo": "NixNeovimPlugins",
-        "rev": "a7b061c7b22f9bc9749f1d8972078d68826d1762",
+        "rev": "4a812c5ad6926af25c52c4db3610ce669919e1e1",
         "type": "github"
       },
       "original": {
         "owner": "redxtech",
-        "ref": "add-more-plugins",
+        "ref": "main",
         "repo": "NixNeovimPlugins",
         "type": "github"
       }
