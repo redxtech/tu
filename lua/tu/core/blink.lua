@@ -61,7 +61,21 @@ return {
 			chartoggle = { enabled = true },
 			cmp = { enabled = true },
 			indent = { enabled = true },
-			tree = { enabled = true },
+			tree = {
+				enabled = true,
+				never_show = {
+					'.cache',
+					'.devenv',
+					'.direnv',
+					'.git',
+					'.github',
+					'.pytest_cache',
+					'.ruff_cache',
+					'.venv',
+					'__pycache__',
+					'node_modules',
+				},
+			},
 		},
 		config = function(_, opts)
 			require('blink').setup(opts)
