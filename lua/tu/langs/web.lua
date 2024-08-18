@@ -28,7 +28,7 @@ return {
 			opts.servers.svelte = {}
 			opts.servers.tailwindcss = {}
 			opts.servers.volar = {}
-			-- opts.servers.vtsls = {}
+			opts.servers.vtsls = {}
 
 			-- tell efm to work with these filetypes
 			vim.list_extend(opts.servers.efm.filetypes, {

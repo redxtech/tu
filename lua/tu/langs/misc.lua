@@ -5,7 +5,7 @@ return {
 		opts = function(_, opts)
 			-- enable bufls and marksman servers
 			opts.servers.bufls = {}
-			opts.servers.dprint = {}
+			opts.servers.dprint = { filetypes = { 'markdown', 'toml' } }
 			opts.servers.hyprls = {}
 			opts.servers.marksman = {}
 			-- opts.servers.remark_ls = {} -- TODO: look into remark
