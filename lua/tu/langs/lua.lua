@@ -25,14 +25,14 @@ return {
 		opts = function(_, opts)
 			-- enable lua_ls server
 			opts.servers.lua_ls = {}
+		end,
+	},
 
-			-- tell efm to work with these filetypes
-			table.insert(opts.servers.efm.filetypes, 'lua')
-
-			-- choose efm formatters and linters
-			opts.servers.efm.settings.languages.lua = {
-				require('efmls-configs.formatters.stylua'),
-			}
+	{
+		'stevearc/conform.nvim',
+		name = 'conform-nvim',
+		opts = function(_, opts)
+			opts.formatters_by_ft.lua = { 'stylua' }
 		end,
 	},
 }

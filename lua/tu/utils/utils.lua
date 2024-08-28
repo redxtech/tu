@@ -38,6 +38,7 @@ return {
 	{
 		'boltlessengineer/smart-tab.nvim',
 		name = 'smart-tab-nvim',
+		enabled = false,
 		config = function(_, opts)
 			require('smart-tab').setup(opts)
 		end,

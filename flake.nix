@@ -111,7 +111,6 @@
             langs = with pkgs; [
               # general
               dprint # formatter for many languages
-              efm-langserver # format & lint lsp
               treefmt # multui-language format tool
               vscode-langservers-extracted # a bunch of language servers
 
@@ -167,6 +166,7 @@
 
               # shell
               shellcheck
+              shellharden
               shfmt
               nodePackages.bash-language-server
               fish # for fish_indent
@@ -287,9 +287,6 @@
             ai = [ supermaven-nvim ];
             cmp = [ nvim-cmp LuaSnip cmp-luasnip cmp-nvim-lsp cmp-path ];
             debug = [ nvim-dap ];
-            format = [
-              conform-nvim # format wrapper plugin
-            ];
             fugit = [
               # lazy
               diffview-nvim # git diff viewer
@@ -303,11 +300,14 @@
               nixCatsBuilds.neogit # git integration
             ];
             langs = [
-              # format tool
-              efmls-configs-nvim
+              # format wrapper plugin
+              conform-nvim
 
               # lua
               luvit-meta
+
+              # nix
+              vimPlugins.statix
 
               # python
               venv-selector-nvim
@@ -389,7 +389,7 @@
           # in your lua config via
           # vim.g.python3_host_prog
           # or run from nvim terminal via :!<packagename>-python3
-          extraPython3Packages = { test = (_: [ ]); };
+          extraPython3Packages = { test = _: [ ]; };
           # populates $LUA_PATH and $LUA_CPATH
           extraLuaPackages = {
             core = [ (luaPkgs: with luaPkgs; [ fzy ]) ];
@@ -433,7 +433,6 @@
             ai = true;
             cmp = false;
             debug = false;
-            format = true;
             fugit = true;
             git = true;
             langs = true;
@@ -497,7 +496,7 @@
         devShells = {
           default = pkgs.mkShell {
             name = defaultPackageName;
-            packages = builtins.map (name: nixCatsBuilder name) [
+            packages = builtins.map nixCatsBuilder [
               defaultPackageName
               "tu-dev"
               "tu-profile"

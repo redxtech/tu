@@ -45,7 +45,7 @@ will make most of them optional, but for now, they are all enabled.
     - preview definition/references in floating window
   - better diagnostics ui, with trouble, diagflow, and lsp_lines
 - linting and formatting
-  - uses efm as a wrapper for many linters and formatters
+  - uses conform as a wrapper for many formatters
 - ui customization
   - `dracula.nvim`: my fork of the classic colorscheme
   - `bufferline.nvim`

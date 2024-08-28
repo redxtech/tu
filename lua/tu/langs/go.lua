@@ -5,15 +5,14 @@ return {
 		opts = function(_, opts)
 			-- enable gopls  server
 			opts.servers.gopls = {}
+		end,
+	},
 
-			-- tell efm to work with these filetypes
-			table.insert(opts.servers.efm.filetypes, 'go')
-
-			-- choose efm formatters and linters
-			opts.servers.efm.settings.languages.go = {
-				require('efmls-configs.linters.golangci_lint'),
-				require('efmls-configs.formatters.gofmt'),
-			}
+	{
+		'stevearc/conform.nvim',
+		name = 'conform-nvim',
+		opts = function(_, opts)
+			opts.formatters_by_ft.go = { 'gofmt' }
 		end,
 	},
 }

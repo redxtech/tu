@@ -5,6 +5,20 @@ local choose_formatter = function()
 	return has_biome == 1 and { 'biome' } or { 'prettierd' }
 end
 
+---@param bufnr integer
+---@param ... string
+---@return string
+local function first(bufnr, ...)
+	local conform = require('conform')
+	for i = 1, select('#', ...) do
+		local formatter = select(i, ...)
+		if conform.get_formatter_info(formatter, bufnr).available then
+			return formatter
+		end
+	end
+	return select(1, ...)
+end
+
 return {
 	-- auto pairs for JSX
 	{
@@ -29,59 +43,34 @@ return {
 			opts.servers.tailwindcss = {}
 			opts.servers.volar = {}
 			opts.servers.vtsls = {}
+		end,
+	},
 
-			-- tell efm to work with these filetypes
-			vim.list_extend(opts.servers.efm.filetypes, {
-				'javascript',
-				'javascriptreact',
-				'typescript',
-				'typescriptreact',
-				'css',
-				'scss',
-				'less',
-				'html',
-				'json',
-				'jsonc',
-				'yaml',
-				'graphql',
-				'handlebars',
-				'svelte',
-				'vue',
-			})
+	{
+		'stevearc/conform.nvim',
+		name = 'conform-nvim',
+		opts = function(_, opts)
+			local web_fmt = function(bufnr)
+				return { 'eslint_d', first(bufnr, 'prettierd', 'prettier') }
+			end
 
-			-- choose efm formatters and linters
-			-- local biome = require('efmls-configs.formatters.biome')
-			local eslint_d_lint = require('efmls-configs.linters.eslint_d')
-			local eslint_d_fmt = require('efmls-configs.formatters.eslint_d')
-			local prettierd = require('efmls-configs.formatters.prettier_d')
-
-			local web_efm = {
-				eslint_d_lint,
-				eslint_d_fmt,
-				prettierd,
-			}
-
-			opts.servers.efm.settings.languages.javascript = web_efm
-			opts.servers.efm.settings.languages.javascriptreact = web_efm
-			opts.servers.efm.settings.languages.typescript = web_efm
-			opts.servers.efm.settings.languages.typescriptreact = web_efm
-			opts.servers.efm.settings.languages.css = web_efm
-			opts.servers.efm.settings.languages.scss = web_efm
-			opts.servers.efm.settings.languages.less = web_efm
-			opts.servers.efm.settings.languages.html = web_efm
-			opts.servers.efm.settings.languages.json = {
-				require('efmls-configs.linters.jq'),
-				require('efmls-configs.formatters.fixjson'),
-				eslint_d_lint,
-				eslint_d_fmt,
-				prettierd,
-			}
-			opts.servers.efm.settings.languages.jsonc = web_efm
-			opts.servers.efm.settings.languages.yaml = web_efm
-			opts.servers.efm.settings.languages.graphql = web_efm
-			opts.servers.efm.settings.languages.handlebars = web_efm
-			opts.servers.efm.settings.languages.svelte = web_efm
-			opts.servers.efm.settings.languages.vue = web_efm
+			opts.formatters_by_ft.javascript = web_fmt
+			opts.formatters_by_ft.javascriptreact = web_fmt
+			opts.formatters_by_ft.typescript = web_fmt
+			opts.formatters_by_ft.typescriptreact = web_fmt
+			opts.formatters_by_ft.css = web_fmt
+			opts.formatters_by_ft.scss = web_fmt
+			opts.formatters_by_ft.less = web_fmt
+			opts.formatters_by_ft.html = web_fmt
+			opts.formatters_by_ft.json = function(bufnr)
+				return vim.list_extend(web_fmt(bufnr), { 'jq', 'fixjson' })
+			end
+			opts.formatters_by_ft.jsonc = web_fmt
+			opts.formatters_by_ft.yaml = web_fmt
+			opts.formatters_by_ft.graphql = web_fmt
+			opts.formatters_by_ft.handlebars = web_fmt
+			opts.formatters_by_ft.svelte = web_fmt
+			opts.formatters_by_ft.vue = web_fmt
 		end,
 	},
 

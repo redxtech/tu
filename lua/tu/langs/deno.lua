@@ -23,18 +23,24 @@ return {
 			-- enable denols server
 			opts.servers.denols = {
 				root_dir = root_pattern_excludes({
-					root = 'deno.json?',
+					root = 'deno.jsonc?',
 					exclude = 'package.json',
 				}),
 			}
+		end,
+	},
 
-			-- tell efm to work with these filetypes
-			table.insert(opts.servers.efm.filetypes, 'typescript')
-
-			-- choose efm formatters and linters
-			opts.servers.efm.settings.languages.typescript = {
-				require('efmls-configs.formatters.deno_fmt'),
+	{
+		'stevearc/conform.nvim',
+		name = 'conform-nvim',
+		opts = function(_, opts)
+			opts.formatters.deno_fmt = {
+				condition = function(ctx)
+					return vim.fs.find({ 'deno.json' }, { path = ctx.filename, upward = true })[1]
+				end,
 			}
+
+			opts.formatters_by_ft.typescript = { 'deno_fmt' }
 		end,
 	},
 }

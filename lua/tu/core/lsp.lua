@@ -39,31 +39,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end,
 })
 
--- Format on save
-vim.api.nvim_create_autocmd('BufWritePre', {
-	desc = 'Format on save',
-	pattern = '*',
-	callback = function(args)
-		if not vim.api.nvim_buf_is_valid(args.buf) or vim.bo[args.buf].buftype ~= '' then
-			return
-		end
-		if vim.g.disable_autoformat then
-			return
-		end
-		vim.lsp.buf.format({
-			filter = function(client)
-				return client.name == 'efm'
-			end,
-		})
-	end,
-})
-
 return {
 	{
 		'neovim/nvim-lspconfig',
 		event = 'BufRead',
 		dependencies = {
-			{ 'creativenull/efmls-configs-nvim' },
 			-- enable mason if nix wasnt involved
 			{
 				'williamboman/mason.nvim',
@@ -72,46 +52,8 @@ return {
 				config = true,
 			},
 		},
-		keys = {
-			{
-				'<leader>cf',
-				function()
-					vim.lsp.buf.format({
-						filter = function(client)
-							return client.name == 'efm'
-						end,
-					})
-				end,
-				desc = 'Format',
-				mode = { 'n', 'v' },
-			},
-			{
-				'<leader>uf',
-				function()
-					if vim.g.disable_autoformat == nil then
-						vim.g.disable_autoformat = true
-					else
-						vim.g.disable_autoformat = not vim.g.disable_autoformat
-					end
-				end,
-				desc = 'Toggle format on save',
-			},
-		},
 		opts = {
-			servers = {
-				efm = {
-					filetypes = {},
-					settings = {
-						version = 2,
-						rootMarkers = { '.git/' },
-						languages = {},
-					},
-					init_options = {
-						documentFormatting = true,
-						documentRangeFormatting = true,
-					},
-				},
-			},
+			servers = {},
 		},
 		config = function(_, opts)
 			local lspconfig = require('lspconfig')
@@ -119,12 +61,6 @@ return {
 				lspconfig[server].setup(config)
 			end
 		end,
-	},
-
-	-- configure linters and formatters
-	{
-		'creativenull/efmls-configs-nvim',
-		name = 'efmls-configs-nvim',
 	},
 
 	-- fallpack ls functionality

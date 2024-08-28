@@ -23,19 +23,16 @@ return {
 			-- enable terraformls and tflint servers
 			opts.servers.terraformls = {}
 			opts.servers.tflint = {}
+		end,
+	},
 
-			-- tell efm to work with these filetypes
-			vim.list_extend(opts.servers.efm.filetypes, {
-				'terraform',
-				'tf',
-				'terraform-vars',
-			})
-
-			-- choose efm formatters and linters
-			local terraform_fmt = require('efmls-configs.formatters.terraform_fmt')
-			opts.servers.efm.settings.languages.terraform = { terraform_fmt }
-			opts.servers.efm.settings.languages.tf = { terraform_fmt }
-			opts.servers.efm.settings.languages['terraform-vars'] = { terraform_fmt }
+	{
+		'stevearc/conform.nvim',
+		name = 'conform-nvim',
+		opts = function(_, opts)
+			opts.formatters_by_ft.terraform = { 'terraform_fmt' }
+			opts.formatters_by_ft.tf = { 'terraform_fmt' }
+			opts.formatters_by_ft['terraform-vars'] = { 'terraform_fmt' }
 		end,
 	},
 }

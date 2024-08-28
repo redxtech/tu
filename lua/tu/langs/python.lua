@@ -30,16 +30,14 @@ return {
 			-- enable pyright and ruff_lsp servers
 			opts.servers.basedpyright = {}
 			opts.servers.ruff = {}
+		end,
+	},
 
-			-- tell efm to work with these filetypes
-			table.insert(opts.servers.efm.filetypes, 'python')
-
-			-- choose efm formatters and linters
-			opts.servers.efm.settings.languages.python = {
-				require('efmls-configs.linters.ruff'),
-				require('efmls-configs.formatters.black'),
-				require('efmls-configs.formatters.ruff'),
-			}
+	{
+		'stevearc/conform.nvim',
+		name = 'conform-nvim',
+		opts = function(_, opts)
+			opts.formatters_by_ft.python = { 'ruff_format', 'ruff_organize_imports', 'black' }
 		end,
 	},
 }
