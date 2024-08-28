@@ -23,7 +23,7 @@ opt.showmode = true -- We have a status line and modicator
 -- To prevent this, set `splitkeep` to either `screen` or `topline`.
 opt.splitkeep = 'screen'
 
-opt.conceallevel = 2 -- Hide * markup for bold and italic
+opt.conceallevel = 0 -- Don't hide * markup for bold and italic
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true -- Enable highlighting of the current line
 

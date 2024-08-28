@@ -335,7 +335,7 @@
               better-escape-nvim # jk to escape insert mode
               dressing-nvim # ui lib (dep for overseer-nvim)
               goto-preview # preview definition in window
-              markview-nvim # markdown preview
+              nixCatsBuilds.markview-nvim # markdown preview
               inputs.moveline.packages.${pkgs.system}.default # move blocks of text
               nix-develop-nvim # run `nix develop` without restarting neovim
               nixCatsBuilds.nix-reaver-nvim # update rev & hash of fetchFromGitHub

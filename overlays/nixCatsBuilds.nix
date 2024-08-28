@@ -43,6 +43,17 @@ let
         };
       };
 
+      markview-nvim = buildVimPlugin {
+        pname = "markview-nvim";
+        version = "2024-08-21";
+        src = fetchFromGitHub {
+          owner = "OXY2DEV";
+          repo = "markview.nvim";
+          rev = "4695a699ebd87889c815de07e1408331e5c1df61";
+          hash = "sha256-R1AsvatIvIcrD919wcQmXNQQ7T3D9PNnyswekmpdAzo=";
+        };
+      };
+
       nix-reaver-nvim = buildVimPlugin {
         pname = "nix-reaver-nvim";
         version = "2024-08-02";
