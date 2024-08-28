@@ -108,6 +108,28 @@ let
         '';
       };
 
+      smart-tab-nvim = buildVimPlugin {
+        pname = "smart-tab-nvim";
+        version = "2023-11-17";
+        src = fetchFromGitHub {
+          owner = "boltlessengineer";
+          repo = "smart-tab.nvim";
+          rev = "25b6686ddabd8503be1c24b578d7831e9ac8fb6c";
+          hash = "sha256-H1Nx0jgCKnaorjCNEUckJP2GOFmspcQTnfNSPPLxTM4=";
+        };
+      };
+
+      tabs-vs-spaces-nvim = buildVimPlugin {
+        pname = "tabs-vs-spaces-nvim";
+        version = "2024-05-30";
+        src = fetchFromGitHub {
+          owner = "tenxsoydev";
+          repo = "tabs-vs-spaces.nvim";
+          rev = "86cfc69bee95647b802ea49fcb816ff0ea798fc7";
+          hash = "sha256-a3q4MfSrewog3PHe9ubW6ehFWjuHnpaHTDMkMJLvTds=";
+        };
+      };
+
       telescope-fzy-native-nvim = buildVimPlugin {
         pname = "telescope-fzy-native-nvim";
         version = "2022-09-11";

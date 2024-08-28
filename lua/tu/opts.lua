@@ -10,7 +10,7 @@ opt.clipboard = 'unnamed'
 -- tabs
 opt.expandtab = false -- Dont use spaces instead of tabs
 opt.shiftwidth = 2 -- Size of an indent
-opt.cindent = false -- Insert indents automatically
+opt.cindent = true -- Insert indents automatically
 opt.smartindent = false -- Insert indents automatically
 opt.tabstop = 2 -- Number of spaces tabs count for
 

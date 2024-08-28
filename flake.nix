@@ -348,6 +348,8 @@
               promise-async # async functions (dep for nvim-ufo)
               screenkey-nvim # screenkey in neovim
               nixCatsBuilds.silicon-nvim # screenshot code
+              nixCatsBuilds.smart-tab-nvim # tab on non-whitespace line jumps to end of blick
+              nixCatsBuilds.tabs-vs-spaces-nvim # smart tab/spaces
               sort-nvim # sort lines
               url-open # open more urls
               vim-eunuch # unix tools

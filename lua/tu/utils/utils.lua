@@ -14,6 +14,13 @@ return {
 	{ 'tpope/vim-eunuch', event = 'BufEnter' },
 	{ 'sitiom/nvim-numbertoggle', event = 'UIEnter' },
 	{
+		'tenxsoydev/tabs-vs-spaces.nvim',
+		name = 'tabs-vs-spaces-nvim',
+		config = function(_, opts)
+			require('tabs-vs-spaces').setup(opts)
+		end,
+	},
+	{
 		'stevearc/oil.nvim',
 		name = 'oil-nvim',
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -26,6 +33,13 @@ return {
 		},
 		config = function(_, opts)
 			require('oil').setup(opts)
+		end,
+	},
+	{
+		'boltlessengineer/smart-tab.nvim',
+		name = 'smart-tab-nvim',
+		config = function(_, opts)
+			require('smart-tab').setup(opts)
 		end,
 	},
 	{
