@@ -69,7 +69,8 @@ return {
 			},
 		},
 		opts = {
-			notify_on_error = true,
+			notify_on_error = false,
+			notify_no_formatters = false,
 			default_format_opts = {
 				timeout_ms = 3000,
 				async = true,
