@@ -104,6 +104,7 @@ return {
 	{
 		'OXY2DEV/markview.nvim',
 		name = 'markview-nvim',
+		enabled = false,
 		lazy = false,
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
 		keys = {
