@@ -184,7 +184,7 @@
 
               # web
               biome
-              nodePackages.eslint
+              eslint
               eslint_d
               prettierd
               nodePackages.prettier
