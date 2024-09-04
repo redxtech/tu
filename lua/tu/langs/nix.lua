@@ -18,9 +18,4 @@ return {
 			}
 		end,
 	},
-
-	-- static linting
-	{
-		'oppiliappan/statix',
-	},
 }

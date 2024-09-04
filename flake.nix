@@ -306,9 +306,6 @@
               # lua
               luvit-meta
 
-              # nix
-              vimPlugins.statix
-
               # python
               venv-selector-nvim
 
