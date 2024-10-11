@@ -15,6 +15,8 @@
     fenix.inputs.nixpkgs.follows = "nixpkgs";
 
     # non-nixpkgs plugins
+    blink-cmp.url = "github:redxtech/blink.cmp";
+    blink-cmp.inputs.nixpkgs.follows = "nixpkgs";
     blink-nvim.url = "github:saghen/blink.nvim";
     blink-nvim.inputs.nixpkgs.follows = "nixpkgs";
     dracula.url = "github:redxtech/dracula.nvim";
@@ -231,6 +233,7 @@
             core = [
               any-jump-vim # fallback goto when no lsp
               before-nvim # go to previous edit
+              inputs.blink-cmp.packages.${pkgs.system}.default
               inputs.blink-nvim.packages.${pkgs.system}.default
               # Comment-nvim # commenting  TODO: is this needed?
               diagflow-nvim # show diagnostics in corner

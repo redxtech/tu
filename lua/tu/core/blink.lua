@@ -28,6 +28,39 @@ end
 
 return {
 	{
+		'saghen/blink.cmp',
+		-- name = 'blink-cmp',
+		enabled = true,
+		build = 'cargo build --release',
+		lazy = false,
+		dependencies = { 'rafamadriz/friendly-snippets' },
+		keys = {
+			map_blink_cmp('i', '<C-space>', 'show'),
+			map_blink_cmp('i', '<Tab>', 'accept'),
+			map_blink_cmp('i', '<Up>', 'select_prev'),
+			map_blink_cmp('i', '<Down>', 'select_next'),
+			map_blink_cmp('i', '<C-k>', 'select_prev'),
+			map_blink_cmp('i', '<C-j>', 'select_next'),
+		},
+		opts = {
+			highlight = {
+				use_nvim_cmp_as_default = true,
+			},
+			-- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+			-- adjusts spacing to ensure icons are aligned
+			nerd_font_variant = 'normal',
+
+			-- experimental auto-brackets support
+			accept = { auto_brackets = { enabled = true } },
+
+			-- experimental signature help support
+			trigger = { signature_help = { enabled = true } },
+		},
+		config = function(_, opts)
+			require('blink.cmp').setup(opts)
+		end,
+	},
+	{
 		'saghen/blink.nvim',
 		name = 'blink-nvim',
 		-- dev = true,
@@ -44,14 +77,6 @@ return {
 			map_blink_chartoggle(';'),
 			map_blink_chartoggle(','),
 
-			-- cmp
-			map_blink_cmp('i', '<C-space>', 'show'),
-			map_blink_cmp('i', '<Tab>', 'accept'),
-			map_blink_cmp('i', '<Up>', 'select_prev'),
-			map_blink_cmp('i', '<Down>', 'select_next'),
-			map_blink_cmp('i', '<C-k>', 'select_prev'),
-			map_blink_cmp('i', '<C-j>', 'select_next'),
-
 			-- tree
 			{ '<C-e>', '<cmd>BlinkTree reveal<cr>', desc = 'Reveal current file in tree' },
 			{ '<leader>E', '<cmd>BlinkTree toggle<cr>', desc = 'Reveal current file in tree' },
@@ -59,16 +84,20 @@ return {
 		},
 		opts = {
 			chartoggle = { enabled = true },
-			cmp = { enabled = true },
+			cmp = { enabled = false },
 			indent = { enabled = true },
 			tree = {
 				enabled = true,
-				never_show = {
-					'.cache',
-					'.devenv',
-					'.direnv',
-					'.git',
+				hidden_by_default = true,
+				hide_dotfiles = false,
+				hide = {
 					'.github',
+				},
+				never_show = {
+					'.git',
+					'.cache',
+					'.direnv',
+					'.devenv',
 					'.pytest_cache',
 					'.ruff_cache',
 					'.venv',
