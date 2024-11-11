@@ -4,10 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
-    nixCats.inputs.nixpkgs.follows = "nixpkgs";
     nix-appimage.url = "github:ralismark/nix-appimage";
     nix-appimage.inputs.nixpkgs.follows = "nixpkgs";
-    nix-neovim-plugins.url = "github:redxtech/NixNeovimPlugins/main";
+    nix-neovim-plugins.url = "github:NixNeovim/NixNeovimPlugins";
     nix-neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
@@ -21,10 +20,7 @@
     blink-nvim.inputs.nixpkgs.follows = "nixpkgs";
     dracula.url = "github:redxtech/dracula.nvim";
     dracula.inputs.nixpkgs.follows = "nixpkgs";
-    moveline.url = "github:redxtech/moveline.nvim";
-    moveline.inputs.nixpkgs.follows = "nixpkgs";
-    vtsls.url = "github:redxtech/vtsls";
-    vtsls.inputs.nixpkgs.follows = "nixpkgs";
+    vtsls.url = "github:kuglimon/nixpkgs/vtsls";
   };
 
   # see :help nixCats.flake.outputs
@@ -65,7 +61,10 @@
       # :help nixCats.flake.outputs.categoryDefinitions.scheme
       categoryDefinitions =
         { pkgs, settings, categories, name, ... }@packageDef:
-        let inherit (pkgs) vimPlugins vimExtraPlugins nixCatsBuilds;
+        let
+          inherit (pkgs) vimPlugins vimExtraPlugins nixCatsBuilds;
+          # TODO: remove this when vtsls is merged into nixpkgs
+          vtsls = inputs.vtsls.legacyPackages.${pkgs.system}.vtsls;
         in {
           # to define and use a new category, simply add a new list to a set here, 
           # and later, you will include categoryname = true; in the set you
@@ -198,7 +197,8 @@
               # htmx-lsp
               tailwindcss-language-server
               vscode-extensions.vue.volar
-              inputs.vtsls.packages.${pkgs.system}.default
+              vtsls
+              # inputs.vtsls.packages.${pkgs.system}.default
 
               # misc
               buf # protobuf utility
@@ -336,7 +336,7 @@
               dressing-nvim # ui lib (dep for overseer-nvim)
               goto-preview # preview definition in window
               nixCatsBuilds.markview-nvim # markdown preview
-              inputs.moveline.packages.${pkgs.system}.default # move blocks of text
+              vimPlugins.moveline-nvim # move blocks of text
               nix-develop-nvim # run `nix develop` without restarting neovim
               nixCatsBuilds.nix-reaver-nvim # update rev & hash of fetchFromGitHub
               numb-nvim # peek at line before jump
