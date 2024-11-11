@@ -29,8 +29,7 @@ end
 return {
 	{
 		'saghen/blink.cmp',
-		-- name = 'blink-cmp',
-		enabled = true,
+		name = 'blink-cmp',
 		build = 'cargo build --release',
 		lazy = false,
 		dependencies = { 'rafamadriz/friendly-snippets' },

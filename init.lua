@@ -155,7 +155,7 @@ local lazyOptions = {
 	},
 	dev = {
 		path = os.getenv('HOME') .. '/Code/nvim',
-		patterns = { 'saghen', 'redxtech' },
+		-- patterns = { 'saghen', 'redxtech' },
 		fallback = true,
 	},
 }

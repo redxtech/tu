@@ -26,7 +26,7 @@ return {
 				vim.api.nvim_create_autocmd({ 'User' }, {
 					pattern = 'SessionLoadPost',
 					group = sessions_group,
-					command = 'BlinkTree open silent',
+					command = 'BlinkTree open',
 				})
 			end
 

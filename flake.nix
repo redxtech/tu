@@ -15,7 +15,7 @@
     fenix.inputs.nixpkgs.follows = "nixpkgs";
 
     # non-nixpkgs plugins
-    blink-cmp.url = "github:redxtech/blink.cmp";
+    blink-cmp.url = "github:saghen/blink.cmp";
     blink-cmp.inputs.nixpkgs.follows = "nixpkgs";
     blink-nvim.url = "github:saghen/blink.nvim";
     blink-nvim.inputs.nixpkgs.follows = "nixpkgs";
