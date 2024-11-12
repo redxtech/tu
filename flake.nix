@@ -83,6 +83,33 @@
           # at RUN TIME for plugins. Will be available to PATH within neovim terminal
           # this includes LSPs
           lspsAndRuntimeDeps = {
+            ai = let
+              inherit (pkgs) stdenv fetchurl;
+
+              platform = if stdenv.isDarwin then "darwin" else "linux-musl";
+              arch = if stdenv.isAarch64 then "aarch64" else "x86_64";
+              version = "2/8";
+
+              supermaven-agent = stdenv.mkDerivation {
+                pname = "supermaven-agent";
+                version = "2024-11-12";
+
+                src = fetchurl {
+                  url =
+                    "https://supermaven-public.s3.amazonaws.com/sm-agent/v${version}/${platform}/${arch}/sm-agent";
+                  hash = "sha256-lsaS7IoNQUIkTL1Qo+UymeD8y4eX4mPR6XFC2qMlp4g=";
+                };
+
+                dontUnpack = true;
+
+                installPhase = ''
+                  mkdir -p $out/bin
+
+                  cp $src $out/bin/sm-agent
+                  chmod +x $out/bin/sm-agent
+                '';
+              };
+            in [ supermaven-agent ];
             core = with pkgs; [
               curl
               git
