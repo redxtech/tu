@@ -60,7 +60,7 @@ function M.setup(pluginTable, nixLazyPath, lazySpecs, lazyCFG)
 		-- If you wanted to know where nixCats puts everything in its final form to be included:
 		local myNeovimPackages = vim.g[ [[nixCats-special-rtp-entry-vimPackDir]] ] .. '/pack/myNeovimPackages'
 		local grammarDir = require('nixCats').pawsible.allPlugins.ts_grammar_plugin
-		local nixCatsConfigDir = require('nixCats').get([[nixCats_store_config_location]])
+		local nixCatsConfigDir = require('nixCats').get([[nixCats_config_location]])
 
 		local oldPath
 		local lazypatterns
