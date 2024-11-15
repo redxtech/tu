@@ -20,7 +20,6 @@
     blink-nvim.inputs.nixpkgs.follows = "nixpkgs";
     dracula.url = "github:redxtech/dracula.nvim";
     dracula.inputs.nixpkgs.follows = "nixpkgs";
-    vtsls.url = "github:kuglimon/nixpkgs/vtsls";
   };
 
   # see :help nixCats.flake.outputs
@@ -61,10 +60,7 @@
       # :help nixCats.flake.outputs.categoryDefinitions.scheme
       categoryDefinitions =
         { pkgs, settings, categories, name, ... }@packageDef:
-        let
-          inherit (pkgs) vimPlugins vimExtraPlugins nixCatsBuilds;
-          # TODO: remove this when vtsls is merged into nixpkgs
-          vtsls = inputs.vtsls.legacyPackages.${pkgs.system}.vtsls;
+        let inherit (pkgs) vimPlugins vimExtraPlugins nixCatsBuilds;
         in {
           # to define and use a new category, simply add a new list to a set here, 
           # and later, you will include categoryname = true; in the set you
@@ -225,7 +221,6 @@
               tailwindcss-language-server
               vscode-extensions.vue.volar
               vtsls
-              # inputs.vtsls.packages.${pkgs.system}.default
 
               # misc
               buf # protobuf utility

@@ -555,11 +555,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1730958623,
-        "narHash": "sha256-JwQZIGSYnRNOgDDoIgqKITrPVil+RMWHsZH1eE1VGN0=",
+        "lastModified": 1731531548,
+        "narHash": "sha256-sz8/v17enkYmfpgeeuyzniGJU0QQBfmAjlemAUYhfy8=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "85f7e662eda4fa3a995556527c87b2524b691933",
+        "rev": "24f0d4acd634792badd6470134c387a3b039dace",
         "type": "github"
       },
       "original": {
@@ -605,8 +605,7 @@
         "nix-appimage": "nix-appimage",
         "nix-neovim-plugins": "nix-neovim-plugins",
         "nixCats": "nixCats",
-        "nixpkgs": "nixpkgs_2",
-        "vtsls": "vtsls"
+        "nixpkgs": "nixpkgs_2"
       }
     },
     "rust-analyzer-src": {
@@ -687,22 +686,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "vtsls": {
-      "locked": {
-        "lastModified": 1730050943,
-        "narHash": "sha256-QqNR8BFyEcEp6CFI0GE7US/CkfpX5wiN3hqvDkcqI44=",
-        "owner": "kuglimon",
-        "repo": "nixpkgs",
-        "rev": "eca395bbf15b283414eec3ca7e7ba41512a241d2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kuglimon",
-        "ref": "vtsls",
-        "repo": "nixpkgs",
         "type": "github"
       }
     }
