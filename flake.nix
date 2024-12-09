@@ -150,6 +150,10 @@
               docker-compose-language-service
               hadolint
 
+              # elixir
+              elixir
+              lexical
+
               # go
               go
               gopls
