@@ -4,7 +4,9 @@ return {
 		'neovim/nvim-lspconfig',
 		opts = function(_, opts)
 			-- enable gopls  server
-			opts.servers.lexical = {}
+			opts.servers.lexical = {
+				cmd = { 'lexical' },
+			}
 		end,
 	},
 
