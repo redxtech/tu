@@ -48,7 +48,6 @@ return {
 
 	{
 		'stevearc/conform.nvim',
-		name = 'conform-nvim',
 		opts = function(_, opts)
 			local web_fmt = function(bufnr)
 				return { 'eslint_d', first(bufnr, 'prettierd', 'prettier') }
@@ -113,15 +112,6 @@ return {
 			require('lspconfig').vtsls.setup(opts)
 		end,
 	},
-	-- TODO: install with nix
-	{ 'williamboman/mason.nvim', opts = { ensure_installed = { vtsls = {} } } },
 	-- provides TSC command and diagnostics in editor
-	{
-		'dmmulroy/tsc.nvim',
-		name = 'tsc-nvim',
-		event = 'VeryLazy',
-		config = function(_, opts)
-			require('tsc').setup(opts)
-		end,
-	},
+	{ 'dmmulroy/tsc.nvim', event = 'VeryLazy' },
 }

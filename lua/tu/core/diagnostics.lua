@@ -10,7 +10,6 @@ return {
 	-- TODO: improve speed?
 	{
 		'folke/trouble.nvim',
-		name = 'trouble-nvim',
 		dependencies = { 'rachartier/tiny-devicons-auto-colors.nvim' },
 		keys = {
 			{ '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (Trouble)' },
@@ -48,9 +47,6 @@ return {
 				desc = 'Next Trouble/Quickfix Item',
 			},
 		},
-		config = function(_, opts)
-			require('trouble').setup(opts)
-		end,
 		opts = {
 			modes = {
 				lsp = {
@@ -67,7 +63,6 @@ return {
 	-- Show diagnostics in the top right instead of inline
 	{
 		'dgagn/diagflow.nvim',
-		name = 'diagflow-nvim',
 		keys = {
 			{
 				'<leader>uD',
@@ -78,15 +73,11 @@ return {
 			},
 		},
 		event = 'LspAttach',
-		config = function(_, opts)
-			require('diagflow').setup(opts)
-		end,
 	},
 
 	-- OR use verbose diagnostics
 	{
 		'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-		name = 'lsp-lines-nvim',
 		keys = {
 			{
 				'<leader>ud',
@@ -106,9 +97,6 @@ return {
 			-- avoid showing lsp lines on lazy.nvim popup
 			-- https://github.com/folke/lazy.nvim/issues/620
 			vim.diagnostic.config({ virtual_lines = false }, require('lazy.core.config').ns)
-		end,
-		config = function(_, opts)
-			require('lsp_lines').setup(opts)
 		end,
 	},
 }

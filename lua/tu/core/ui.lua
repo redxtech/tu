@@ -2,11 +2,7 @@ return {
 	-- buffer winbar replacement
 	{
 		'b0o/incline.nvim',
-		name = 'incline-nvim',
 		event = 'VeryLazy',
-		config = function(_, opts)
-			require('incline').setup(opts)
-		end,
 		opts = {
 			window = {
 				padding = 0,
@@ -58,11 +54,7 @@ return {
 	-- partition UI elements
 	{
 		'folke/edgy.nvim',
-		name = 'edgy-nvim',
 		event = 'VeryLazy',
-		config = function(_, opts)
-			require('edgy').setup(opts)
-		end,
 		opts = {
 			animate = { enabled = false },
 			icons = {
@@ -113,16 +105,11 @@ return {
 	-- scrolling animation
 	{
 		'karb94/neoscroll.nvim',
-		name = 'neoscroll-nvim',
-		config = function(_, opts)
-			require('neoscroll').setup(opts)
-		end,
 	},
 
 	-- show keymaps
 	{ -- Useful plugin to show you pending keybinds.
 		'folke/which-key.nvim',
-		name = 'which-key-nvim',
 		event = 'VimEnter',
 		config = function(_, opts)
 			require('which-key').setup(opts)
@@ -153,7 +140,6 @@ return {
 	-- live feedback for rename
 	{
 		'smjonas/inc-rename.nvim',
-		name = 'inc-rename-nvim',
 		keys = {
 			{
 				'<leader>cr',
@@ -164,9 +150,6 @@ return {
 				desc = 'Rename',
 			},
 		},
-		config = function(_, opts)
-			require('inc_rename').setup(opts)
-		end,
 	},
 
 	-- preview definition in floating window
@@ -185,11 +168,7 @@ return {
 	-- notifications
 	{
 		'j-hui/fidget.nvim',
-		name = 'fidget-nvim',
 		event = 'VeryLazy',
-		config = function(_, opts)
-			require('fidget').setup(opts)
-		end,
 		opts = {
 			notification = { window = { normal_hl = 'Normal' } },
 			integration = {
@@ -205,28 +184,20 @@ return {
 
 	{
 		'lewis6991/satellite.nvim',
-		name = 'satellite-nvim',
-		config = function(_, opts)
-			require('satellite').setup(opts)
-		end,
 	},
 
 	-- ui library
-	{ 'MunifTanjim/nui.nvim', name = 'nui-nvim' },
+	{ 'MunifTanjim/nui.nvim' },
 
 	-- TODO: remove the lowercase keywords since it's non-standard
 	-- TODO: rewrite this myself
 	{
 		'folke/todo-comments.nvim',
-		name = 'todo-comments-nvim',
 		event = 'BufRead',
 		keys = {
 			{ '<leader>tq', '<cmd>TodoQuickFix<cr>', desc = 'Todos' },
 			{ '<leader>td', '<cmd>Trouble todo<cr>', desc = 'Todos' },
 		},
-		config = function(_, opts)
-			require('todo-comments').setup(opts)
-		end,
 		opts = {
 			keywords = {
 				FIX = {
@@ -253,12 +224,8 @@ return {
 
 	-- colorize hex, rgb, etc. codes
 	{
-		'NvChad/nvim-colorizer.lua',
-		name = 'nvim-colorizer-lua',
-		event = 'UIEnter',
-		config = function(_, opts)
-			require('colorizer').setup(opts)
-		end,
+		'catgoose/nvim-colorizer.lua',
+		event = 'BufReadPre',
 		opts = {
 			user_default_options = {
 				mode = 'virtualtext',
@@ -270,7 +237,6 @@ return {
 	-- rainbow delimiters
 	{
 		'HiPhish/rainbow-delimiters.nvim',
-		name = 'rainbow-delimiters-nvim',
 		opts = function()
 			local rainbow_delimiters = require('rainbow-delimiters')
 			return {

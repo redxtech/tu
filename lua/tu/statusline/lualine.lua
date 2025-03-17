@@ -1,12 +1,8 @@
 return {
 	{
 		'nvim-lualine/lualine.nvim',
-		name = 'lualine-nvim',
 		event = 'UIEnter',
 		dependencies = { 'nvim-tree/nvim-web-devicons', 'SmiteshP/nvim-navic' },
-		config = function(_, opts)
-			require('lualine').setup(opts)
-		end,
 		opts = function()
 			local nerdtree = require('lualine.extensions.nerdtree')
 

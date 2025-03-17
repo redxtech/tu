@@ -10,7 +10,6 @@ return {
 
 	{
 		'stevearc/conform.nvim',
-		name = 'conform-nvim',
 		opts = function(_, opts)
 			opts.formatters_by_ft.go = { 'gofmt' }
 		end,

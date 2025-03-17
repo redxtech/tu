@@ -28,7 +28,6 @@ return {
 
 	{
 		'stevearc/conform.nvim',
-		name = 'conform-nvim',
 		opts = function(_, opts)
 			opts.formatters_by_ft.terraform = { 'terraform_fmt' }
 			opts.formatters_by_ft.tf = { 'terraform_fmt' }

@@ -9,7 +9,6 @@ return {
 
 		{
 			'stevearc/conform.nvim',
-			name = 'conform-nvim',
 			opts = function(_, opts)
 				opts.formatters_by_ft.bash = { 'shellcheck', 'shellharden', 'shfmt' }
 				opts.formatters_by_ft.sh = { 'shellcheck', 'shellharden', 'shfmt' }

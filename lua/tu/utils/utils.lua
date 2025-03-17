@@ -13,16 +13,9 @@ end
 return {
 	{ 'tpope/vim-eunuch', event = 'BufEnter' },
 	{ 'sitiom/nvim-numbertoggle', event = 'UIEnter' },
-	{
-		'tenxsoydev/tabs-vs-spaces.nvim',
-		name = 'tabs-vs-spaces-nvim',
-		config = function(_, opts)
-			require('tabs-vs-spaces').setup(opts)
-		end,
-	},
+	{ 'tenxsoydev/tabs-vs-spaces.nvim' },
 	{
 		'stevearc/oil.nvim',
-		name = 'oil-nvim',
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		keys = {
 			{ '-', '<cmd>Oil<cr>', desc = 'Open parent directory' },
@@ -31,39 +24,16 @@ return {
 			columns = { 'icon', 'size' },
 			delete_to_trash = true,
 		},
-		config = function(_, opts)
-			require('oil').setup(opts)
-		end,
 	},
-	{
-		'boltlessengineer/smart-tab.nvim',
-		name = 'smart-tab-nvim',
-		enabled = false,
-		config = function(_, opts)
-			require('smart-tab').setup(opts)
-		end,
-	},
-	{
-		'nkakouros-original/scrollofffraction.nvim',
-		name = 'scrollofffraction-nvim',
-		event = 'BufEnter',
-		config = function(_, opts)
-			require('scrollofffraction').setup(opts)
-		end,
-	},
+	{ 'nkakouros-original/scrollofffraction.nvim', event = 'BufEnter' },
 	{
 		'redxtech/nix-reaver.nvim',
-		name = 'nix-reaver-nvim',
 		keys = {
 			{ '<leader>ur', ':NixReaver<cr>', desc = 'Update fetchFromGitHub rev and hash' },
 		},
-		config = function(_, opts)
-			require('nix-reaver').setup(opts)
-		end,
 	},
 	{
 		'figsoda/nix-develop.nvim',
-		name = 'nix-develop-nvim',
 		cmd = {
 			'NixDevelop',
 			'NixShell',
@@ -72,14 +42,10 @@ return {
 	},
 	{
 		'krivahtoo/silicon.nvim',
-		name = 'silicon-nvim',
 		cmd = 'Silicon',
 		keys = {
 			{ 'gss', ':Silicon<cr>', desc = 'Screenshot code', mode = 'v' },
 		},
-		config = function(_, opts)
-			require('silicon').setup(opts)
-		end,
 		opts = function()
 			local colors = require('dracula').colors()
 			return {
@@ -100,30 +66,6 @@ return {
 			}
 		end,
 	},
-	-- markdown preview
-	{
-		'OXY2DEV/markview.nvim',
-		name = 'markview-nvim',
-		enabled = false,
-		lazy = false,
-		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
-		keys = {
-			{ '<leader>mv', '<cmd>Markview toggle<cr>', desc = 'Toggle markview for current buffer' },
-		},
-		config = function(_, opts)
-			require('markview').setup(opts)
-		end,
-		opts = {
-			code_blocks = {
-				enable = true,
-				style = 'language',
-				position = 'overlay',
-				hl = 'Layer1',
-				pad_amount = 0,
-				language_direction = 'right',
-			},
-		},
-	},
 	{
 		'sontungexpt/url-open',
 		cmd = 'URLOpenUnderCursor',
@@ -132,7 +74,6 @@ return {
 	},
 	{
 		'sQVe/sort.nvim',
-		name = 'sort-nvim',
 		keys = {
 			sortMap('', 'v'),
 			sortMap('"'),
@@ -142,20 +83,12 @@ return {
 			sortMap('{'),
 			sortMap('p'),
 		},
-		config = function(_, opts)
-			require('sort').setup(opts)
-		end,
 	},
 	{
 		'max397574/better-escape.nvim',
-		name = 'better-escape-nvim',
-		config = function()
-			require('better_escape').setup()
-		end,
 	},
 	{
 		'willothy/moveline.nvim',
-		name = 'moveline-nvim',
 		keys = {
 			{
 				'<A-k>',
@@ -192,7 +125,6 @@ return {
 	-- screenkey
 	{
 		'NStefan002/screenkey.nvim',
-		name = 'screenkey-nvim',
 		cmd = 'Screenkey',
 		keys = {
 			{ '<leader>sK', '<cmd>Screenkey<cr>', desc = 'Toggle Screenkey' },

@@ -66,16 +66,14 @@ return {
 	-- fallpack ls functionality
 	{
 		'nvimtools/none-ls.nvim',
-		name = 'none-ls-nvim',
 		dependencies = {
-			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
+			{ 'nvim-lua/plenary.nvim' },
 		},
 	},
 
 	-- emulates the LSP definition and references when unsupported
 	{
 		'pechorin/any-jump.vim',
-		name = 'any-jump-vim',
 		keys = {
 			{ '<leader>j', '<cmd>AnyJump<cr>', desc = 'Grep References' },
 		},

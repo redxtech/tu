@@ -9,59 +9,33 @@ local map_blink_chartoggle = function(char)
 	}
 end
 
-local function map_blink_cmp(mode, lhs, rhs)
-	return {
-		lhs,
-		function()
-			local did_run = require('blink.cmp')[rhs]()
-			if not did_run then
-				return lhs
-			end
-		end,
-		mode = mode,
-		expr = true,
-		noremap = true,
-		silent = true,
-		replace_keycodes = true,
-	}
-end
-
 return {
 	{
 		'saghen/blink.cmp',
-		name = 'blink-cmp',
-		build = 'cargo build --release',
+		-- build = 'cargo build --release',
+		-- dev = true,
 		lazy = false,
 		dependencies = { 'rafamadriz/friendly-snippets' },
-		keys = {
-			map_blink_cmp('i', '<C-space>', 'show'),
-			map_blink_cmp('i', '<Tab>', 'accept'),
-			map_blink_cmp('i', '<Up>', 'select_prev'),
-			map_blink_cmp('i', '<Down>', 'select_next'),
-			map_blink_cmp('i', '<C-k>', 'select_prev'),
-			map_blink_cmp('i', '<C-j>', 'select_next'),
-		},
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
 		opts = {
-			highlight = {
-				use_nvim_cmp_as_default = true,
+			keymap = {
+				preset = 'super-tab',
 			},
-			-- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-			-- adjusts spacing to ensure icons are aligned
-			nerd_font_variant = 'normal',
-
-			-- experimental auto-brackets support
-			accept = { auto_brackets = { enabled = true } },
-
+			sources = {
+				-- TODO: add more sources: env, rg, conventionalcommits, etc.
+				default = { 'lsp', 'path', 'snippets', 'buffer' },
+			},
+			appearance = {
+				use_nvim_cmp_as_default = true,
+				nerd_font_variant = 'normal',
+			},
 			-- experimental signature help support
-			trigger = { signature_help = { enabled = true } },
+			signature = { enabled = true },
 		},
-		config = function(_, opts)
-			require('blink.cmp').setup(opts)
-		end,
 	},
 	{
 		'saghen/blink.nvim',
-		name = 'blink-nvim',
 		-- dev = true,
 		lazy = false,
 		dependencies = {
@@ -105,8 +79,5 @@ return {
 				},
 			},
 		},
-		config = function(_, opts)
-			require('blink').setup(opts)
-		end,
 	},
 }

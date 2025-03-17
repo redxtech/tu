@@ -2,7 +2,6 @@ return {
 	-- pick venv (supports all major managers)
 	{
 		'linux-cultist/venv-selector.nvim',
-		name = 'venv-selector-nvim',
 		branch = 'regexp',
 		cmd = 'VenvSelect',
 		opts = {
@@ -18,9 +17,6 @@ return {
 			},
 		},
 		keys = { { '<leader>cv', '<cmd>:VenvSelect<cr>', desc = 'Select VirtualEnv' } },
-		config = function(_, opts)
-			require('venv-selector').setup(opts)
-		end,
 	},
 
 	-- LSP/formatting
@@ -35,7 +31,6 @@ return {
 
 	{
 		'stevearc/conform.nvim',
-		name = 'conform-nvim',
 		opts = function(_, opts)
 			opts.formatters_by_ft.python = { 'ruff_format', 'ruff_organize_imports', 'black' }
 		end,

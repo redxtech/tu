@@ -4,13 +4,16 @@ importName: inputs:
 let
   overlay = self: super: {
     ${importName} = let
-      inherit (super) vimUtils fetchFromGitHub;
+      inherit (super) vimUtils fetchFromGitHub fetchFromSourcehut;
       inherit (vimUtils) buildVimPlugin;
     in {
       # define your overlay derivations here
       fzy-lua-native = buildVimPlugin rec {
         pname = "fzy-lua-native";
         version = "2024-10-26";
+
+        nvimSkipModule = [ "test" ];
+
         src = super.stdenv.mkDerivation {
           inherit version;
           pname = "fzy-lua-native";
@@ -32,31 +35,33 @@ let
         };
       };
 
-      neogit = buildVimPlugin {
-        pname = "neogit";
-        version = "2024-11-07";
-        src = fetchFromGitHub {
-          owner = "NeogitOrg";
-          repo = "neogit";
-          rev = "8e1e301c2e33c60375850bcf22ba1fb77b684b97";
-          hash = "sha256-CX42tQFBkXnhl8WkFTdsQXBss8fTb46k7tqEbxqdMPU=";
+      lsp-lines-nvim = buildVimPlugin {
+        version = "2024-10-12";
+        pname = "lsp-lines-nvim";
+        src = fetchFromSourcehut {
+          owner = "~whynothugo";
+          repo = "lsp_lines.nvim";
+          rev = "a92c755f182b89ea91bd8a6a2227208026f27b4d";
+          hash = "sha256-jHiIZemneQACTDYZXBJqX2/PRTBoxq403ILvt1Ej1ZM=";
         };
       };
 
-      markview-nvim = buildVimPlugin {
-        pname = "markview-nvim";
-        version = "2024-10-09";
+      neogit = buildVimPlugin {
+        pname = "neogit";
+        version = "2025-03-17";
+        doCheck = false;
         src = fetchFromGitHub {
-          owner = "OXY2DEV";
-          repo = "markview.nvim";
-          rev = "67b69cdaf9055bebac3682a070d7e5c8eecba29c";
-          hash = "sha256-ga7GI2td1mRR6J63+//9neaEnc09TGyMnZrLpP6HGd0=";
+          owner = "NeogitOrg";
+          repo = "neogit";
+          rev = "333968f8222fda475d3e4545a9b15fe9912ca26a";
+          hash = "sha256-4HLSTKNqngiFrRabffthYm3Zyfqr3IJCis9yhsH2Eps=";
         };
       };
 
       nix-reaver-nvim = buildVimPlugin {
         pname = "nix-reaver-nvim";
         version = "2024-08-02";
+        doCheck = false;
         src = fetchFromGitHub {
           owner = "redxtech";
           repo = "nix-reaver.nvim";

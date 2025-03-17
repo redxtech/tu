@@ -1,11 +1,10 @@
 {
-  description = "A Lua-natic's neovim flake, with extra cats! nixCats!";
+  description = "My neovim flake, fully nix-ed out!";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
-    nix-appimage.url = "github:ralismark/nix-appimage";
-    nix-appimage.inputs.nixpkgs.follows = "nixpkgs";
+
     nix-neovim-plugins.url = "github:NixNeovim/NixNeovimPlugins";
     nix-neovim-plugins.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -15,9 +14,7 @@
 
     # non-nixpkgs plugins
     blink-cmp.url = "github:saghen/blink.cmp";
-    blink-cmp.inputs.nixpkgs.follows = "nixpkgs";
     blink-nvim.url = "github:saghen/blink.nvim";
-    blink-nvim.inputs.nixpkgs.follows = "nixpkgs";
     dracula.url = "github:redxtech/dracula.nvim";
     dracula.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -29,84 +26,48 @@
       luaPath = "${./.}";
       forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all;
       extra_pkg_config.allowUnfree = true;
-      # sometimes our overlays require a ${system} to access the overlay.
-      # management of this variable is one of the harder parts of using flakes.
+      # management of the system variable is one of the harder parts of using flakes.
 
       # so I have done it here in an interesting way to keep it out of the way.
-
-      # First, we will define just our overlays per system.
-      # later we will pass them into the builder, and the resulting pkgs set
-      # will get passed to the categoryDefinitions and packageDefinitions
-      # which follow this section.
+      # It gets resolved within the builder itself, and then passed to your
+      # categoryDefinitions and packageDefinitions.
 
       # this allows you to use ${pkgs.system} whenever you want in those sections
       # without fear.
-      inherit (forEachSystem (system:
-        let
-          # see :help nixCats.flake.outputs.overlays
-          dependencyOverlays = (import ./overlays inputs) ++ [
-            (utils.standardPluginOverlay inputs)
-            inputs.nix-neovim-plugins.overlays.default
-            inputs.fenix.overlays.default
-          ];
-          # these overlays will be wrapped with ${system}
-          # and we will call the same utils.eachSystem function
-          # later on to access them.
-        in { inherit dependencyOverlays; }))
-        dependencyOverlays;
+
+      dependencyOverlays = (import ./nix/overlays inputs) ++ [
+        (utils.standardPluginOverlay inputs)
+        inputs.nix-neovim-plugins.overlays.default
+        inputs.fenix.overlays.default
+
+        # when other people mess up their overlays by wrapping them with system,
+        # you may instead call this function on their overlay.
+        # it will check if it has the system in the set, and if so return the desired overlay
+        # (utils.fixSystemizedOverlay inputs.codeium.overlays
+        #   (system: inputs.codeium.overlays.${system}.default)
+        # )
+      ];
 
       # see :help nixCats.flake.outputs.categories
       # and
       # :help nixCats.flake.outputs.categoryDefinitions.scheme
-      categoryDefinitions =
-        { pkgs, settings, categories, name, ... }@packageDef:
-        let inherit (pkgs) vimPlugins vimExtraPlugins nixCatsBuilds;
+      categoryDefinitions = { pkgs, settings, categories, extra, name
+        , mkNvimPlugin, ... }@packageDef:
+        let
+          inherit (pkgs) vimPlugins vimExtraPlugins nixCatsBuilds;
+          mkNamed = name: plugin: { inherit plugin name; };
         in {
           # to define and use a new category, simply add a new list to a set here, 
           # and later, you will include categoryname = true; in the set you
           # provide when you build the package using this builder function.
           # see :help nixCats.flake.outputs.packageDefinitions for info on that section.
 
-          # propagatedBuildInputs:
-          # this section is for dependencies that should be available
-          # at BUILD TIME for plugins. WILL NOT be available to PATH
-          # However, they WILL be available to the shell 
-          # and neovim path when using nix develop
-          propagatedBuildInputs = { core = with pkgs; [ libgit2 ]; };
-
           # lspsAndRuntimeDeps:
           # this section is for dependencies that should be available
           # at RUN TIME for plugins. Will be available to PATH within neovim terminal
           # this includes LSPs
-          lspsAndRuntimeDeps = {
-            ai = let
-              inherit (pkgs) stdenv fetchurl;
-
-              platform = if stdenv.isDarwin then "darwin" else "linux-musl";
-              arch = if stdenv.isAarch64 then "aarch64" else "x86_64";
-              version = "2/8";
-
-              supermaven-agent = stdenv.mkDerivation {
-                pname = "supermaven-agent";
-                version = "2024-11-12";
-
-                src = fetchurl {
-                  url =
-                    "https://supermaven-public.s3.amazonaws.com/sm-agent/v${version}/${platform}/${arch}/sm-agent";
-                  hash = "sha256-lsaS7IoNQUIkTL1Qo+UymeD8y4eX4mPR6XFC2qMlp4g=";
-                };
-
-                dontUnpack = true;
-
-                installPhase = ''
-                  mkdir -p $out/bin
-
-                  cp $src $out/bin/sm-agent
-                  chmod +x $out/bin/sm-agent
-                '';
-              };
-            in [ supermaven-agent ];
-            core = with pkgs; [
+          lspsAndRuntimeDeps = with pkgs; {
+            core = [
               curl
               git
               fd
@@ -121,16 +82,29 @@
               stdenv.cc.cc
               trashy
               tree-sitter
+              universal-ctags
               wl-clipboard
               xclip
               xdg-utils
               zoxide
 
+              # NOTE:
+              # lazygit
+              # Apparently lazygit when launched via snacks cant create its own config file
+              # but we can add one from nix!
+              (pkgs.writeShellScriptBin "lazygit" ''
+                exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${
+                  pkgs.writeText "lazygit_config.yml" ""
+                } "$@"
+              '')
+
               lua51Packages.luarocks # use jit ?
               lua51Packages.jsregexp # do i need this?
             ];
+
+            ai = let supermaven-agent = pkgs.callPackage ./nix/supermaven { };
+            in [ supermaven-agent ];
             debug = with pkgs; [ gdb lldb ];
-            fugit = with pkgs; [ gpgme libgit2 lua5_1 lua51Packages.luarocks ];
             git = with pkgs; [ git libgit2 ];
             langs = with pkgs; [
               # general
@@ -219,7 +193,7 @@
               nodePackages.svelte-language-server
               typescript
               nodePackages.typescript-language-server
-              nodePackages.graphql-language-service-cli
+              # nodePackages.graphql-language-service-cli
               fixjson
               # htmx-lsp
               tailwindcss-language-server
@@ -227,59 +201,56 @@
               vtsls
 
               # misc
-              buf # protobuf utility
-              buf-language-server # protobuf language server
+              buf # protobuf utility & language server
               hyprls # hyprland language server
               taplo # toml toolkit
             ];
-
-            appimage = with pkgs; [
-              coreutils-full
-              xclip
-              wl-clipboard
-              git
-              nix
-              curl
-            ];
           };
 
+          # startupPlugins = with pkgs.vimPlugins; {
           startupPlugins = with vimExtraPlugins; {
             core = [
-              lazy-nvim # lazy package manager
-              inputs.dracula.packages.${pkgs.system}.default # dracula theme
-              dashboard-nvim # dashboard  TODO: move to lazy ?
-              flatten-nvim # open nested nvim instances in current window
+              (mkNamed "lazy.nvim" lazy-nvim)
+              (mkNamed "dracula.nvim"
+                inputs.dracula.packages.${pkgs.system}.default)
+              (mkNamed "flatten.nvim"
+                flatten-nvim) # open nested nvim instances in current window
+              dashboard-nvim # dashboard
             ];
 
-            profile = [ profile-nvim ];
+            profile = [ (mkNamed "profile.nvim" profile-nvim) ];
           };
 
-          # not loaded automatically at startup.
           optionalPlugins = with vimExtraPlugins; {
             core = [
-              any-jump-vim # fallback goto when no lsp
-              before-nvim # go to previous edit
-              inputs.blink-cmp.packages.${pkgs.system}.default
-              inputs.blink-nvim.packages.${pkgs.system}.default
+              (mkNamed "any-jump.vim" any-jump-vim) # fallback goto when no lsp
+              (mkNamed "before.nvim" before-nvim) # go to previous edit
+              (mkNamed "blink.cmp"
+                inputs.blink-cmp.packages.${pkgs.system}.default)
+              (mkNamed "blink.nvim"
+                inputs.blink-nvim.packages.${pkgs.system}.default)
               # Comment-nvim # commenting  TODO: is this needed?
-              diagflow-nvim # show diagnostics in corner
-              edgy-nvim # window management
-              fidget-nvim # lsp status in bottom right
-              flash-nvim # movement with s/S f/F
+              (mkNamed "diagflow.nvim"
+                diagflow-nvim) # show diagnostics in corner
+              (mkNamed "edgy.nvim" edgy-nvim) # window management
+              (mkNamed "fidget.nvim" fidget-nvim) # lsp status in bottom right
+              (mkNamed "flash.nvim" flash-nvim) # movement with s/S f/F
               friendly-snippets
               nixCatsBuilds.fzy-lua-native # native fzy
-              incline-nvim # alternative to winbar
-              inc-rename-nvim # visual rename variables with lsp
-              instant-nvim # session sharing
-              lazydev-nvim # load lua lsp faster
-              lsp-lines-nvim # show lsp diagnostics as virtual text;
-              mini-nvim # a bunch of minimal plugins
-              neoscroll-nvim # smooth scrolling
+              (mkNamed "incline.nvim" incline-nvim) # alternative to winbar
+              (mkNamed "inc-rename.nvim"
+                inc-rename-nvim) # visual rename variables with lsp
+              (mkNamed "instant.nvim" instant-nvim) # session sharing
+              (mkNamed "lazydev.nvim" lazydev-nvim) # load lua lsp faster
+              (mkNamed "lsp_lines.nvim"
+                nixCatsBuilds.lsp-lines-nvim) # show lsp diagnostics as virtual text;
+              (mkNamed "mini.nvim" mini-nvim) # a bunch of minimal plugins
+              (mkNamed "neoscroll.nvim" neoscroll-nvim) # smooth scrolling
               neovim-project # project list
               neovim-session-manager # session management (dep for neovim-project)
-              noice-nvim # ui replacements
-              none-ls-nvim # fallback lsp
-              nui-nvim # ui library
+              (mkNamed "noice.nvim" noice-nvim) # ui replacements
+              (mkNamed "none-ls.nvim" none-ls-nvim) # fallback lsp
+              (mkNamed "nui.nvim" nui-nvim) # ui library
               nvim-lspconfig # lsp configs
               nvim-navbuddy # navic based navigation
               nvim-navic # breadcrumbs provider
@@ -287,96 +258,100 @@
               nvim-numbertoggle # toggle line numbers automatically
               nvim-spectre # search and replace
               nvim-snippets
+              vimPlugins.nvim-treesitter-textobjects
               vimPlugins.nvim-treesitter.withAllGrammars # syntax highlighting
               nvim-web-devicons # file icons
-              plenary-nvim # lua helpers
+              (mkNamed "plenary.nvim" plenary-nvim) # lua helpers
               promise-async # async functions (dep for nvim-ufo)
-              rainbow-delimiters-nvim # rainbow {}[]()
-              satellite-nvim # scrollbar
-              scrollofffraction-nvim # auto scrolloff size
-              nixCatsBuilds.sharing-nvim # session sharing QoL
-              smart-open-nvim # better file search
-              sqlite-lua # sqlite bindings
-              telescope-nvim # pickers
-              telescope-repo-nvim # repo picker
-              telescope-fzy-native-nvim
+              (mkNamed "rainbow-delimiters.nvim"
+                rainbow-delimiters-nvim) # rainbow {}[]()
+              (mkNamed "satellite.nvim" satellite-nvim) # scrollbar
+              (mkNamed "scrollofffraction.nvim"
+                scrollofffraction-nvim) # auto scrolloff size
+              (mkNamed "sharing.nvim"
+                nixCatsBuilds.sharing-nvim) # session sharing QoL
+              (mkNamed "smart-open.nvim" smart-open-nvim) # better file search
+              (mkNamed "sqlite.lua" sqlite-lua) # sqlite bindings
+              (mkNamed "telescope.nvim" telescope-nvim) # pickers
+              (mkNamed "telescope-repo.nvim" telescope-repo-nvim) # repo picker
+              (mkNamed "telescope-fzy-native.nvim" telescope-fzy-native-nvim)
               telescope-zoxide # zoxide integration
-              tiny-devicons-auto-colors-nvim # colour devicons with theme colors
-              todo-comments-nvim # highlight TODOs, FIXMEs, etc.
-              toggleterm-nvim # toggleable terminal
+              (mkNamed "tiny-devicons-auto-colors.nvim"
+                tiny-devicons-auto-colors-nvim) # colour devicons with theme colors;
+              (mkNamed "todo-comments.nvim"
+                todo-comments-nvim) # highlight TODOs, FIXMEs, etc.
+              (mkNamed "toggleterm.nvim" toggleterm-nvim) # toggleable terminal
               treesj # splits and joins
-              trouble-nvim # quickfix and location list
-              which-key-nvim # show keymaps
+              (mkNamed "trouble.nvim" trouble-nvim) # quickfix and location list
+              (mkNamed "which-key.nvim" which-key-nvim) # show keymaps
 
               # alternate themes
-              onedark-nvim
-              tokyonight-nvim
+              (mkNamed "onedark.nvim" onedark-nvim)
+              (mkNamed "tokyonight.nvim" tokyonight-nvim)
             ];
 
             ai = [ supermaven-nvim ];
-            cmp = [ nvim-cmp LuaSnip cmp-luasnip cmp-nvim-lsp cmp-path ];
             debug = [ nvim-dap ];
-            fugit = [
-              # lazy
-              diffview-nvim # git diff viewer
-              dressing-nvim # ui lib (dep for overseer-nvim)
-              fugit2-nvim # git client
-              nvim-tinygit # github issue integration
-            ];
             git = [
-              diffview-nvim # git diff viewer
-              gitsigns-nvim # git signs in gutter
+              (mkNamed "diffview.nvim" diffview-nvim) # git diff viewer
+              (mkNamed "gitsigns.nvim" gitsigns-nvim) # git signs in gutter
               nixCatsBuilds.neogit # git integration
             ];
             langs = [
               # format wrapper plugin
-              conform-nvim
+              (mkNamed "conform.nvim" conform-nvim)
 
               # lua
               luvit-meta
 
               # python
-              venv-selector-nvim
+              (mkNamed "venv-selector.nvim" venv-selector-nvim)
 
               # rust
               rustaceanvim
 
               # yaml
               vim-helm
-              yaml-companion-nvim
+              (mkNamed "yaml-companion.nvim" yaml-companion-nvim)
 
               # web
               nvim-ts-autotag
               nvim-vtsls
-              tsc-nvim
+              (mkNamed "tsc.nvim" tsc-nvim)
             ];
             statusline = [
-              lualine-nvim # statusline
+              (mkNamed "lualine.nvim" lualine-nvim) # statusline
               # vimPlugins.lualine-lsp-progress # lsp progress
             ];
             bufferline = [
-              bufferline-nvim # bufferline
+              (mkNamed "bufferline.nvim" bufferline-nvim) # bufferline
             ];
             utils = [
-              better-escape-nvim # jk to escape insert mode
-              dressing-nvim # ui lib (dep for overseer-nvim)
+              (mkNamed "better-escape.nvim"
+                better-escape-nvim) # jk to escape insert mode
+              (mkNamed "dressing.nvim"
+                dressing-nvim) # ui lib (dep for overseer-nvim)
               goto-preview # preview definition in window
-              nixCatsBuilds.markview-nvim # markdown preview
-              vimPlugins.moveline-nvim # move blocks of text
-              nix-develop-nvim # run `nix develop` without restarting neovim
-              nixCatsBuilds.nix-reaver-nvim # update rev & hash of fetchFromGitHub
-              numb-nvim # peek at line before jump
-              nvim-colorizer-lua # colorize hex, rgb, etc. codes
+              (mkNamed "moveline.nvim"
+                vimPlugins.moveline-nvim) # move blocks of text
+              (mkNamed "nix-develop.nvim"
+                nix-develop-nvim) # run `nix develop` without restarting neovim
+              (mkNamed "nix-reaver.nvim"
+                nixCatsBuilds.nix-reaver-nvim) # update rev & hash of fetchFromGitHub
+              (mkNamed "numb.nvim" numb-nvim) # peek at line before jump
+              (mkNamed "nvim-colorizer.lua"
+                nvim-colorizer-catgoose) # colorize hex, rgb, etc. codes
               nvim-lightbulb # show code actions
               nvim-ufo # folds
-              oil-nvim # tree explorer
-              overseer-nvim # task runner integration
+              (mkNamed "oil.nvim" oil-nvim) # tree explorer
+              (mkNamed "overseer.nvim" overseer-nvim) # task runner integration
               promise-async # async functions (dep for nvim-ufo)
-              screenkey-nvim # screenkey in neovim
-              nixCatsBuilds.silicon-nvim # screenshot code
-              nixCatsBuilds.smart-tab-nvim # tab on non-whitespace line jumps to end of blick
-              nixCatsBuilds.tabs-vs-spaces-nvim # smart tab/spaces
-              sort-nvim # sort lines
+              (mkNamed "screenkey.nvim" screenkey-nvim) # screenkey in neovim
+              (mkNamed "silicon.nvim"
+                nixCatsBuilds.silicon-nvim) # screenshot code
+              (mkNamed "tabs-vs-spaces.nvim"
+                nixCatsBuilds.tabs-vs-spaces-nvim) # smart tab/spaces
+              (mkNamed "sort.nvim" sort-nvim) # sort lines
               url-open # open more urls
               vim-eunuch # unix tools
             ];
@@ -384,21 +359,14 @@
 
           # shared libraries to be added to LD_LIBRARY_PATH
           # variable available to nvim runtime
-          sharedLibraries = {
-            core = with pkgs; [ libgit2 sqlite ];
-            fugit = with pkgs; [ gpgme libgit2 ];
-          };
+          sharedLibraries = { core = with pkgs; [ libgit2 sqlite ]; };
 
           # environmentVariables:
           # this section is for environmentVariables that should be available
           # at RUN TIME for plugins. Will be available to path within neovim terminal
           environmentVariables = {
-            fugit = {
-              GIT2_DIR = "${pkgs.libgit2}";
-              GIT2_LIBDIR = "${pkgs.libgit2.lib}";
-            };
             profile.NVIM_PROFILE = "start";
-            test.CATTESTVAR = "It worked!";
+            test = { CATTESTVAR = "It worked!"; };
           };
 
           # If you know what these are, you can provide custom ones by category here.
@@ -415,7 +383,7 @@
           # in your lua config via
           # vim.g.python3_host_prog
           # or run from nvim terminal via :!<packagename>-python3
-          extraPython3Packages = { test = _: [ ]; };
+          extraPython3Packages = { test = [ (_: [ ]) ]; };
           # populates $LUA_PATH and $LUA_CPATH
           extraLuaPackages = {
             core = [ (luaPkgs: with luaPkgs; [ fzy ]) ];
@@ -432,17 +400,14 @@
       packageDefinitions = rec {
         # These are the names of your packages
         # you can include as many as you wish.
-        tu = { pkgs, ... }: {
+        tu = { pkgs, mkNvimPlugin, ... }: {
           # they contain a settings set defined above
           # see :help nixCats.flake.outputs.settings
           settings = {
             wrapRc = true;
             # IMPORTANT:
-            # you may not alias to nvim
             # your alias may not conflict with your other packages.
             aliases = [ "tuque" "vim" ];
-            # caution: this option must be the same for all packages.
-            # or at least, all packages that are to be installed simultaneously.
             # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
 
             configDirName = "tu";
@@ -457,9 +422,8 @@
             core = true;
 
             ai = true;
-            cmp = false;
             debug = false;
-            fugit = true;
+            fugit = false;
             git = true;
             langs = true;
             utils = true;
@@ -469,7 +433,10 @@
             colorscheme = "dracula";
             bufferline = true;
             statusline = true;
+
+            test = false;
           };
+          extra = { };
         };
         tu-dev = { pkgs, ... }:
           let tuque = tu { inherit pkgs; };
@@ -480,14 +447,17 @@
               aliases = [ "tdev" ];
               unwrappedCfgDir = "~/Code/nvim/tu";
             };
+            extra = { };
           };
         tu-profile = { pkgs, ... }:
           let tuque = tu { inherit pkgs; };
           in {
             settings = tuque.settings // { aliases = [ "tup" ]; };
             categories = tuque.categories // { profile = true; };
+            extra = { };
           };
       };
+
       # In this section, the main thing you will need to do is change the default package name
       # to the name of the packageDefinitions entry you wish to use as the default.
       defaultPackageName = "tu";
@@ -495,11 +465,11 @@
       # see :help nixCats.flake.outputs.exports
     in forEachSystem (system:
       let
-        inherit (utils) baseBuilder;
-        customPackager = baseBuilder luaPath {
+        # the builder function that makes it all work
+        nixCatsBuilder = utils.baseBuilder luaPath {
           inherit nixpkgs system dependencyOverlays extra_pkg_config;
-        } categoryDefinitions;
-        nixCatsBuilder = customPackager packageDefinitions;
+        } categoryDefinitions packageDefinitions;
+        defaultPackage = nixCatsBuilder defaultPackageName;
         # this is just for using utils such as pkgs.mkShell
         # The one used to build neovim is resolved inside the builder
         # and is passed to our categoryDefinitions and packageDefinitions
@@ -507,63 +477,48 @@
       in {
         # these outputs will be wrapped with ${system} by utils.eachSystem
 
-        app-images = {
-          default = inputs.nix-appimage.bundlers.${system}.default
-            (nixCatsBuilder "tu");
-        };
-
         # this will make a package out of each of the packageDefinitions defined above
-        # and set the default package to the one named here.
-        packages =
-          utils.mkPackages nixCatsBuilder packageDefinitions defaultPackageName;
+        # and set the default package to the one passed in here.
+        packages = utils.mkAllWithDefault defaultPackage;
 
         # choose your package for devShell
         # and add whatever else you want in it.
         devShells = {
           default = pkgs.mkShell {
             name = defaultPackageName;
-            packages = builtins.map nixCatsBuilder [
-              defaultPackageName
-              "tu-dev"
-              "tu-profile"
-            ];
+            packages = [ defaultPackage ];
             inputsFrom = [ ];
-            shellHook = ''
-              alias build-appimage="nix build .#app-images.default"
-            '';
+            shellHook = "";
           };
         };
 
-        # To choose settings and categories from the flake that calls this flake.
-        # and you export overlays so people dont have to redefine stuff.
-        inherit customPackager;
-      }) // {
+      }) // (let
+        # we also export a nixos module to allow reconfiguration from configuration.nix
+        nixosModule = utils.mkNixosModules {
+          moduleNamespace = [ defaultPackageName ];
+          inherit defaultPackageName dependencyOverlays luaPath
+            categoryDefinitions packageDefinitions extra_pkg_config nixpkgs;
+        };
+        # and the same for home manager
+        homeModule = utils.mkHomeModules {
+          moduleNamespace = [ defaultPackageName ];
+          inherit defaultPackageName dependencyOverlays luaPath
+            categoryDefinitions packageDefinitions extra_pkg_config nixpkgs;
+        };
+      in {
+
         # these outputs will be NOT wrapped with ${system}
 
         # this will make an overlay out of each of the packageDefinitions defined above
         # and set the default overlay to the one named here.
         overlays = utils.makeOverlays luaPath {
-          # we pass in the things to make a pkgs variable to build nvim with later
           inherit nixpkgs dependencyOverlays extra_pkg_config;
-          # and also our categoryDefinitions
         } categoryDefinitions packageDefinitions defaultPackageName;
 
-        # we also export a nixos module to allow configuration from configuration.nix
-        nixosModules.default = utils.mkNixosModules {
-          inherit defaultPackageName dependencyOverlays luaPath
-            categoryDefinitions packageDefinitions nixpkgs;
-        };
-        # and the same for home manager
-        homeManagerModules.default = utils.mkHomeModules {
-          inherit defaultPackageName dependencyOverlays luaPath
-            categoryDefinitions packageDefinitions nixpkgs;
-        };
-        # now we can export some things that can be imported in other
-        # flakes, WITHOUT needing to use a system variable to do it.
-        # and update them into the rest of the outputs returned by the
-        # eachDefaultSystem function.
-        inherit utils categoryDefinitions packageDefinitions dependencyOverlays;
-        inherit (utils) templates baseBuilder;
-        keepLuaBuilder = utils.baseBuilder luaPath;
-      };
+        nixosModules.default = nixosModule;
+        homeModules.default = homeModule;
+
+        inherit utils nixosModule homeModule;
+        inherit (utils) templates;
+      });
 }

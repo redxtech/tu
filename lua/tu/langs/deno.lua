@@ -32,7 +32,6 @@ return {
 
 	{
 		'stevearc/conform.nvim',
-		name = 'conform-nvim',
 		opts = function(_, opts)
 			opts.formatters.deno_fmt = {
 				condition = function(ctx)

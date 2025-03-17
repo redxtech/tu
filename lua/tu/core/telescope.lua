@@ -1,7 +1,6 @@
 return {
 	{
 		'nvim-telescope/telescope-fzy-native.nvim',
-		name = 'telescope-fzy-native-nvim',
 		dependencies = {
 			{
 				'romgrk/fzy-lua-native',
@@ -20,9 +19,8 @@ return {
 	},
 	{
 		'nvim-telescope/telescope.nvim',
-		name = 'telescope-nvim',
 		dependencies = {
-			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
+			{ 'nvim-lua/plenary.nvim' },
 		},
 		keys = {
 			{ '<leader>.', '<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>', desc = 'Buffers' },
@@ -65,9 +63,6 @@ return {
 			{ '<leader>so', '<cmd>Telescope vim_options<cr>', desc = 'Options' },
 			{ '<leader>cl', '<cmd>Telescope filetypes<cr>', desc = 'Pick Language' },
 		},
-		config = function(_, opts)
-			require('telescope').setup(opts)
-		end,
 		opts = function()
 			-- local resolve = require('telescope.resolve')
 			local actions = require('telescope.actions')
@@ -135,10 +130,9 @@ return {
 	-- smarter file opening
 	{
 		'danielfalk/smart-open.nvim',
-		name = 'smart-open-nvim',
 		branch = '0.2.x',
 		dependencies = {
-			{ 'kkharji/sqlite.lua', name = 'sqlite-lua' },
+			{ 'kkharji/sqlite.lua' },
 		},
 		keys = {
 			{
@@ -168,10 +162,9 @@ return {
 	-- fuzzy search over all repos on the system
 	{
 		'cljoly/telescope-repo.nvim',
-		name = 'telescope-repo-nvim',
 		dependencies = {
 			'nvim-telescope/telescope.nvim',
-			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
+			{ 'nvim-lua/plenary.nvim' },
 		},
 		keys = {
 			{ '<leader>fg', "<cmd>lua require'telescope'.extensions.repo.list{}<cr>", desc = 'Git Repositories' },

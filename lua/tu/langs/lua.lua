@@ -2,7 +2,6 @@ return {
 	-- used for completion, annotations and signatures of Neovim apis
 	{
 		'folke/lazydev.nvim',
-		name = 'lazydev-nvim',
 		ft = 'lua',
 		opts = {
 			library = {
@@ -30,7 +29,6 @@ return {
 
 	{
 		'stevearc/conform.nvim',
-		name = 'conform-nvim',
 		opts = function(_, opts)
 			opts.formatters_by_ft.lua = { 'stylua' }
 		end,

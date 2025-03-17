@@ -2,7 +2,6 @@ return {
 	{
 		-- main theme
 		'redxtech/dracula.nvim',
-		name = 'dracula-nvim',
 		lazy = false,
 		priority = 1000,
 		config = function(_, opts)
@@ -34,11 +33,7 @@ return {
 	-- recolor devicons to match theme
 	{
 		'rachartier/tiny-devicons-auto-colors.nvim',
-		name = 'tiny-devicons-auto-colors-nvim',
 		event = 'UIEnter',
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
-		config = function(_, opts)
-			require('tiny-devicons-auto-colors').setup(opts)
-		end,
 	},
 }

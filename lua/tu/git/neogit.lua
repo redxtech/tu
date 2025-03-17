@@ -5,7 +5,7 @@ return {
 		dependencies = {
 			'sindrets/diffview.nvim',
 			'nvim-telescope/telescope.nvim',
-			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
+			{ 'nvim-lua/plenary.nvim' },
 		},
 		keys = {
 			{ '<leader>gg', '<cmd>Neogit kind=auto<cr>', desc = 'Open Neogit' },
@@ -21,7 +21,6 @@ return {
 	-- better diff viewer
 	{
 		'sindrets/diffview.nvim',
-		name = 'diffview-nvim',
 		event = 'UIEnter',
 		cmd = {
 			'DiffviewFileHistory',

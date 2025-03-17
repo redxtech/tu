@@ -8,9 +8,10 @@ vim.g.maplocalleader = '\\'
 require('tu.opts')
 require('tu.autocmds')
 
--- load colorscheme
-vim.cmd.colorscheme(nixCats('colorscheme'))
-
+-- NOTE: this just gives nixCats global command a default value
+-- so that it doesnt throw an error if you didnt install via nix.
+-- usage of both this setup and the nixCats command is optional,
+-- but it is very useful for passing info from nix to lua so you will likely use it at least once.
 require('nixCatsUtils').setup({
 	core = true,
 	ai = true,
@@ -28,99 +29,15 @@ require('nixCatsUtils').setup({
 	bufferline = true,
 })
 
+-- load colorscheme
+vim.cmd.colorscheme(nixCats('colorscheme'))
+
 vim.g.have_nerd_font = nixCats('have_nerd_font')
 
--- NOTE: nixCats: this is where we define some arguments for the lazy wrapper.
-local pluginList = nil
-local nixLazyPath = nil
-if require('nixCatsUtils').isNixCats then
-	local allPlugins = require('nixCats').pawsible.allPlugins
-	-- it is called pluginList because we only need to pass in the names
-	-- this list literally just tells lazy.nvim not to download the plugins in the list.
-	pluginList = require('nixCatsUtils.lazyCat').mergePluginTables(allPlugins.start, allPlugins.opt)
-
-	-- TODO:  add fallback to local projects dir for plugins with dev = true
-
-	-- it wasnt detecting that these were already added
-	-- because the names are slightly different from the url.
-	-- when that happens, add them to the list, then also specify the new name in the lazySpec
-
-	local wrongNames = {
-		'any-jump.vim',
-		'before.nvim',
-		'better-escape.nvim',
-		'blink.cmp',
-		'blink.nvim',
-		'bufferline.nvim',
-		'conform.nvim',
-		'diagflow.nvim',
-		'diffview.nvim',
-		'dracula.nvim',
-		'edgy.nvim',
-		'fidget.nvim',
-		'flash.nvim',
-		'flatten.nvim',
-		'gitsigns.nvim',
-		'inc-rename.nvim',
-		'incline.nvim',
-		'instant.nvim',
-		'lazy.nvim',
-		'lazydev.nvim',
-		'lsp_lines.nvim',
-		'lualine.nvim',
-		'markview.nvim',
-		'mini.nvim',
-		'moveline.nvim',
-		'neoscroll.nvim',
-		'nix-develop.nvim',
-		'nix-reaver.nvim',
-		'noice.nvim',
-		'none-ls.nvim',
-		'nui.nvim',
-		'nvim-colorizer.lua',
-		'oil.nvim',
-		'overseer.nvim',
-		'plenary.nvim',
-		'rainbow-delimiters.nvim',
-		'satellite.nvim',
-		'screenkey.nvim',
-		'scrollofffraction.nvim',
-		'sharing.nvim',
-		'silicon.nvim',
-		'smart-open.nvim',
-		'smart-tab.nvim',
-		'sort.nvim',
-		'sqlite.lua',
-		'tabs-vs-spaces.nvim',
-		'telescope.nvim',
-		'telescope-fzy-native.nvim',
-		'telescope-repo.nvim',
-		'tiny-devicons-auto-colors.nvim',
-		'todo-comments.nvim',
-		'toggleterm.nvim',
-		'trouble.nvim',
-		'tsc.nvim',
-		'yaml-companion.nvim',
-		'which-key.nvim',
-		'venv-selector.nvim',
-	}
-
-	for _, wrongName in ipairs(wrongNames) do
-		pluginList[wrongName] = ''
-	end
-
-	-- HINT: to view the names of all plugins downloaded via nix, use the `:NixCats pawsible` command.
-
-	-- we also want to pass in lazy.nvim's path
-	-- so that the wrapper can add it to the runtime path
-	-- as the normal lazy installation instructions dictate
-	nixLazyPath = allPlugins.start[ [[lazy-nvim]] ]
-end
-
--- NOTE: nixCats: You might want to move the lazy-lock.json file
+-- NOTE: You might want to move the lazy-lock.json file
 local function getlockfilepath()
-	if require('nixCatsUtils').isNixCats and type(require('nixCats').settings.unwrappedCfgPath) == 'string' then
-		return require('nixCats').settings.unwrappedCfgPath .. '/lazy-lock.json'
+	if require('nixCatsUtils').isNixCats and type(nixCats.settings.unwrappedCfgPath) == 'string' then
+		return nixCats.settings.unwrappedCfgPath .. '/lazy-lock.json'
 	else
 		return vim.fn.stdpath('config') .. '/lazy-lock.json'
 	end
@@ -153,48 +70,27 @@ local lazyOptions = {
 	change_detection = {
 		enabled = false,
 	},
-	dev = {
-		path = os.getenv('HOME') .. '/Code/nvim',
-		-- patterns = { 'saghen', 'redxtech' },
-		fallback = true,
-	},
+	-- dev = {
+	-- 	path = os.getenv('HOME') .. '/Code/nvim',
+	-- 	-- patterns = { 'saghen', 'redxtech' },
+	-- 	fallback = true,
+	-- },
 }
 
-local categories = {
-	'core',
-	'ai',
-	'blink',
-	-- 'cmp',
-	'debug',
-	-- 'fugit',
-	'git',
-	'langs',
-	'statusline',
-	'bufferline',
-	'utils',
-	'profile',
-}
 local lazySpec = {}
 
-for _, category in ipairs(categories) do
+for category, enabled in pairs(nixCats.cats) do
 	-- if enabled, add category to spec
-	if nixCats(category) then
+	-- first filter out the nixCats_ meta-categories
+	if type(enabled) == 'boolean' and category:find('nixCats_') ~= 1 and enabled then
 		table.insert(lazySpec, {
 			import = 'tu.' .. category,
 		})
 	end
 end
 
-local oldSpec = {
-	-- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-
-	-- NOTE: nixCats: nix downloads it with a different file name.
-	-- tell lazy about that.
-	-- { 'numToStr/Comment.nvim', name = 'comment.nvim', opts = {} },
-
-	-- { import = 'custom.plugins' },
-}
-
-require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, lazySpec, lazyOptions)
+-- NOTE: this the lazy wrapper. Use it like require('lazy').setup() but with an extra
+-- argument, the path to lazy.nvim as downloaded by nix, or nil, before the normal arguments.
+require('nixCatsUtils.lazyCat').setup(nixCats.pawsible({ 'allPlugins', 'start', 'lazy.nvim' }), lazySpec, lazyOptions)
 
 require('tu.keys')

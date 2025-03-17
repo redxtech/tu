@@ -15,14 +15,10 @@ return {
 	-- nested neovim instances open in the parent
 	{
 		'willothy/flatten.nvim',
-		name = 'flatten-nvim',
 		lazy = false,
 		priority = 1001,
-		config = function(_, opts)
-			require('flatten').setup(opts)
-		end,
 		opts = {
-			callbacks = {
+			hooks = {
 				should_block = function(argv)
 					-- adds support for kubectl edit, sops and probably many other tools
 					return vim.startswith(argv[#argv], '/tmp') or require('flatten').default_should_block(argv)
@@ -35,7 +31,6 @@ return {
 	-- terminal
 	{
 		'akinsho/toggleterm.nvim',
-		name = 'toggleterm-nvim',
 		keys = {
 			{
 				[[<C-\>]],

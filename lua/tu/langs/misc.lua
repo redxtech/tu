@@ -14,7 +14,6 @@ return {
 
 	{
 		'stevearc/conform.nvim',
-		name = 'conform-nvim',
 		opts = function(_, opts)
 			opts.formatters_by_ft.markdown = { 'markdownlint', 'dprint' }
 			opts.formatters_by_ft.proto = { 'buf' }

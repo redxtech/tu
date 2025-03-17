@@ -20,7 +20,6 @@ return {
 	-- configure linters and formatters
 	{
 		'stevearc/conform.nvim',
-		name = 'conform-nvim',
 		event = { 'BufWritePre' },
 		cmd = { 'ConformInfo' },
 		keys = {

@@ -31,7 +31,7 @@ return {
 	{
 		'nvim-pack/nvim-spectre',
 		dependencies = {
-			{ 'nvim-lua/plenary.nvim', name = 'plenary-nvim' },
+			{ 'nvim-lua/plenary.nvim' },
 		},
 		keys = {
 			{ '<leader>H', '<cmd>lua require("spectre").toggle()<cr>', desc = 'Find and Replace (Workspace)' },
@@ -58,7 +58,6 @@ return {
 	-- mini
 	{
 		'echasnovski/mini.nvim',
-		name = 'mini-nvim',
 		config = function(_, opts)
 			-- require('mini.ai').setup({ n_lines = 500 })
 
