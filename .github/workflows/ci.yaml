@@ -18,14 +18,5 @@ jobs:
         with:
           name: gabedunn
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-      - run: nix build .#app-images.x86_64-linux.default --print-build-logs
-      - run: cp $(realpath result) tu-nightly-x86_64-linux.AppImage
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          name: nightly
-          tag_name: nightly
-          prerelease: true
-          files: tu*.AppImage
-          token: ${{ secrets.GH_RELEASE_TOKEN }}
+      - run: nix build
+      - run: nix-shell --run "echo OK"
