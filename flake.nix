@@ -51,8 +51,8 @@
       # see :help nixCats.flake.outputs.categories
       # and
       # :help nixCats.flake.outputs.categoryDefinitions.scheme
-      categoryDefinitions = { pkgs, settings, categories, extra, name
-        , mkNvimPlugin, ... }@packageDef:
+      categoryDefinitions =
+        { pkgs, settings, categories, extra, name, ... }@packageDef:
         let
           inherit (pkgs) vimPlugins vimExtraPlugins nixCatsBuilds;
           mkNamed = name: plugin: { inherit plugin name; };
@@ -400,7 +400,7 @@
       packageDefinitions = rec {
         # These are the names of your packages
         # you can include as many as you wish.
-        tu = { pkgs, mkNvimPlugin, ... }: {
+        tu = { pkgs, ... }: {
           # they contain a settings set defined above
           # see :help nixCats.flake.outputs.settings
           settings = {
