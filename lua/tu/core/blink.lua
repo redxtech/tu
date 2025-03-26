@@ -35,6 +35,25 @@ return {
 		},
 	},
 	{
+		'saghen/blink.pairs',
+		--- @module 'blink.pairs'
+		--- @type blink.pairs.Config
+		opts = {
+			mappings = {
+				enabled = true,
+			},
+			highlights = {
+				enabled = true,
+				groups = {
+					'RainbowCyan',
+					'RainbowGreen',
+					'RainbowPink',
+					'RainbowOrange',
+				},
+			},
+		},
+	},
+	{
 		'saghen/blink.nvim',
 		-- dev = true,
 		lazy = false,

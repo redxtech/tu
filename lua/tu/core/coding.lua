@@ -63,7 +63,6 @@ return {
 
 			-- todo: fork to support limitting filetypes via lua or contribute
 			require('mini.cursorword').setup(opts.cursorword)
-			require('mini.pairs').setup(opts.pairs)
 			require('mini.surround').setup(opts.surround)
 		end,
 		keys = {

@@ -54,11 +54,10 @@ will make most of them optional, but for now, they are all enabled.
   - `noice`
     - `nvim-notify`
   - `dashboard.nvim`
-  - `rainbow-delimiters.nvim`
+  - `blink.pairs` (rainbow delimiters & auto-pairs)
 - git integration:
   - neogit
   - gitsigns
-  - fugit2 (currenly disabled, behind the `fugit` category)
 - code completion/predition with `supermaven-nvim`. it has been significantly
   better than `copilot`
 - session & project management with `neovim-project` & `neovim-session-manager`
@@ -70,7 +69,6 @@ will make most of them optional, but for now, they are all enabled.
   - `inc-rename.nvim`: visual rename
   - `lightbulb.nvim`: show icon when code actions are available
   - `nix-develop.nvim`: run `nix develop` without restarting neovim
-  - `markview.nvim`: markdown preview
   - `moveline.nvim`: move blocks of text
   - `silicon.nvim`: screenshots of code
   - even more!
@@ -128,11 +126,3 @@ can try out new plugins without having to add the plugin package to the nix conf
 this is the base `tu` binary, but with the `profile.nvim` plugin enabled. it will
 start profiling as soon as you start neovim, and will stop profiling when you
 press `<leader>q`.
-
-## appimage
-
-if you don't use nix, you can still use `tu` via the appimage!
-
-it's quite large, but it has *everything* you need. language servers, binaries, everything.
-
-you can download the latest appimage from the [releases page](https://github.com/redxtech/tu/releases).

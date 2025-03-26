@@ -12,9 +12,12 @@
     fenix.url = "github:nix-community/fenix";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
 
-    # non-nixpkgs plugins
+    # blink plugins
     blink-cmp.url = "github:saghen/blink.cmp";
+    blink-pairs.url = "github:saghen/blink.pairs";
     blink-nvim.url = "github:saghen/blink.nvim";
+
+    # non-nixpkgs plugins
     dracula.url = "github:redxtech/dracula.nvim";
     dracula.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -229,6 +232,8 @@
                 inputs.blink-cmp.packages.${pkgs.system}.default)
               (mkNamed "blink.nvim"
                 inputs.blink-nvim.packages.${pkgs.system}.default)
+              (mkNamed "blink.pairs"
+                inputs.blink-pairs.packages.${pkgs.system}.default)
               # Comment-nvim # commenting  TODO: is this needed?
               (mkNamed "diagflow.nvim"
                 diagflow-nvim) # show diagnostics in corner
@@ -263,8 +268,6 @@
               nvim-web-devicons # file icons
               (mkNamed "plenary.nvim" plenary-nvim) # lua helpers
               promise-async # async functions (dep for nvim-ufo)
-              (mkNamed "rainbow-delimiters.nvim"
-                rainbow-delimiters-nvim) # rainbow {}[]()
               (mkNamed "satellite.nvim" satellite-nvim) # scrollbar
               (mkNamed "scrollofffraction.nvim"
                 scrollofffraction-nvim) # auto scrolloff size
