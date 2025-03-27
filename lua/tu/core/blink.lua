@@ -12,8 +12,6 @@ end
 return {
 	{
 		'saghen/blink.cmp',
-		-- build = 'cargo build --release',
-		-- dev = true,
 		lazy = false,
 		dependencies = { 'rafamadriz/friendly-snippets' },
 		---@module 'blink.cmp'
@@ -27,7 +25,6 @@ return {
 				default = { 'lsp', 'path', 'snippets', 'buffer' },
 			},
 			appearance = {
-				use_nvim_cmp_as_default = true,
 				nerd_font_variant = 'normal',
 			},
 			-- experimental signature help support

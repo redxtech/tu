@@ -411,7 +411,8 @@
             # IMPORTANT:
             # your alias may not conflict with your other packages.
             aliases = [ "tuque" "vim" ];
-            # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+            neovim-unwrapped =
+              inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
 
             configDirName = "tu";
 
