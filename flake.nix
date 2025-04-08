@@ -379,14 +379,6 @@
             # test = [ ''--set CATTESTVAR2 "It worked again!"'' ];
           };
 
-          # lists of the functions you would have passed to
-          # python.withPackages or lua.withPackages
-
-          # get the path to this python environment
-          # in your lua config via
-          # vim.g.python3_host_prog
-          # or run from nvim terminal via :!<packagename>-python3
-          extraPython3Packages = { test = [ (_: [ ]) ]; };
           # populates $LUA_PATH and $LUA_CPATH
           extraLuaPackages = {
             core = [ (luaPkgs: with luaPkgs; [ fzy ]) ];
@@ -403,7 +395,7 @@
       packageDefinitions = rec {
         # These are the names of your packages
         # you can include as many as you wish.
-        tu = { pkgs, ... }: {
+        tu = { pkgs, name, ... }: {
           # they contain a settings set defined above
           # see :help nixCats.flake.outputs.settings
           settings = {
@@ -416,9 +408,11 @@
 
             configDirName = "tu";
 
-            withNodeJs = true;
-            withRuby = true;
-            withPython3 = true;
+            hosts = {
+              node.enable = true;
+              python3.enable = true;
+              ruby.enable = true;
+            };
           };
           # and a set of categories that you want
           # (and other information to pass to lua)
