@@ -412,6 +412,14 @@
               node.enable = true;
               python3.enable = true;
               ruby.enable = true;
+
+              neovide = {
+                enable = true;
+                path = {
+                  value = with pkgs; lib.getExe pkgs.neovide;
+                  args = [ "--add-flags" "--neovim-bin ${name}" ];
+                };
+              };
             };
           };
           # and a set of categories that you want
@@ -436,8 +444,8 @@
           };
           extra = { };
         };
-        tu-dev = { pkgs, ... }:
-          let tuque = tu { inherit pkgs; };
+        tu-dev = { pkgs, name, ... }:
+          let tuque = tu { inherit pkgs name; };
           in {
             inherit (tuque) categories;
             settings = tuque.settings // {
@@ -447,8 +455,8 @@
             };
             extra = { };
           };
-        tu-profile = { pkgs, ... }:
-          let tuque = tu { inherit pkgs; };
+        tu-profile = { pkgs, name, ... }:
+          let tuque = tu { inherit pkgs name; };
           in {
             settings = tuque.settings // { aliases = [ "tup" ]; };
             categories = tuque.categories // { profile = true; };

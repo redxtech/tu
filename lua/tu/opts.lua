@@ -89,7 +89,7 @@ if g.neovide then
 	opt.clipboard = 'unnamedplus' -- use system clipboard
 	opt.linespace = 0
 
-	g.neovide_transparency = 0.9
+	g.neovide_opacity = 0.9
 	g.neovide_scale_factor = 1.0
 	g.neovide_refresh_rate = 288
 	g.neovide_cursor_trail_size = 0.1
