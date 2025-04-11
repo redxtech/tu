@@ -150,6 +150,9 @@ return {
 				desc = 'Rename',
 			},
 		},
+		config = function(_, opts)
+			require('inc_rename').setup(opts)
+		end,
 	},
 
 	-- preview definition in floating window
