@@ -262,6 +262,7 @@
               nvim-notify # notifications
               nvim-numbertoggle # toggle line numbers automatically
               nvim-spectre # search and replace
+              nvim-spider # better motions for b, w, e
               nvim-snippets
               vimPlugins.nvim-treesitter-textobjects
               vimPlugins.nvim-treesitter.withAllGrammars # syntax highlighting
