@@ -230,6 +230,8 @@
               (mkNamed "before.nvim" before-nvim) # go to previous edit
               (mkNamed "blink.cmp"
                 inputs.blink-cmp.packages.${pkgs.system}.default)
+              (mkNamed "blink.indent"
+                nixCatsBuilds.blink-indent) # better indentation
               (mkNamed "blink.nvim"
                 inputs.blink-nvim.packages.${pkgs.system}.default)
               (mkNamed "blink.pairs"

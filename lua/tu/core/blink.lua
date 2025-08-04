@@ -51,6 +51,12 @@ return {
 		},
 	},
 	{
+		'saghen/blink.indent',
+		--- @module 'blink.indent'
+		--- @type blink.indent.Config
+		opts = {},
+	},
+	{
 		'saghen/blink.nvim',
 		-- dev = true,
 		lazy = false,
@@ -74,7 +80,6 @@ return {
 		opts = {
 			chartoggle = { enabled = true },
 			cmp = { enabled = false },
-			indent = { enabled = true },
 			tree = {
 				enabled = true,
 				hidden_by_default = true,

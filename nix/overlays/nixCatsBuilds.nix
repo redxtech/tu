@@ -7,6 +7,18 @@ let
       inherit (super) vimUtils fetchFromGitHub fetchFromSourcehut;
       inherit (vimUtils) buildVimPlugin;
     in {
+      blink-indent = buildVimPlugin {
+        pname = "blink-indent";
+        version = "2025-06-15";
+        doCheck = false;
+        src = fetchFromGitHub {
+          owner = "saghen";
+          repo = "blink.indent";
+          rev = "fcc03b8ae171e363b3853d1002cd156270f6e5ac";
+          hash = "sha256-a9pkJ/1I9wCTl/qJHG4dr3RvBmLZAaVmtP7GyCQUu3U=";
+        };
+      };
+
       # define your overlay derivations here
       fzy-lua-native = buildVimPlugin rec {
         pname = "fzy-lua-native";
