@@ -91,16 +91,6 @@
               xdg-utils
               zoxide
 
-              # NOTE:
-              # lazygit
-              # Apparently lazygit when launched via snacks cant create its own config file
-              # but we can add one from nix!
-              (pkgs.writeShellScriptBin "lazygit" ''
-                exec ${pkgs.lazygit}/bin/lazygit --use-config-file ${
-                  pkgs.writeText "lazygit_config.yml" ""
-                } "$@"
-              '')
-
               lua51Packages.luarocks # use jit ?
               lua51Packages.jsregexp # do i need this?
             ];
@@ -115,15 +105,6 @@
               efm-langserver # formatter for many languages
               treefmt # multui-language format tool
               vscode-langservers-extracted # a bunch of language servers
-
-              # cpp
-              clang-tools
-              gcc
-
-              # docker
-              dockerfile-language-server
-              docker-compose-language-service
-              hadolint
 
               # elixir
               elixir
@@ -146,13 +127,10 @@
               alejandra # very opinionated nix formatter
               nil
               nixfmt-classic
-              statix
 
               # python
               basedpyright # fork of pyright
-              black
               ruff
-              # pyright
               python3Packages.debugpy
 
               # rust
@@ -171,7 +149,7 @@
               shellharden
               shfmt
               nodePackages.bash-language-server
-              fish # for fish_indent
+              fish
 
               # terraform
               terraform
@@ -180,7 +158,6 @@
 
               # yaml
               yaml-language-server
-              # ansible-language-server
               kubectl
               helm-ls
 
@@ -188,16 +165,14 @@
               biome
               eslint
               eslint_d
-              prettierd
+              fixjson
+              graphql-language-service-cli
               nodePackages.prettier
               nodePackages.svelte-language-server
-              graphql-language-service-cli
-              typescript
               nodePackages.typescript-language-server
-              # nodePackages.graphql-language-service-cli
-              fixjson
-              # htmx-lsp
+              prettierd
               tailwindcss-language-server
+              typescript
               vscode-extensions.vue.volar
               vtsls
               vue-language-server
