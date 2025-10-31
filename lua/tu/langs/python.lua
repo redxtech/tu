@@ -1,3 +1,10 @@
+-- enable pyright & ruff servers
+vim.lsp.config('basedpyright', {})
+vim.lsp.config('ruff', {})
+
+vim.lsp.enable('basedpyright')
+vim.lsp.enable('ruff')
+
 return {
 	-- pick venv (supports all major managers)
 	{
@@ -19,16 +26,7 @@ return {
 		keys = { { '<leader>cv', '<cmd>:VenvSelect<cr>', desc = 'Select VirtualEnv' } },
 	},
 
-	-- LSP/formatting
-	{
-		'neovim/nvim-lspconfig',
-		opts = function(_, opts)
-			-- enable pyright and ruff_lsp servers
-			opts.servers.basedpyright = {}
-			opts.servers.ruff = {}
-		end,
-	},
-
+	-- enable formatting
 	{
 		'stevearc/conform.nvim',
 		opts = function(_, opts)

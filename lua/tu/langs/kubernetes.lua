@@ -21,14 +21,16 @@ return {
 		},
 		config = function()
 			local cfg = require('yaml-companion').setup()
-			require('lspconfig').yamlls.setup(cfg)
-			require('lspconfig').helm_ls.setup({
+			vim.lsp.config('yamlls', cfg)
+			vim.lsp.config('helm_ls', {
 				settings = {
 					['helm-ls'] = {
 						yamlls = cfg.settings['yamlls'],
 					},
 				},
 			})
+			vim.lsp.enable('yamlls')
+			vim.lsp.enable('helm_ls')
 			require('telescope').load_extension('yaml_schema')
 		end,
 	},

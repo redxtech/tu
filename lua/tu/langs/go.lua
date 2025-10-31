@@ -1,13 +1,9 @@
-return {
-	-- linting/formatting
-	{
-		'neovim/nvim-lspconfig',
-		opts = function(_, opts)
-			-- enable gopls  server
-			opts.servers.gopls = {}
-		end,
-	},
+-- enable go lsp server
+vim.lsp.config('gopls', {})
+vim.lsp.enable('gopls')
 
+-- enable conform formatter
+return {
 	{
 		'stevearc/conform.nvim',
 		opts = function(_, opts)

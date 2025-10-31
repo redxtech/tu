@@ -119,11 +119,8 @@
               clang-tools
               gcc
 
-              # deno
-              deno
-
               # docker
-              dockerfile-language-server-nodejs
+              dockerfile-language-server
               docker-compose-language-service
               hadolint
 
@@ -194,6 +191,7 @@
               prettierd
               nodePackages.prettier
               nodePackages.svelte-language-server
+							graphql-language-service-cli
               typescript
               nodePackages.typescript-language-server
               # nodePackages.graphql-language-service-cli
@@ -202,6 +200,7 @@
               tailwindcss-language-server
               vscode-extensions.vue.volar
               vtsls
+							vue-language-server
 
               # misc
               buf # protobuf utility & language server
@@ -359,7 +358,6 @@
                 nixCatsBuilds.tabs-vs-spaces-nvim) # smart tab/spaces
               (mkNamed "sort.nvim" sort-nvim) # sort lines
               url-open # open more urls
-              vim-eunuch # unix tools
             ];
           };
 

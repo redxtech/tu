@@ -15,17 +15,14 @@ vim.api.nvim_create_autocmd('FileType', {
 	pattern = { 'terraform', 'hcl' },
 })
 
-return {
-	-- LSP/formatting
-	{
-		'neovim/nvim-lspconfig',
-		opts = function(_, opts)
-			-- enable terraformls and tflint servers
-			opts.servers.terraformls = {}
-			opts.servers.tflint = {}
-		end,
-	},
+-- enable terraformls & tflint servers
+vim.lsp.config('terraformls', {})
+vim.lsp.config('tflint', {})
+vim.lsp.enable('terraformls')
+vim.lsp.enable('tflint')
 
+-- enable conform formatter
+return {
 	{
 		'stevearc/conform.nvim',
 		opts = function(_, opts)

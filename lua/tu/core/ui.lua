@@ -173,13 +173,10 @@ return {
 		'j-hui/fidget.nvim',
 		event = 'VeryLazy',
 		opts = {
-			notification = { window = { normal_hl = 'Normal' } },
-			integration = {
-				['nvim-tree'] = {
-					enable = false,
-				},
-				['xcodebuild-nvim'] = {
-					enable = false,
+			notification = {
+				window = {
+					avoid = { 'BlinkTree' },
+					normal_hl = 'Normal',
 				},
 			},
 		},

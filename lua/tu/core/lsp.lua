@@ -52,13 +52,11 @@ return {
 				config = true,
 			},
 		},
-		opts = {
-			servers = {},
-		},
+		opts = { servers = {} },
 		config = function(_, opts)
-			local lspconfig = require('lspconfig')
 			for server, config in pairs(opts.servers) do
-				lspconfig[server].setup(config)
+				vim.lsp.configure(server, config)
+				vim.lsp.start(server)
 			end
 		end,
 	},

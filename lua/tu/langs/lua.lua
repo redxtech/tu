@@ -1,3 +1,7 @@
+-- enable lua_ls server
+vim.lsp.config('lua_ls', {})
+vim.lsp.enable('lua_ls')
+
 return {
 	-- used for completion, annotations and signatures of Neovim apis
 	{
@@ -18,15 +22,7 @@ return {
 	-- optional `vim.uv` typings
 	{ 'Bilal2453/luvit-meta', lazy = true },
 
-	-- LSP/formatting
-	{
-		'neovim/nvim-lspconfig',
-		opts = function(_, opts)
-			-- enable lua_ls server
-			opts.servers.lua_ls = {}
-		end,
-	},
-
+	-- enable formatting
 	{
 		'stevearc/conform.nvim',
 		opts = function(_, opts)

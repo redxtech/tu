@@ -11,7 +11,6 @@ local function sortMap(mod, mode)
 end
 
 return {
-	{ 'tpope/vim-eunuch', event = 'BufEnter' },
 	{ 'sitiom/nvim-numbertoggle', event = 'UIEnter' },
 	{ 'tenxsoydev/tabs-vs-spaces.nvim' },
 	{

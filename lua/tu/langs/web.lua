@@ -19,6 +19,23 @@ local function first(bufnr, ...)
 	return select(1, ...)
 end
 
+-- enable web lsp servers
+for _, server in ipairs({
+	'biome',
+	'cssls',
+	'eslint',
+	'graphql',
+	'html',
+	'jsonls',
+	'svelte',
+	'tailwindcss',
+	'volar',
+	-- 'vtsls' -- enabled below
+}) do
+	vim.lsp.config(server, {})
+	vim.lsp.enable(server)
+end
+
 return {
 	-- auto pairs for JSX
 	{
@@ -28,24 +45,6 @@ return {
 	},
 
 	-- linting/formatting
-	{
-		'neovim/nvim-lspconfig',
-		opts = function(_, opts)
-			-- enable eslint, biome, and svelte servers
-			opts.servers.biome = {}
-			opts.servers.cssls = {}
-			opts.servers.eslint = {}
-			opts.servers.graphql = {}
-			opts.servers.html = {}
-			-- opts.servers.htmx = {}
-			opts.servers.jsonls = {}
-			opts.servers.svelte = {}
-			opts.servers.tailwindcss = {}
-			opts.servers.volar = {}
-			opts.servers.vtsls = {}
-		end,
-	},
-
 	{
 		'stevearc/conform.nvim',
 		opts = function(_, opts)
@@ -72,8 +71,6 @@ return {
 			opts.formatters_by_ft.vue = web_fmt
 		end,
 	},
-
-	-- LSP
 
 	-- performs drastically better than tsserver because we can limit the number of entries
 	-- todo: shows symbols from node_modules, mitigated via telescope
@@ -109,7 +106,8 @@ return {
 					},
 				},
 			}
-			require('lspconfig').vtsls.setup(opts)
+			vim.lsp.config('vtsls', opts)
+			vim.lsp.enable('vtsls')
 		end,
 	},
 	-- provides TSC command and diagnostics in editor

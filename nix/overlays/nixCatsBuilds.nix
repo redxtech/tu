@@ -60,13 +60,13 @@ let
 
       neogit = buildVimPlugin {
         pname = "neogit";
-        version = "2025-03-17";
+        version = "2025-10-23";
         doCheck = false;
         src = fetchFromGitHub {
           owner = "NeogitOrg";
           repo = "neogit";
-          rev = "333968f8222fda475d3e4545a9b15fe9912ca26a";
-          hash = "sha256-4HLSTKNqngiFrRabffthYm3Zyfqr3IJCis9yhsH2Eps=";
+          rev = "c6d00913f802acedfb93c01267e89185f25800ca";
+          hash = "sha256-ZRe2MJBMxYlmcfUQRTZ6eofTBkU8f8kpO7g0xCogxA0=";
         };
       };
 

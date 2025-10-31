@@ -93,7 +93,6 @@ support for a lot of languages is included by default:
   - svelte
 - shell
 - python
-- deno
 - go
 - c(pp)
 - markdown
