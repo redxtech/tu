@@ -20,15 +20,3 @@ vim.lsp.config('terraformls', {})
 vim.lsp.config('tflint', {})
 vim.lsp.enable('terraformls')
 vim.lsp.enable('tflint')
-
--- enable conform formatter
-return {
-	{
-		'stevearc/conform.nvim',
-		opts = function(_, opts)
-			opts.formatters_by_ft.terraform = { 'terraform_fmt' }
-			opts.formatters_by_ft.tf = { 'terraform_fmt' }
-			opts.formatters_by_ft['terraform-vars'] = { 'terraform_fmt' }
-		end,
-	},
-}

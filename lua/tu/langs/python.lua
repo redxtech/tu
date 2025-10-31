@@ -25,12 +25,4 @@ return {
 		},
 		keys = { { '<leader>cv', '<cmd>:VenvSelect<cr>', desc = 'Select VirtualEnv' } },
 	},
-
-	-- enable formatting
-	{
-		'stevearc/conform.nvim',
-		opts = function(_, opts)
-			opts.formatters_by_ft.python = { 'ruff_format', 'ruff_organize_imports', 'black' }
-		end,
-	},
 }

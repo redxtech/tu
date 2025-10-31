@@ -60,7 +60,7 @@
           inherit (pkgs) vimPlugins vimExtraPlugins nixCatsBuilds;
           mkNamed = name: plugin: { inherit plugin name; };
         in {
-          # to define and use a new category, simply add a new list to a set here, 
+          # to define and use a new category, simply add a new list to a set here,
           # and later, you will include categoryname = true; in the set you
           # provide when you build the package using this builder function.
           # see :help nixCats.flake.outputs.packageDefinitions for info on that section.
@@ -112,6 +112,7 @@
             langs = with pkgs; [
               # general
               dprint # formatter for many languages
+              efm-langserver # formatter for many languages
               treefmt # multui-language format tool
               vscode-langservers-extracted # a bunch of language servers
 
@@ -131,7 +132,6 @@
               # go
               go
               gopls
-              golangci-lint
 
               # lua
               lua-language-server
@@ -203,8 +203,6 @@
               vue-language-server
 
               # misc
-              buf # protobuf utility & language server
-              hyprls # hyprland language server
               taplo # toml toolkit
             ];
           };
@@ -316,6 +314,9 @@
             langs = [
               # format wrapper plugin
               (mkNamed "conform.nvim" conform-nvim)
+
+              # general purpose formatting configs
+              efmls-configs-nvim
 
               # lua
               luvit-meta
@@ -509,7 +510,6 @@
             shellHook = "";
           };
         };
-
       }) // (let
         # we also export a nixos module to allow reconfiguration from configuration.nix
         nixosModule = utils.mkNixosModules {
@@ -524,7 +524,6 @@
             categoryDefinitions packageDefinitions extra_pkg_config nixpkgs;
         };
       in {
-
         # these outputs will be NOT wrapped with ${system}
 
         # this will make an overlay out of each of the packageDefinitions defined above

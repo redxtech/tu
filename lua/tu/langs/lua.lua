@@ -21,12 +21,4 @@ return {
 
 	-- optional `vim.uv` typings
 	{ 'Bilal2453/luvit-meta', lazy = true },
-
-	-- enable formatting
-	{
-		'stevearc/conform.nvim',
-		opts = function(_, opts)
-			opts.formatters_by_ft.lua = { 'stylua' }
-		end,
-	},
 }
