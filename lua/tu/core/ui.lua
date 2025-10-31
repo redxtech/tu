@@ -137,22 +137,29 @@ return {
 		end,
 	},
 
+	-- prevent scrolling past buffer end
+	{ 'saghen/filler-begone.nvim' },
+
 	-- live feedback for rename
 	{
-		'smjonas/inc-rename.nvim',
+		'saecki/live-rename.nvim',
+		event = 'VeryLazy',
 		keys = {
 			{
 				'<leader>cr',
 				function()
-					return ':IncRename ' .. vim.fn.expand('<cword>')
+					require('live-rename').rename({ text = '', insert = true })
 				end,
-				expr = true,
+				desc = 'Rename',
+			},
+			{
+				'<leader>cR',
+				function()
+					require('live-rename').rename()
+				end,
 				desc = 'Rename',
 			},
 		},
-		config = function(_, opts)
-			require('inc_rename').setup(opts)
-		end,
 	},
 
 	-- preview definition in floating window
@@ -232,5 +239,11 @@ return {
 				names = false,
 			},
 		},
+	},
+
+	-- improved vimdoc viewer
+	{
+		'OXY2DEV/helpview.nvim',
+		lazy = false,
 	},
 }

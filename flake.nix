@@ -191,7 +191,7 @@
               prettierd
               nodePackages.prettier
               nodePackages.svelte-language-server
-							graphql-language-service-cli
+              graphql-language-service-cli
               typescript
               nodePackages.typescript-language-server
               # nodePackages.graphql-language-service-cli
@@ -200,7 +200,7 @@
               tailwindcss-language-server
               vscode-extensions.vue.volar
               vtsls
-							vue-language-server
+              vue-language-server
 
               # misc
               buf # protobuf utility & language server
@@ -235,19 +235,24 @@
                 inputs.blink-nvim.packages.${pkgs.system}.default)
               (mkNamed "blink.pairs"
                 inputs.blink-pairs.packages.${pkgs.system}.default)
-              # Comment-nvim # commenting  TODO: is this needed?
+              (mkNamed "crates.nvim" vimPlugins.crates-nvim)
               (mkNamed "diagflow.nvim"
                 diagflow-nvim) # show diagnostics in corner
               (mkNamed "edgy.nvim" edgy-nvim) # window management
+              (mkNamed "fastaction.nvim"
+                nixCatsBuilds.fastaction-nvim) # fast code actions picker
               (mkNamed "fidget.nvim" fidget-nvim) # lsp status in bottom right
+              (mkNamed "filler-begone.nvim"
+                nixCatsBuilds.filler-begone-nvim) # remove empty filler lines
               (mkNamed "flash.nvim" flash-nvim) # movement with s/S f/F
               friendly-snippets
               nixCatsBuilds.fzy-lua-native # native fzy
+              (mkNamed "helpview.nvim" helpview-nvim) # vimdoc viewer
               (mkNamed "incline.nvim" incline-nvim) # alternative to winbar
-              (mkNamed "inc-rename.nvim"
-                inc-rename-nvim) # visual rename variables with lsp
               (mkNamed "instant.nvim" instant-nvim) # session sharing
               (mkNamed "lazydev.nvim" lazydev-nvim) # load lua lsp faster
+              (mkNamed "live-rename.nvim"
+                vimPlugins.live-rename-nvim) # visual rename variables with lsp
               (mkNamed "lsp_lines.nvim"
                 nixCatsBuilds.lsp-lines-nvim) # show lsp diagnostics as virtual text;
               (mkNamed "mini.nvim" mini-nvim) # a bunch of minimal plugins
@@ -255,7 +260,6 @@
               neovim-project # project list
               neovim-session-manager # session management (dep for neovim-project)
               (mkNamed "noice.nvim" noice-nvim) # ui replacements
-              (mkNamed "none-ls.nvim" none-ls-nvim) # fallback lsp
               (mkNamed "nui.nvim" nui-nvim) # ui library
               nvim-lspconfig # lsp configs
               nvim-navbuddy # navic based navigation
@@ -281,6 +285,8 @@
               (mkNamed "telescope-repo.nvim" telescope-repo-nvim) # repo picker
               (mkNamed "telescope-fzy-native.nvim" telescope-fzy-native-nvim)
               telescope-zoxide # zoxide integration
+              (mkNamed "tiny-code-action.nvim"
+                tiny-code-action-nvim) # code actions picker
               (mkNamed "tiny-devicons-auto-colors.nvim"
                 tiny-devicons-auto-colors-nvim) # colour devicons with theme colors;
               (mkNamed "todo-comments.nvim"
@@ -296,9 +302,14 @@
             ];
 
             ai = [ supermaven-nvim ];
-            debug = [ nvim-dap ];
+            debug = [
+              nvim-dap
+              (mkNamed "debugmaster.nvim" nixCatsBuilds.debugmaster-nvim)
+            ];
             git = [
               (mkNamed "diffview.nvim" diffview-nvim) # git diff viewer
+              (mkNamed "gitlinker.nvim"
+                gitlinker-linrongbin16) # copy git file urls
               (mkNamed "gitsigns.nvim" gitsigns-nvim) # git signs in gutter
               nixCatsBuilds.neogit # git integration
             ];
@@ -429,7 +440,7 @@
             core = true;
 
             ai = true;
-            debug = false;
+            debug = true;
             fugit = false;
             git = true;
             langs = true;

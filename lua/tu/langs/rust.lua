@@ -13,6 +13,22 @@ return {
 		'mrcjkb/rustaceanvim',
 	},
 
+	{
+		'saecki/crates.nvim',
+		ft = 'toml',
+		opts = {
+			lsp = {
+				enabled = true,
+				actions = true,
+				completion = true,
+				hover = true,
+			},
+			completion = {
+				crates = { enabled = true },
+			},
+		},
+	},
+
 	-- formatting
 	{
 		'stevearc/conform.nvim',

@@ -19,7 +19,42 @@ let
         };
       };
 
-      # define your overlay derivations here
+      debugmaster-nvim = buildVimPlugin {
+        pname = "debugmaster-nvim";
+        version = "2025-07-16";
+        doCheck = false;
+
+        src = fetchFromGitHub {
+          owner = "miroshQa";
+          repo = "debugmaster.nvim";
+          rev = "3d144b98c2c23f39123fbf5f10fdff7d6480a0e6";
+          hash = "sha256-pdgS0z8KdLsl7VexbPaRPtYc2lebzAgTtM3B52IaCpQ=";
+        };
+      };
+
+      fastaction-nvim = buildVimPlugin {
+        pname = "fastaction-nvim";
+        version = "2023-11-17";
+        src = fetchFromGitHub {
+          owner = "Chaitanyabsprip";
+          repo = "fastaction.nvim";
+          rev = "b147d91727cb35be4f722f17e7d4ed5b4a5801d8";
+          hash = "sha256-va00sqM2Ap9faUXww5CpWJQyCixN9fIwh8p8oSLQMy8=";
+        };
+      };
+
+      filler-begone-nvim = buildVimPlugin {
+        pname = "filler-begone-nvim";
+        version = "2025-10-30";
+
+        src = fetchFromGitHub {
+          owner = "saghen";
+          repo = "filler-begone.nvim";
+          rev = "122018c0f54519b9ee16fb0e31b96989a7682e1c";
+          hash = "sha256-5Sanxi84V8jc7Ol+Q8K4FAECKevZBoJ29rSgN9Yz7VM=";
+        };
+      };
+
       fzy-lua-native = buildVimPlugin rec {
         pname = "fzy-lua-native";
         version = "2024-10-26";

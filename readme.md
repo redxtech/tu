@@ -66,7 +66,7 @@ will make most of them optional, but for now, they are all enabled.
   - `nvim-navbuddy`: navigate through buffer, with `navic` assistance
   - `toggleterm.nvim`: toggleable terminal
   - `overseer.nvim`: task runner
-  - `inc-rename.nvim`: visual rename
+  - `live-rename.nvim`: visual rename feedback
   - `lightbulb.nvim`: show icon when code actions are available
   - `nix-develop.nvim`: run `nix develop` without restarting neovim
   - `moveline.nvim`: move blocks of text

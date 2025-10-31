@@ -73,6 +73,10 @@ return {
 			},
 		},
 		event = 'LspAttach',
+		opts = {
+			show_borders = true,
+			padding_right = 2,
+		},
 	},
 
 	-- OR use verbose diagnostics
@@ -88,7 +92,6 @@ return {
 			},
 		},
 		init = function()
-			vim.g.lsp_lines_active = false
 			vim.diagnostic.config({
 				-- disable the "E", "H" in the sign column (left of line numbers)
 				signs = false,

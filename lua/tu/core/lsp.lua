@@ -25,7 +25,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		map('K', vim.lsp.buf.hover, { desc = 'Hover' })
 		map('gK', vim.lsp.buf.signature_help, { desc = 'Signature Help' })
 		map('<c-k>', vim.lsp.buf.signature_help, { mode = 'i', desc = 'Signature Help' })
-		map('<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action', mode = { 'n', 'v' } })
 		map('<leader>cA', function()
 			vim.lsp.buf.code_action({
 				context = {
@@ -61,12 +60,39 @@ return {
 		end,
 	},
 
-	-- fallpack ls functionality
+	-- fast code actions picker
 	{
-		'nvimtools/none-ls.nvim',
+		'Chaitanyabsprip/fastaction.nvim',
+		keys = {
+			{
+				'<leader>a',
+				function()
+					require('fastaction').code_action()
+				end,
+				desc = 'Fast Action',
+			},
+		},
+		---@type FastActionConfig
+		opts = {},
+	},
+
+	{
+		'rachartier/tiny-code-action.nvim',
 		dependencies = {
 			{ 'nvim-lua/plenary.nvim' },
+			{ 'nvim-telescope/telescope.nvim' },
 		},
+		event = 'LspAttach',
+		keys = {
+			{
+				'<leader>ca',
+				function()
+					require('tiny-code-action').code_action()
+				end,
+				desc = 'Code Action',
+			},
+		},
+		opts = {},
 	},
 
 	-- emulates the LSP definition and references when unsupported
