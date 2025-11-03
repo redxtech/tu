@@ -4,6 +4,9 @@ return {
 		'b0o/incline.nvim',
 		event = 'VeryLazy',
 		opts = {
+			hide = {
+				cursorline = true,
+			},
 			window = {
 				padding = 0,
 				margin = { horizontal = 0 },
@@ -102,11 +105,6 @@ return {
 		},
 	},
 
-	-- scrolling animation
-	{
-		'karb94/neoscroll.nvim',
-	},
-
 	-- show keymaps
 	{ -- Useful plugin to show you pending keybinds.
 		'folke/which-key.nvim',
@@ -187,6 +185,10 @@ return {
 				},
 			},
 		},
+		config = function(_, opts)
+			require('fidget').setup(opts)
+			require('telescope').load_extension('fidget')
+		end,
 	},
 
 	{

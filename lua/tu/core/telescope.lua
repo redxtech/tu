@@ -30,7 +30,11 @@ return {
 			{ '<leader>y', '<cmd>Telescope lsp_document_symbols<cr>', desc = 'Goto Symbol' },
 			{ '<leader>r', '<cmd>Telescope resume<cr>', desc = 'Resume last search' },
 			{ '<leader><enter>', '<cmd>Telescope resume<cr>', desc = 'Resume last search' },
-			{ '<leader>ds', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', desc = 'Goto Symbol (Workspace)' },
+			{
+				'<leader>ds',
+				'<cmd>Telescope lsp_dynamic_workspace_symbols<cr>',
+				desc = 'Goto Symbol (Workspace)',
+			},
 
 			-- find
 			-- { '<leader>ff', '<cmd>Telescope git_files<cr>', desc = 'Find Git Files' },

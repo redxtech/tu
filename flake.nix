@@ -199,7 +199,6 @@
           optionalPlugins = with vimExtraPlugins; {
             core = [
               (mkNamed "any-jump.vim" any-jump-vim) # fallback goto when no lsp
-              (mkNamed "before.nvim" before-nvim) # go to previous edit
               (mkNamed "blink.cmp"
                 inputs.blink-cmp.packages.${pkgs.system}.default)
               (mkNamed "blink.indent"
@@ -229,7 +228,6 @@
               (mkNamed "lsp_lines.nvim"
                 nixCatsBuilds.lsp-lines-nvim) # show lsp diagnostics as virtual text;
               (mkNamed "mini.nvim" mini-nvim) # a bunch of minimal plugins
-              (mkNamed "neoscroll.nvim" neoscroll-nvim) # smooth scrolling
               neovim-project # project list
               neovim-session-manager # session management (dep for neovim-project)
               (mkNamed "noice.nvim" noice-nvim) # ui replacements
