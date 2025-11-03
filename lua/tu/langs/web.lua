@@ -1,5 +1,5 @@
 -- enable web lsp servers
-for _, server in ipairs({
+local servers = {
 	'biome',
 	'cssls',
 	'eslint',
@@ -8,12 +8,8 @@ for _, server in ipairs({
 	'jsonls',
 	'svelte',
 	'tailwindcss',
-	'volar',
-	-- 'vtsls' -- enabled below
-}) do
-	vim.lsp.config(server, {})
-	vim.lsp.enable(server)
-end
+}
+vim.lsp.enable(servers)
 
 return {
 	-- auto pairs for JSX
@@ -30,37 +26,39 @@ return {
 		event = 'VeryLazy',
 		config = function()
 			local opts = require('vtsls').lspconfig
+			local tsserver_filetypes =
+			{ 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'vue' }
+			local vue_plugin = { name = '@vue/typescript-plugin', languages = { 'vue' }, configNamespace = 'typescript' }
+			local vue_ls_config = {
+				settings = {
+					css = { validate = true, lint = { unknownAtRules = 'ignore' } },
+					scss = { validate = true, lint = { unknownAtRules = 'ignore' } },
+					less = { validate = true, lint = { unknownAtRules = 'ignore' } },
+				},
+			}
+
 			opts.settings = {
 				typescript = {
-					preferences = {
-						preferTypeOnlyAutoImports = true,
-					},
-					workspaceSymbols = {
-						scope = 'currentProject',
-						excludeLibrarySymbols = true,
-					},
-					tsserver = {
-						pluginPaths = {
-							-- requires: npm i -g @styled/typescript-styled-plugin typescript-styled-plugin
-							-- TODO: Install with mason or some other way
-							'~/.local/share/npm/lib/node_modules/@styled/typescript-styled-plugin',
-						},
-					},
+					preferences = { preferTypeOnlyAutoImports = true },
+					workspaceSymbols = { scope = 'currentProject', excludeLibrarySymbols = true },
+					tsserver = { globalPlugins = { vue_plugin } },
 				},
 				vtsls = {
 					autoUseWorkspaceTsdk = true,
-					experimental = {
-						completion = {
-							-- enableServerSideFuzzyMatch = true,
-							-- entriesLimit = 75,
-						},
-					},
+					experimental = { completion = { enableServerSideFuzzyMatch = true, entriesLimit = 75 } },
+					tsserver = { globalPlugins = { vue_plugin } },
 				},
 			}
+
+			opts.filetypes = tsserver_filetypes
+
 			vim.lsp.config('vtsls', opts)
-			vim.lsp.enable('vtsls')
+			vim.lsp.config('vue_ls', vue_ls_config)
+
+			vim.lsp.enable({ 'vtsls', 'vue_ls' })
 		end,
 	},
+
 	-- provides TSC command and diagnostics in editor
 	{ 'dmmulroy/tsc.nvim', event = 'VeryLazy' },
 }

@@ -2,14 +2,8 @@
 vim.lsp.config('nil_ls', {
 	settings = {
 		['nil'] = {
-			formatting = {
-				command = { 'nixfmt' },
-			},
-			nix = {
-				flake = {
-					autoEvalInputs = true,
-				},
-			},
+			formatting = { command = { 'nixfmt' } },
+			nix = { flake = { autoEvalInputs = true } },
 		},
 	},
 })
