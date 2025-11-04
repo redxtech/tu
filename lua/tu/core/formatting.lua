@@ -1,31 +1,3 @@
--- format on save
-vim.api.nvim_create_autocmd('BufWritePre', {
-	desc = 'Format on save',
-	pattern = '*',
-	callback = function(args)
-		if not vim.api.nvim_buf_is_valid(args.buf) or vim.bo[args.buf].buftype ~= '' then
-			return
-		end
-		if vim.g.disable_autoformat then
-			return
-		end
-		vim.lsp.buf.format({
-			filter = function(client)
-				return vim.tbl_contains({
-					'efm',
-					'dprint',
-					'gopls',
-					'lua_ls',
-					'terraformls',
-					'rust-analyzer',
-					'nil_ls',
-					'stylua',
-				}, client.name)
-			end,
-		})
-	end,
-})
-
 return {
 	{
 		'creativenull/efmls-configs-nvim',
@@ -44,19 +16,6 @@ return {
 				desc = 'Format',
 				mode = { 'n', 'v' },
 			},
-			{
-				'<leader>uf',
-				function()
-					if vim.g.disable_autoformat == nil then
-						vim.g.disable_autoformat = true
-						vim.notify('format on save disabled')
-					else
-						vim.g.disable_autoformat = not vim.g.disable_autoformat
-						vim.notify('format on save ' .. (vim.g.disable_autoformat and 'enabled' or 'disabled'))
-					end
-				end,
-				desc = 'Toggle format on save',
-			},
 		},
 		config = function()
 			local set_tool = function(lang, tools, type)
@@ -74,6 +33,7 @@ return {
 				})
 			end
 
+			-- set linting tools
 			set_tool('bash', { 'shellcheck' }, 'linter')
 			set_tool('fish', { 'fish' }, 'linter')
 			set_tool('json', { 'jq' }, 'linter')
@@ -82,6 +42,7 @@ return {
 			set_tool('markdown', { 'markdownlint', 'proselint' }, 'linter')
 			set_tool('sh', { 'shellcheck' }, 'linter')
 
+			-- set formatting tools
 			set_tool('bash', { 'shfmt' }, 'formatter')
 			set_tool('elixir', { 'mix' }, 'formatter')
 			set_tool('fish', { 'fish_indent' }, 'formatter')
@@ -119,5 +80,36 @@ return {
 			})
 			vim.lsp.enable('efm')
 		end,
+	},
+
+	-- async formatting
+	{
+		'lukas-reineke/lsp-format.nvim',
+		lazy = false,
+		keys = {
+			{
+				'<leader>uf',
+				function()
+					require('lsp-format').toggle({ args = '' })
+					vim.notify('format on save ' .. (require('lsp-format').disabled and 'disabled' or 'enabled'))
+				end,
+				desc = 'Toggle format on save',
+			},
+		},
+		init = function()
+			vim.api.nvim_create_autocmd('LspAttach', {
+				callback = function(args)
+					local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+					require('lsp-format').on_attach(client, args.buf)
+				end,
+			})
+		end,
+		opts = {
+			html = { exclude = { 'html' } },
+			lua = { order = { 'emmylua_ls', 'efm' } },
+			markdown = { order = { 'dprint', 'marksman', 'efm' } },
+			sh = { exclude = { 'efm' } },
+			vue = { order = { 'vtsls', 'tailwindcss', 'eslint', 'efm' }, exclude = { 'vue_ls' } },
+		},
 	},
 }

@@ -45,7 +45,10 @@ return {
 		event = 'BufEnter',
 		dependencies = { 'neovim/nvim-lspconfig' },
 		opts = {
-			lsp = { auto_attach = true },
+			lsp = {
+				auto_attach = true,
+				preference = { 'vue_ls', 'vtsls' }, -- TODO: check if this is still needed soon
+			},
 			highlight = true,
 			click = true,
 		},

@@ -1,6 +1,6 @@
 -- enable lua_ls server
-vim.lsp.config('lua_ls', {})
-vim.lsp.enable('lua_ls')
+vim.lsp.config('emmylua_ls', {})
+vim.lsp.enable('emmylua_ls')
 
 return {
 	-- used for completion, annotations and signatures of Neovim apis

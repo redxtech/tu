@@ -27,7 +27,7 @@ return {
 		config = function()
 			local opts = require('vtsls').lspconfig
 			local tsserver_filetypes =
-			{ 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'vue' }
+				{ 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'vue' }
 			local vue_plugin = { name = '@vue/typescript-plugin', languages = { 'vue' }, configNamespace = 'typescript' }
 			local vue_ls_config = {
 				settings = {

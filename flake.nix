@@ -115,6 +115,7 @@
               gopls
 
               # lua
+              emmylua-ls
               lua-language-server
               stylua
 
@@ -285,11 +286,11 @@
               nixCatsBuilds.neogit # git integration
             ];
             langs = [
-              # format wrapper plugin
-              (mkNamed "conform.nvim" conform-nvim)
-
               # general purpose formatting configs
               efmls-configs-nvim
+
+              # async format on save
+              (mkNamed "lsp-format.nvim" lsp-format-nvim)
 
               # lua
               luvit-meta
