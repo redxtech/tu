@@ -59,7 +59,7 @@ return {
 	{
 		'echasnovski/mini.nvim',
 		config = function(_, opts)
-			-- require('mini.ai').setup({ n_lines = 500 })
+			require('mini.ai').setup({ n_lines = 500 })
 
 			-- todo: fork to support limitting filetypes via lua or contribute
 			require('mini.cursorword').setup(opts.cursorword)

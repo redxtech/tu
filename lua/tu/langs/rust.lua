@@ -11,6 +11,7 @@ return {
 	-- LSP + code actions
 	{
 		'mrcjkb/rustaceanvim',
+		lazy = false,
 	},
 
 	{
