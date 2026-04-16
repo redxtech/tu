@@ -108,7 +108,7 @@
 
               # elixir
               elixir
-              lexical
+              beamPackages.expert
 
               # go
               go
