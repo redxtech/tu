@@ -35,7 +35,7 @@
       # It gets resolved within the builder itself, and then passed to your
       # categoryDefinitions and packageDefinitions.
 
-      # this allows you to use ${pkgs.system} whenever you want in those sections
+      # this allows you to use ${stdenv.hostPlatform.system} whenever you want in those sections
       # without fear.
 
       dependencyOverlays = (import ./nix/overlays inputs) ++ [
@@ -59,6 +59,7 @@
         let
           inherit (pkgs) vimPlugins vimExtraPlugins nixCatsBuilds;
           mkNamed = name: plugin: { inherit plugin name; };
+					system = pkgs.stdenv.hostPlatform.system;
         in {
           # to define and use a new category, simply add a new list to a set here,
           # and later, you will include categoryname = true; in the set you
@@ -188,7 +189,7 @@
             core = [
               (mkNamed "lazy.nvim" lazy-nvim)
               (mkNamed "dracula.nvim"
-                inputs.dracula.packages.${pkgs.system}.default)
+                inputs.dracula.packages.${system}.default)
               (mkNamed "flatten.nvim"
                 flatten-nvim) # open nested nvim instances in current window
               dashboard-nvim # dashboard
@@ -201,13 +202,13 @@
             core = [
               (mkNamed "any-jump.vim" any-jump-vim) # fallback goto when no lsp
               (mkNamed "blink.cmp"
-                inputs.blink-cmp.packages.${pkgs.system}.default)
+                inputs.blink-cmp.packages.${system}.default)
               (mkNamed "blink.indent"
                 nixCatsBuilds.blink-indent) # better indentation
               (mkNamed "blink.nvim"
-                inputs.blink-nvim.packages.${pkgs.system}.default)
+                inputs.blink-nvim.packages.${system}.default)
               (mkNamed "blink.pairs"
-                inputs.blink-pairs.packages.${pkgs.system}.default)
+                inputs.blink-pairs.packages.${system}.default)
               (mkNamed "crates.nvim" vimPlugins.crates-nvim)
               (mkNamed "diagflow.nvim"
                 diagflow-nvim) # show diagnostics in corner
@@ -391,7 +392,7 @@
             # your alias may not conflict with your other packages.
             aliases = [ "tuque" "vim" ];
             # neovim-unwrapped =
-            #   inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+            #   inputs.neovim-nightly-overlay.packages.${system}.neovim;
 
             configDirName = "tu";
 
