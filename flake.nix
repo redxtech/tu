@@ -127,7 +127,7 @@
               # nix
               alejandra # very opinionated nix formatter
               nil
-              nixfmt-classic
+              nixfmt
 
               # python
               basedpyright # fork of pyright
