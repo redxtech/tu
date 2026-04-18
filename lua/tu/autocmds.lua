@@ -48,9 +48,18 @@ autocmd('FileType', {
 		'neotest-output-panel',
 		'toggleterm',
 		'neo-tree',
+		'blink-tree',
+		'gitsigns-blame',
+		'AvanteAsk',
+		'AvanteInput',
+		'markdown',
+		'Trouble',
 	},
 	callback = function(event)
-		vim.bo[event.buf].buflisted = false
-		vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf, silent = true })
+		local bo = vim.bo[event.buf]
+		if bo.filetype ~= 'markdown' or bo.buftype == 'help' then
+			-- bo.buflisted = false
+			vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf, silent = true, nowait = true })
+		end
 	end,
 })
