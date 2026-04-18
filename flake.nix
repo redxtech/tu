@@ -216,7 +216,7 @@
               (mkNamed "dashboard-nvim" dashboard-nvim-nvimdev) # dashboard
             ];
 
-            profile = [ (mkNamed "profile.nvim" profile-stevearc) ];
+            profile = [ (mkNamed "profile.nvim" profile-stevearc-stevearc) ];
           };
 
           optionalPlugins = with vimExtraPlugins; {
