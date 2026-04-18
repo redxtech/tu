@@ -109,7 +109,7 @@
 
               # elixir
               elixir
-              beamPackages.expert
+              # beamPackages.expert
 
               # go
               go
