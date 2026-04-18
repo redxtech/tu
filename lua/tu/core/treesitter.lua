@@ -1,6 +1,6 @@
 return {
 	'nvim-treesitter/nvim-treesitter',
-	event = 'BufRead',
+	lazy = false,
 	build = require('nixCatsUtils').lazyAdd(':TSUpdate'),
 	---@type TSConfig
 	---@diagnostic disable-next-line: missing-fields
@@ -32,7 +32,4 @@ return {
 		ignore_install = {},
 		ensure_installed = {},
 	},
-	config = function(_, opts)
-		require('nvim-treesitter.configs').setup(opts)
-	end,
 }

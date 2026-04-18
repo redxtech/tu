@@ -45,7 +45,7 @@ return {
 		dependencies = {
 			-- enable mason if nix wasnt involved
 			{
-				'williamboman/mason.nvim',
+				'mason-org/mason.nvim',
 				enabled = require('nixCatsUtils').lazyAdd(true, false),
 				priority = 1000,
 				config = true,
